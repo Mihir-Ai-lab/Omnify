@@ -23,9 +23,9 @@ function App() {
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled 
           ? 'bg-white shadow-lg border-b border-gray-200' 
-          : 'bg-white'
+          : 'bg-white shadow-sm'
       }`}>
-        <nav className="container mx-auto flex justify-between items-center py-4 px-6">
+        <nav className="container mx-auto flex justify-between items-center py-4 px-6 min-h-[72px]">
           {/* Logo and Tagline */}
           <div className="flex flex-col">
             <div className="flex items-center space-x-2 mb-1">
@@ -33,9 +33,9 @@ function App() {
                 <Zap className="h-8 w-8 text-blue-600" />
               </div>
               <span className="text-xl font-bold text-slate-900">Omnify</span>
-              <span className="text-sm text-slate-600 font-medium">Marketing Cloud</span>
+              <span className="text-sm text-slate-600 font-medium hidden sm:inline">Marketing Cloud</span>
             </div>
-            <div className="text-sm text-gray-600" style={{ fontFamily: 'Helvetica, Arial, sans-serif', fontSize: '14px' }}>
+            <div className="text-sm text-gray-600 max-w-[280px] sm:max-w-none" style={{ fontFamily: 'Helvetica, Arial, sans-serif', fontSize: '14px' }}>
               🏷️ Built for $50M–$150M DTC Brands
             </div>
           </div>
@@ -43,27 +43,35 @@ function App() {
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-8">
             <div className="flex space-x-8">
-              <a href="#features" className="text-slate-700 hover:text-blue-600 transition-colors duration-200 font-medium">
+              <a href="#features" className="text-slate-700 hover:text-blue-600 transition-colors duration-200 font-medium py-2 min-h-[44px] flex items-center">
                 Features
               </a>
-              <a href="#how-it-works" className="text-slate-700 hover:text-blue-600 transition-colors duration-200 font-medium">
+              <a href="#how-it-works" className="text-slate-700 hover:text-blue-600 transition-colors duration-200 font-medium py-2 min-h-[44px] flex items-center">
                 How It Works
               </a>
-              <a href="#testimonials" className="text-slate-700 hover:text-blue-600 transition-colors duration-200 font-medium">
+              <a href="#testimonials" className="text-slate-700 hover:text-blue-600 transition-colors duration-200 font-medium py-2 min-h-[44px] flex items-center">
                 Testimonials
               </a>
-              <a href="#faqs" className="text-slate-700 hover:text-blue-600 transition-colors duration-200 font-medium">
+              <a href="#faqs" className="text-slate-700 hover:text-blue-600 transition-colors duration-200 font-medium py-2 min-h-[44px] flex items-center">
                 FAQ
               </a>
             </div>
+            <button className="bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white font-bold px-6 py-3 rounded-lg transition-all duration-200 transform hover:scale-105 hover:shadow-lg hover:shadow-blue-500/25 min-h-[44px]">
+              Book Demo
+            </button>
           </div>
 
           {/* Mobile Menu Button */}
           <button 
-            className="lg:hidden text-slate-900 p-2"
+            className="lg:hidden text-slate-900 p-2 min-h-[44px] min-w-[44px] flex items-center justify-center"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle mobile menu"
           >
-            {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            <div className="relative w-6 h-6">
+              <span className={`absolute block h-0.5 w-6 bg-current transform transition duration-300 ease-in-out ${isMobileMenuOpen ? 'rotate-45 translate-y-2' : 'translate-y-0'}`}></span>
+              <span className={`absolute block h-0.5 w-6 bg-current transform transition duration-300 ease-in-out translate-y-2 ${isMobileMenuOpen ? 'opacity-0' : 'opacity-100'}`}></span>
+              <span className={`absolute block h-0.5 w-6 bg-current transform transition duration-300 ease-in-out translate-y-4 ${isMobileMenuOpen ? '-rotate-45 -translate-y-2' : 'translate-y-0'}`}></span>
+            </div>
           </button>
         </nav>
 
@@ -71,35 +79,25 @@ function App() {
         {isMobileMenuOpen && (
           <div className="lg:hidden bg-white border-t border-gray-200 shadow-lg">
             <div className="container mx-auto px-6 py-4 space-y-4">
-              <a href="#features" className="block text-slate-700 hover:text-blue-600 transition-colors duration-200 font-medium py-2">
+              <a href="#features" className="block text-slate-700 hover:text-blue-600 transition-colors duration-200 font-medium py-3 min-h-[44px] flex items-center" onClick={() => setIsMobileMenuOpen(false)}>
                 Features
               </a>
-              <a href="#how-it-works" className="block text-slate-700 hover:text-blue-600 transition-colors duration-200 font-medium py-2">
+              <a href="#how-it-works" className="block text-slate-700 hover:text-blue-600 transition-colors duration-200 font-medium py-3 min-h-[44px] flex items-center" onClick={() => setIsMobileMenuOpen(false)}>
                 How It Works
               </a>
-              <a href="#testimonials" className="block text-slate-700 hover:text-blue-600 transition-colors duration-200 font-medium py-2">
+              <a href="#testimonials" className="block text-slate-700 hover:text-blue-600 transition-colors duration-200 font-medium py-3 min-h-[44px] flex items-center" onClick={() => setIsMobileMenuOpen(false)}>
                 Testimonials
               </a>
-              <a href="#faqs" className="block text-slate-700 hover:text-blue-600 transition-colors duration-200 font-medium py-2">
+              <a href="#faqs" className="block text-slate-700 hover:text-blue-600 transition-colors duration-200 font-medium py-3 min-h-[44px] flex items-center" onClick={() => setIsMobileMenuOpen(false)}>
                 FAQ
               </a>
+              <button className="w-full bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white font-bold px-6 py-3 rounded-lg transition-all duration-200 mt-4 min-h-[44px]">
+                Book Demo
+              </button>
             </div>
           </div>
         )}
       </header>
-
-      {/* Fixed Book Demo Button */}
-      <button 
-        className="fixed top-4 right-6 z-50 text-white font-medium transition-opacity duration-200 hover:opacity-90"
-        style={{
-          backgroundColor: '#2E5BFF',
-          padding: '12px 24px',
-          borderRadius: '6px',
-          fontSize: '16px'
-        }}
-      >
-        Book Demo
-      </button>
 
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center overflow-hidden">
