@@ -177,13 +177,16 @@ function App() {
               <div className="relative bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl shadow-2xl border border-slate-700 overflow-hidden transform hover:scale-105 transition-transform duration-500">
                 <div className="absolute inset-0 bg-gradient-to-tr from-teal-600/10 to-blue-600/10"></div>
                 
-                {/* AI-Verified Results Badge */}
-                <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-teal-500 to-blue-500 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
+                {/* AI-Verified Results Badge - Repositioned */}
+                <div className="absolute top-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-teal-500 to-blue-500 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg hover:shadow-xl transition-shadow duration-300" style={{ 
+                  filter: 'drop-shadow(0 4px 8px rgba(20, 184, 166, 0.3))',
+                  zIndex: 10
+                }}>
                   ✨ AI-Verified Results
                 </div>
                 
                 {/* Mock Dashboard Header */}
-                <div className="flex items-center justify-between p-6 border-b border-slate-700">
+                <div className="flex items-center justify-between p-6 border-b border-slate-700 mt-4">
                   <div className="flex items-center space-x-3">
                     <div className="w-3 h-3 bg-red-400 rounded-full"></div>
                     <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
