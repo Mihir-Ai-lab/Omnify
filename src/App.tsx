@@ -22,46 +22,45 @@ function App() {
       {/* Header */}
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled 
-          ? 'bg-slate-950/95 backdrop-blur-lg border-b border-slate-800/50' 
-          : 'bg-transparent'
+          ? 'bg-white shadow-lg border-b border-gray-200' 
+          : 'bg-white'
       }`}>
         <nav className="container mx-auto flex justify-between items-center py-4 px-6">
-          {/* Logo */}
-          <div className="flex items-center space-x-2">
-            <div className="relative">
-              <Zap className="h-8 w-8 text-blue-400" />
-              <div className="absolute inset-0 blur-sm">
-                <Zap className="h-8 w-8 text-blue-400/50" />
+          {/* Logo and Tagline */}
+          <div className="flex flex-col">
+            <div className="flex items-center space-x-2 mb-1">
+              <div className="relative">
+                <Zap className="h-8 w-8 text-blue-600" />
               </div>
+              <span className="text-xl font-bold text-slate-900">Omnify</span>
+              <span className="text-sm text-slate-600 font-medium">Marketing Cloud</span>
             </div>
-            <span className="text-xl font-bold text-white">Omnify</span>
-            <span className="text-sm text-slate-400 font-medium">Marketing Cloud</span>
+            <div className="text-sm text-gray-600" style={{ fontFamily: 'Helvetica, Arial, sans-serif', fontSize: '14px' }}>
+              🏷️ Built for $50M–$150M DTC Brands
+            </div>
           </div>
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-8">
             <div className="flex space-x-8">
-              <a href="#features" className="text-slate-300 hover:text-blue-400 transition-colors duration-200 font-medium">
+              <a href="#features" className="text-slate-700 hover:text-blue-600 transition-colors duration-200 font-medium">
                 Features
               </a>
-              <a href="#how-it-works" className="text-slate-300 hover:text-blue-400 transition-colors duration-200 font-medium">
+              <a href="#how-it-works" className="text-slate-700 hover:text-blue-600 transition-colors duration-200 font-medium">
                 How It Works
               </a>
-              <a href="#testimonials" className="text-slate-300 hover:text-blue-400 transition-colors duration-200 font-medium">
+              <a href="#testimonials" className="text-slate-700 hover:text-blue-600 transition-colors duration-200 font-medium">
                 Testimonials
               </a>
-              <a href="#faqs" className="text-slate-300 hover:text-blue-400 transition-colors duration-200 font-medium">
-                FAQs
+              <a href="#faqs" className="text-slate-700 hover:text-blue-600 transition-colors duration-200 font-medium">
+                FAQ
               </a>
             </div>
-            <button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-2.5 rounded-lg font-semibold transition-all duration-200 transform hover:scale-105 hover:shadow-lg hover:shadow-blue-500/25">
-              Book Demo
-            </button>
           </div>
 
           {/* Mobile Menu Button */}
           <button 
-            className="lg:hidden text-white p-2"
+            className="lg:hidden text-slate-900 p-2"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -70,27 +69,37 @@ function App() {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden bg-slate-950/98 backdrop-blur-lg border-t border-slate-800/50">
+          <div className="lg:hidden bg-white border-t border-gray-200 shadow-lg">
             <div className="container mx-auto px-6 py-4 space-y-4">
-              <a href="#features" className="block text-slate-300 hover:text-blue-400 transition-colors duration-200 font-medium py-2">
+              <a href="#features" className="block text-slate-700 hover:text-blue-600 transition-colors duration-200 font-medium py-2">
                 Features
               </a>
-              <a href="#how-it-works" className="block text-slate-300 hover:text-blue-400 transition-colors duration-200 font-medium py-2">
+              <a href="#how-it-works" className="block text-slate-700 hover:text-blue-600 transition-colors duration-200 font-medium py-2">
                 How It Works
               </a>
-              <a href="#testimonials" className="block text-slate-300 hover:text-blue-400 transition-colors duration-200 font-medium py-2">
+              <a href="#testimonials" className="block text-slate-700 hover:text-blue-600 transition-colors duration-200 font-medium py-2">
                 Testimonials
               </a>
-              <a href="#faqs" className="block text-slate-300 hover:text-blue-400 transition-colors duration-200 font-medium py-2">
-                FAQs
+              <a href="#faqs" className="block text-slate-700 hover:text-blue-600 transition-colors duration-200 font-medium py-2">
+                FAQ
               </a>
-              <button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-200 mt-4">
-                Book Demo
-              </button>
             </div>
           </div>
         )}
       </header>
+
+      {/* Fixed Book Demo Button */}
+      <button 
+        className="fixed top-4 right-6 z-50 text-white font-medium transition-opacity duration-200 hover:opacity-90"
+        style={{
+          backgroundColor: '#2E5BFF',
+          padding: '12px 24px',
+          borderRadius: '6px',
+          fontSize: '16px'
+        }}
+      >
+        Book Demo
+      </button>
 
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center overflow-hidden">
