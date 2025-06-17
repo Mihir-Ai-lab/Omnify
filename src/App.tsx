@@ -252,68 +252,86 @@ function App() {
         </div>
       </section>
 
-      {/* Why Teams Love Omnify Section */}
-      <section id="features" className="py-24 bg-slate-50">
-        <div className="container mx-auto px-6">
+      {/* Benefits Section */}
+      <section id="features" className="relative py-24 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 overflow-hidden">
+        {/* Background Elements */}
+        <div className="absolute inset-0">
+          <div className="absolute top-20 left-20 w-96 h-96 bg-teal-600/5 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-20 right-20 w-96 h-96 bg-blue-600/5 rounded-full blur-3xl"></div>
+        </div>
+
+        <div className="container mx-auto px-6 relative z-10">
           {/* Section Title */}
           <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
-              Why Teams Love Omnify
+            <h2 className="text-4xl lg:text-5xl font-bold text-white mb-4">
+              Why Growth Teams at $50M+ DTC Brands Choose Omnify
             </h2>
           </div>
 
           {/* Benefits Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {/* Benefit Card 1 */}
-            <div className="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-slate-200 hover:border-blue-200">
-              <div className="mb-6">
-                <div className="w-16 h-16 bg-gradient-to-br from-red-500 to-red-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <TrendingDown className="h-8 w-8 text-white" />
+            {/* Benefit Card 1 - Slash Ad Spend */}
+            <div className="group bg-gradient-to-br from-slate-800/80 to-slate-900/80 rounded-2xl p-8 shadow-2xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-slate-700 hover:border-red-500/50 backdrop-blur-sm">
+              <div className="absolute inset-0 bg-gradient-to-tr from-red-600/5 to-red-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="relative z-10">
+                <div className="mb-6">
+                  <div className="w-16 h-16 bg-gradient-to-br from-red-500 to-red-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <TrendingDown className="h-8 w-8 text-white" />
+                  </div>
                 </div>
+                <h3 className="text-xl font-bold text-white mb-4" style={{ color: '#1F3A93' }}>Slash Ad Spend</h3>
+                <p className="text-slate-300 leading-relaxed">
+                  Cut your CAC by up to 20% through autonomous, ROI-driven optimization.
+                </p>
               </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-4">Reduce Ad Spend</h3>
-              <p className="text-slate-600 leading-relaxed">
-                Cut your CAC by up to 20% with intelligent AI optimization across channels.
-              </p>
             </div>
 
-            {/* Benefit Card 2 */}
-            <div className="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-slate-200 hover:border-purple-200">
-              <div className="mb-6">
-                <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <Brain className="h-8 w-8 text-white" />
+            {/* Benefit Card 2 - Predict & Prevent Churn */}
+            <div className="group bg-gradient-to-br from-slate-800/80 to-slate-900/80 rounded-2xl p-8 shadow-2xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-slate-700 hover:border-purple-500/50 backdrop-blur-sm">
+              <div className="absolute inset-0 bg-gradient-to-tr from-purple-600/5 to-purple-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="relative z-10">
+                <div className="mb-6">
+                  <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <Brain className="h-8 w-8 text-white" />
+                  </div>
                 </div>
+                <h3 className="text-xl font-bold text-white mb-4" style={{ color: '#1F3A93' }}>Predict & Prevent Churn</h3>
+                <p className="text-slate-300 leading-relaxed">
+                  Spot high-risk users early and retain them with proactive AI insights.
+                </p>
               </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-4">Predict Churn</h3>
-              <p className="text-slate-600 leading-relaxed">
-                Spot and retain high-risk customers before they drop off — automatically.
-              </p>
             </div>
 
-            {/* Benefit Card 3 */}
-            <div className="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-slate-200 hover:border-green-200">
-              <div className="mb-6">
-                <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <PenTool className="h-8 w-8 text-white" />
+            {/* Benefit Card 3 - Personalized Content at Scale */}
+            <div className="group bg-gradient-to-br from-slate-800/80 to-slate-900/80 rounded-2xl p-8 shadow-2xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-slate-700 hover:border-yellow-500/50 backdrop-blur-sm">
+              <div className="absolute inset-0 bg-gradient-to-tr from-yellow-600/5 to-yellow-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="relative z-10">
+                <div className="mb-6">
+                  <div className="w-16 h-16 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <PenTool className="h-8 w-8 text-white" />
+                  </div>
                 </div>
+                <h3 className="text-xl font-bold text-white mb-4" style={{ color: '#1F3A93' }}>Personalized Content at Scale</h3>
+                <p className="text-slate-300 leading-relaxed">
+                  Auto-generate creatives and email copy tailored to each platform — instantly.
+                </p>
               </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-4">Personalized Content</h3>
-              <p className="text-slate-600 leading-relaxed">
-                Generate winning creatives for every ad platform, instantly.
-              </p>
             </div>
 
-            {/* Benefit Card 4 */}
-            <div className="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-slate-200 hover:border-blue-200">
-              <div className="mb-6">
-                <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <BarChart3 className="h-8 w-8 text-white" />
+            {/* Benefit Card 4 - Unified Marketing Intelligence */}
+            <div className="group bg-gradient-to-br from-slate-800/80 to-slate-900/80 rounded-2xl p-8 shadow-2xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-slate-700 hover:border-teal-500/50 backdrop-blur-sm">
+              <div className="absolute inset-0 bg-gradient-to-tr from-teal-600/5 to-teal-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="relative z-10">
+                <div className="mb-6">
+                  <div className="w-16 h-16 bg-gradient-to-br from-teal-500 to-teal-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <BarChart3 className="h-8 w-8 text-white" />
+                  </div>
                 </div>
+                <h3 className="text-xl font-bold text-white mb-4" style={{ color: '#1F3A93' }}>Unified Marketing Intelligence</h3>
+                <p className="text-slate-300 leading-relaxed">
+                  See CAC, ROAS, LTV, CTR — all in one dashboard across Meta, Google, TikTok, etc.
+                </p>
               </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-4">Centralized Intelligence</h3>
-              <p className="text-slate-600 leading-relaxed">
-                One unified dashboard for insights, recommendations, and results.
-              </p>
             </div>
           </div>
         </div>
