@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowRight, Sparkles, Users, CheckCircle } from 'lucide-react';
+import { ArrowRight, Users, CheckCircle } from 'lucide-react';
 
 const CTASection: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -20,7 +20,7 @@ const CTASection: React.FC = () => {
   return (
     <section className="relative py-24 overflow-hidden">
       {/* Animated Gradient Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 opacity-90"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-teal-600 to-blue-700 opacity-90"></div>
       <div className="absolute inset-0 bg-gradient-to-tr from-slate-950/50 via-transparent to-slate-950/50"></div>
       
       {/* Floating Particles Effect */}
@@ -41,12 +41,6 @@ const CTASection: React.FC = () => {
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
-          {/* Badge */}
-          <div className="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 text-white text-sm font-medium mb-8">
-            <Sparkles className="h-4 w-4" />
-            <span>Join 10,000+ Growth Teams</span>
-          </div>
-
           {/* Main Headline */}
           <h2 className="text-4xl lg:text-6xl font-bold text-white mb-6 leading-tight">
             Ready to Stop Bleeding
@@ -58,7 +52,7 @@ const CTASection: React.FC = () => {
 
           {/* Subheadline */}
           <p className="text-xl lg:text-2xl text-white/90 mb-12 leading-relaxed max-w-3xl mx-auto">
-            Join the AI marketing revolution. Get your first optimized campaigns running in under 10 minutes.
+            Join the AI marketing revolution. Launch optimized campaigns in under 10 minutes.
           </p>
 
           {/* CTA Buttons */}
@@ -103,16 +97,16 @@ const CTASection: React.FC = () => {
           {/* Trust Indicators */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-8 text-white/80 text-sm">
             <div className="flex items-center space-x-2">
-              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-              <span>Free 14-day trial</span>
+              <CheckCircle className="h-4 w-4 text-green-300" />
+              <span>No setup required</span>
             </div>
             <div className="flex items-center space-x-2">
-              <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
-              <span>No credit card required</span>
+              <CheckCircle className="h-4 w-4 text-green-300" />
+              <span>Results in 24 hours</span>
             </div>
             <div className="flex items-center space-x-2">
-              <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse"></div>
-              <span>Setup in under 10 minutes</span>
+              <CheckCircle className="h-4 w-4 text-green-300" />
+              <span>Built for $50M–$150M DTC brands</span>
             </div>
           </div>
         </div>
