@@ -337,7 +337,7 @@ function App() {
         </div>
       </section>
 
-      {/* How Omnify Works Section */}
+      {/* How Omnify's AI Growth Engine Works Section */}
       <section id="how-it-works" className="relative py-24 bg-gradient-to-br from-slate-950 via-blue-950/20 to-purple-950/20 overflow-hidden">
         {/* Background Elements */}
         <div className="absolute inset-0">
@@ -349,26 +349,28 @@ function App() {
           {/* Section Title */}
           <div className="text-center mb-20">
             <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">
-              How Omnify Works
+              How Omnify's AI Growth Engine Works
             </h2>
             <p className="text-xl text-slate-300 max-w-3xl mx-auto">
-              Our AI-powered system transforms your marketing in 5 simple steps
+              Our autonomous AI agents work together to transform your marketing performance
             </p>
           </div>
 
           {/* Steps Container */}
           <div className="max-w-6xl mx-auto">
-            {/* Step 1 */}
+            {/* Step 1 - ROI Engine X™ */}
             <div className="flex flex-col lg:flex-row items-center gap-12 mb-20">
               <div className="lg:w-1/2 space-y-6">
                 <div className="flex items-center space-x-4">
                   <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
                     1
                   </div>
-                  <h3 className="text-2xl lg:text-3xl font-bold text-white">AI Learns Your Winners</h3>
+                  <h3 className="text-2xl lg:text-3xl font-bold text-white">
+                    <span className="text-teal-400">ROI Engine X™</span> Learns from Your Best Ads
+                  </h3>
                 </div>
                 <p className="text-lg text-slate-300 leading-relaxed">
-                  Upload your best-performing ads — Omnify's AI decodes what drives results.
+                  Our AI analyzes your top-performing creatives and identifies winning patterns across Meta, Google, and TikTok.
                 </p>
               </div>
               <div className="lg:w-1/2">
@@ -376,7 +378,7 @@ function App() {
                   <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/10 to-purple-600/10 rounded-2xl"></div>
                   <div className="relative">
                     <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                      <Upload className="h-10 w-10 text-white" />
+                      <Brain className="h-10 w-10 text-white" />
                     </div>
                     <div className="space-y-3">
                       {['Top Ad #1 - 4.2% CTR', 'Top Ad #2 - 3.8% CTR', 'Top Ad #3 - 3.5% CTR'].map((ad, index) => (
@@ -391,17 +393,19 @@ function App() {
               </div>
             </div>
 
-            {/* Step 2 */}
+            {/* Step 2 - Copywriter & Creative Commander */}
             <div className="flex flex-col lg:flex-row-reverse items-center gap-12 mb-20">
               <div className="lg:w-1/2 space-y-6">
                 <div className="flex items-center space-x-4">
                   <div className="w-12 h-12 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
                     2
                   </div>
-                  <h3 className="text-2xl lg:text-3xl font-bold text-white">AI Creates 25+ Variations</h3>
+                  <h3 className="text-2xl lg:text-3xl font-bold text-white">
+                    <span className="text-teal-400">Copywriter & Creative Commander</span> Generate 25+ Variants
+                  </h3>
                 </div>
                 <p className="text-lg text-slate-300 leading-relaxed">
-                  We generate channel-optimized creatives instantly from your top ads.
+                  Autonomously generate channel-optimized headlines, visuals, and body copy.
                 </p>
               </div>
               <div className="lg:w-1/2">
@@ -409,7 +413,7 @@ function App() {
                   <div className="absolute inset-0 bg-gradient-to-tr from-purple-600/10 to-pink-600/10 rounded-2xl"></div>
                   <div className="relative">
                     <div className="w-20 h-20 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                      <Layers className="h-10 w-10 text-white" />
+                      <PenTool className="h-10 w-10 text-white" />
                     </div>
                     <div className="grid grid-cols-3 gap-3">
                       {Array.from({ length: 9 }).map((_, index) => (
@@ -424,17 +428,19 @@ function App() {
               </div>
             </div>
 
-            {/* Step 3 */}
+            {/* Step 3 - Media Buyer Agent */}
             <div className="flex flex-col lg:flex-row items-center gap-12 mb-20">
               <div className="lg:w-1/2 space-y-6">
                 <div className="flex items-center space-x-4">
                   <div className="w-12 h-12 bg-gradient-to-r from-green-600 to-emerald-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
                     3
                   </div>
-                  <h3 className="text-2xl lg:text-3xl font-bold text-white">AI Launches & Tests Everything</h3>
+                  <h3 className="text-2xl lg:text-3xl font-bold text-white">
+                    <span className="text-teal-400">Media Buyer Agent</span> Launches & Optimizes Campaigns
+                  </h3>
                 </div>
                 <p className="text-lg text-slate-300 leading-relaxed">
-                  Omnify deploys and monitors performance across all channels, autonomously.
+                  Hands-free deployment, cross-channel orchestration, and real-time budget allocation.
                 </p>
               </div>
               <div className="lg:w-1/2">
@@ -460,17 +466,19 @@ function App() {
               </div>
             </div>
 
-            {/* Step 4 */}
+            {/* Step 4 - CRM Analyst */}
             <div className="flex flex-col lg:flex-row-reverse items-center gap-12 mb-20">
               <div className="lg:w-1/2 space-y-6">
                 <div className="flex items-center space-x-4">
                   <div className="w-12 h-12 bg-gradient-to-r from-orange-600 to-red-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
                     4
                   </div>
-                  <h3 className="text-2xl lg:text-3xl font-bold text-white">Smart Budget Reallocation</h3>
+                  <h3 className="text-2xl lg:text-3xl font-bold text-white">
+                    <span className="text-teal-400">CRM Analyst</span> Predicts Churn & Personalizes Flows
+                  </h3>
                 </div>
                 <p className="text-lg text-slate-300 leading-relaxed">
-                  Watch our AI move spend from underperformers to winners in real time.
+                  Target high-risk users with retention campaigns driven by behavior signals.
                 </p>
               </div>
               <div className="lg:w-1/2">
@@ -478,25 +486,25 @@ function App() {
                   <div className="absolute inset-0 bg-gradient-to-tr from-orange-600/10 to-red-600/10 rounded-2xl"></div>
                   <div className="relative">
                     <div className="w-20 h-20 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                      <RefreshCw className="h-10 w-10 text-white animate-spin" />
+                      <Users className="h-10 w-10 text-white" />
                     </div>
                     <div className="space-y-4">
                       <div className="flex items-center justify-between">
-                        <span className="text-slate-300">Campaign A</span>
+                        <span className="text-slate-300">High-Risk Users</span>
                         <div className="flex items-center space-x-2">
                           <div className="w-20 h-2 bg-slate-700 rounded-full overflow-hidden">
-                            <div className="w-3/4 h-full bg-gradient-to-r from-green-500 to-green-600 rounded-full"></div>
+                            <div className="w-3/4 h-full bg-gradient-to-r from-red-500 to-red-600 rounded-full"></div>
                           </div>
-                          <span className="text-green-400 text-sm">+$2.5k</span>
+                          <span className="text-red-400 text-sm">247</span>
                         </div>
                       </div>
                       <div className="flex items-center justify-between">
-                        <span className="text-slate-300">Campaign B</span>
+                        <span className="text-slate-300">Retention Campaigns</span>
                         <div className="flex items-center space-x-2">
                           <div className="w-20 h-2 bg-slate-700 rounded-full overflow-hidden">
-                            <div className="w-1/4 h-full bg-gradient-to-r from-red-500 to-red-600 rounded-full"></div>
+                            <div className="w-full h-full bg-gradient-to-r from-green-500 to-green-600 rounded-full"></div>
                           </div>
-                          <span className="text-red-400 text-sm">-$1.2k</span>
+                          <span className="text-green-400 text-sm">Active</span>
                         </div>
                       </div>
                     </div>
@@ -505,17 +513,19 @@ function App() {
               </div>
             </div>
 
-            {/* Step 5 */}
+            {/* Step 5 - Unified Dashboard */}
             <div className="flex flex-col lg:flex-row items-center gap-12">
               <div className="lg:w-1/2 space-y-6">
                 <div className="flex items-center space-x-4">
                   <div className="w-12 h-12 bg-gradient-to-r from-indigo-600 to-blue-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
                     5
                   </div>
-                  <h3 className="text-2xl lg:text-3xl font-bold text-white">Clear ROI Dashboard</h3>
+                  <h3 className="text-2xl lg:text-3xl font-bold text-white">
+                    <span className="text-teal-400">Unified Dashboard</span> Shows ROI, LTV, CAC Impact
+                  </h3>
                 </div>
                 <p className="text-lg text-slate-300 leading-relaxed">
-                  Track what works, what doesn't, and where your growth is coming from.
+                  Track which campaigns drive growth — and which waste budget.
                 </p>
               </div>
               <div className="lg:w-1/2">
