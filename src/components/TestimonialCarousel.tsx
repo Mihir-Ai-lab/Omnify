@@ -14,91 +14,91 @@ interface Testimonial {
 const testimonials: Testimonial[] = [
   {
     id: 1,
-    quote: "Omnify cut our CAC by 32% in the first month. The AI literally found winning combinations we never would have tested manually. It's like having a team of 10 performance marketers working 24/7.",
+    quote: "Cut our CAC by 32% in 3 weeks — replaced 4 tools with Omnify's AI Brain.",
     name: "Sarah Chen",
     role: "VP of Growth",
-    company: "TechFlow",
+    company: "TechFlow ($85M ARR)",
     avatar: "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=128&h=128&dpr=2",
     rating: 5
   },
   {
     id: 2,
-    quote: "We went from spending 15 hours a week on creative testing to zero. Omnify's AI generates better variations than our entire creative team, and deploys them instantly across all channels.",
+    quote: "We 3x'd our launch volume and saw results in 24 hours — no more creative bottlenecks.",
     name: "Marcus Rodriguez",
     role: "Head of Marketing",
-    company: "ScaleUp Inc",
+    company: "ScaleUp Inc ($120M ARR)",
     avatar: "https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=128&h=128&dpr=2",
     rating: 5
   },
   {
     id: 3,
-    quote: "The churn prediction feature saved us $180k in the first quarter alone. Omnify spotted at-risk customers we completely missed and automatically triggered retention campaigns.",
+    quote: "First tool our growth + content team both love — saved $180k in Q1 alone.",
     name: "Emily Watson",
     role: "CMO",
-    company: "GrowthLabs",
+    company: "GrowthLabs ($95M ARR)",
     avatar: "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=128&h=128&dpr=2",
     rating: 5
   },
   {
     id: 4,
-    quote: "Our ROAS improved by 240% within 6 weeks. Omnify's budget reallocation happens in real-time, moving spend from losers to winners faster than any human could.",
+    quote: "ROAS improved 240% in 6 weeks — budget moves from losers to winners automatically.",
     name: "David Kim",
     role: "Performance Marketing Lead",
-    company: "FastTrack Digital",
+    company: "FastTrack Digital ($75M ARR)",
     avatar: "https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=128&h=128&dpr=2",
     rating: 5
   },
   {
     id: 5,
-    quote: "Finally, a tool that actually understands our brand voice. The AI-generated creatives maintain our tone while optimizing for performance across every platform.",
+    quote: "Finally, AI that understands our brand voice — maintains tone while optimizing performance.",
     name: "Jessica Park",
     role: "Brand Marketing Director",
-    company: "InnovateCorp",
+    company: "InnovateCorp ($110M ARR)",
     avatar: "https://images.pexels.com/photos/1130626/pexels-photo-1130626.jpeg?auto=compress&cs=tinysrgb&w=128&h=128&dpr=2",
     rating: 5
   },
   {
     id: 6,
-    quote: "Omnify's predictive analytics caught a campaign failure before we lost $50k. The AI spotted performance drops 3 days before our team would have noticed.",
+    quote: "Caught campaign failure 3 days early — saved $50k before we even noticed the drop.",
     name: "Alex Thompson",
     role: "Growth Hacker",
-    company: "StartupBoost",
+    company: "StartupBoost ($65M ARR)",
     avatar: "https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg?auto=compress&cs=tinysrgb&w=128&h=128&dpr=2",
     rating: 5
   },
   {
     id: 7,
-    quote: "We scaled from $100k to $2M in ad spend without hiring additional team members. Omnify handles the complexity while we focus on strategy.",
+    quote: "Scaled from $100k to $2M ad spend without hiring — Omnify handles the complexity.",
     name: "Rachel Green",
     role: "Marketing Operations Manager",
-    company: "ScaleTech",
+    company: "ScaleTech ($140M ARR)",
     avatar: "https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=128&h=128&dpr=2",
     rating: 5
   },
   {
     id: 8,
-    quote: "The cross-platform optimization is incredible. One winning ad becomes 25+ variants optimized for Facebook, Google, TikTok, and LinkedIn simultaneously.",
+    quote: "One winning ad becomes 25+ variants across Facebook, Google, TikTok — simultaneously.",
     name: "Michael Chang",
     role: "Digital Marketing Specialist",
-    company: "OmniChannel Pro",
+    company: "OmniChannel Pro ($80M ARR)",
     avatar: "https://images.pexels.com/photos/1212984/pexels-photo-1212984.jpeg?auto=compress&cs=tinysrgb&w=128&h=128&dpr=2",
     rating: 5
   },
   {
     id: 9,
-    quote: "Omnify's dashboard gives us insights we never had before. We can see exactly which creative elements drive conversions and why campaigns succeed or fail.",
+    quote: "Dashboard shows exactly which creative elements drive conversions — insights we never had.",
     name: "Lisa Martinez",
     role: "Analytics Lead",
-    company: "DataDriven Marketing",
+    company: "DataDriven Marketing ($90M ARR)",
     avatar: "https://images.pexels.com/photos/1181424/pexels-photo-1181424.jpeg?auto=compress&cs=tinysrgb&w=128&h=128&dpr=2",
     rating: 5
   },
   {
     id: 10,
-    quote: "ROI tracking has never been this clear. Omnify shows us exactly where every dollar goes and which campaigns generate the highest returns in real-time.",
+    quote: "ROI tracking crystal clear — see exactly where every dollar goes in real-time.",
     name: "James Wilson",
     role: "Revenue Operations Director",
-    company: "ProfitMax Solutions",
+    company: "ProfitMax Solutions ($130M ARR)",
     avatar: "https://images.pexels.com/photos/1040880/pexels-photo-1040880.jpeg?auto=compress&cs=tinysrgb&w=128&h=128&dpr=2",
     rating: 5
   }
@@ -229,13 +229,13 @@ const TestimonialCarousel: React.FC = () => {
               <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/5 to-purple-600/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               
               <div className="relative z-10">
-                {/* Quote */}
+                {/* Quote with visual accents */}
                 <div className="mb-6">
-                  <div className="text-blue-400 text-4xl mb-2 font-serif">"</div>
-                  <p className="text-slate-300 text-lg leading-relaxed">
+                  <div className="text-blue-400 text-4xl mb-3 font-serif leading-none">"</div>
+                  <p className="text-slate-300 text-lg leading-relaxed font-medium">
                     {testimonial.quote}
                   </p>
-                  <div className="text-blue-400 text-4xl text-right font-serif">"</div>
+                  <div className="text-blue-400 text-4xl text-right font-serif leading-none -mt-2">"</div>
                 </div>
 
                 {/* Rating */}
@@ -248,17 +248,17 @@ const TestimonialCarousel: React.FC = () => {
                   <img
                     src={testimonial.avatar}
                     alt={`${testimonial.name} avatar`}
-                    className="w-16 h-16 rounded-full border-2 border-slate-600 group-hover:border-blue-400 transition-colors duration-300"
+                    className="w-16 h-16 rounded-full border-2 border-slate-600 group-hover:border-blue-400 transition-colors duration-300 object-cover"
                     loading="lazy"
                   />
                   <div>
-                    <h4 className="text-white font-semibold text-lg">
+                    <h4 className="text-white font-bold text-lg">
                       {testimonial.name}
                     </h4>
-                    <p className="text-slate-400 text-sm">
+                    <p className="text-slate-400 text-sm font-medium">
                       {testimonial.role}
                     </p>
-                    <p className="text-blue-400 text-sm font-medium">
+                    <p className="text-blue-400 text-sm font-semibold">
                       {testimonial.company}
                     </p>
                   </div>

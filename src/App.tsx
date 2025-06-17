@@ -574,7 +574,7 @@ function App() {
           {/* Section Title */}
           <div className="text-center mb-16">
             <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">
-              Loved by Marketers Who Move Fast
+              What High-Growth DTC Teams Say About Omnify
             </h2>
             <p className="text-xl text-slate-300 max-w-3xl mx-auto">
               See how growth teams are transforming their marketing with Omnify's AI
