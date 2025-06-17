@@ -22,8 +22,8 @@ function App() {
       {/* Header */}
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled 
-          ? 'bg-white shadow-lg border-b border-gray-200' 
-          : 'bg-white shadow-sm'
+          ? 'bg-white shadow-md border-b border-gray-100' 
+          : 'bg-white shadow-sm border-b border-gray-50'
       }`}>
         <nav className="container mx-auto flex justify-between items-center py-4 px-6 min-h-[72px]">
           {/* Logo and Tagline */}
