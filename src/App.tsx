@@ -102,12 +102,12 @@ function App() {
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center overflow-hidden">
         {/* Background Gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-blue-950/20 to-purple-950/20"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950"></div>
         
         {/* Animated Background Elements */}
         <div className="absolute inset-0">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-blue-600/10 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+          <div className="absolute top-20 left-10 w-72 h-72 bg-teal-600/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-20 right-10 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-radial from-blue-600/5 to-transparent rounded-full"></div>
         </div>
 
@@ -116,29 +116,29 @@ function App() {
             {/* Hero Content */}
             <div className="space-y-8 text-center lg:text-left">
               {/* Badge */}
-              <div className="inline-flex items-center space-x-2 bg-blue-600/10 border border-blue-600/20 rounded-full px-4 py-2 text-blue-400 text-sm font-medium">
+              <div className="inline-flex items-center space-x-2 bg-teal-600/10 border border-teal-600/20 rounded-full px-4 py-2 text-teal-400 text-sm font-medium">
                 <Zap className="h-4 w-4" />
-                <span>AI-Powered Marketing Revolution</span>
+                <span>⚡ AI-Powered Marketing Revolution</span>
               </div>
 
               {/* Main Headline */}
-              <h1 className="text-4xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight">
+              <h1 className="text-4xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight" style={{ fontFamily: 'Inter, system-ui, -apple-system, sans-serif' }}>
                 Stop Bleeding
-                <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent"> Ad Spend</span>
+                <span className="bg-gradient-to-r from-teal-400 to-blue-400 bg-clip-text text-transparent"> Ad Spend</span>
                 <br />
                 Start Winning with
-                <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent"> AI</span>
+                <span className="bg-gradient-to-r from-blue-400 to-teal-400 bg-clip-text text-transparent"> AI</span>
               </h1>
 
               {/* Subheadline */}
               <p className="text-xl lg:text-2xl text-slate-300 leading-relaxed max-w-2xl">
                 Omnify's autonomous AI Brain transforms your top ads into 25+ optimized creatives, 
-                <span className="text-blue-400 font-semibold"> cuts CAC by 20%</span>, and deploys them in minutes—not weeks.
+                <span className="text-teal-400 font-semibold"> cuts CAC by 20%</span>, and deploys them in minutes—not weeks.
               </p>
 
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <button className="group bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/25 flex items-center justify-center space-x-2">
+                <button className="group bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-teal-500/25 flex items-center justify-center space-x-2">
                   <span>Book Your Demo Now</span>
                   <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform duration-200" />
                 </button>
@@ -149,6 +149,11 @@ function App() {
                 </button>
               </div>
 
+              {/* Guarantee Badge */}
+              <div className="inline-flex items-center space-x-2 bg-teal-600/10 border border-teal-600/20 rounded-full px-4 py-2 text-teal-400 text-sm font-medium">
+                <span>🚀 15% CAC Reduction Guarantee in 30 Days</span>
+              </div>
+
               {/* Trust Indicators */}
               <div className="flex flex-col sm:flex-row items-center gap-8 text-slate-400 text-sm">
                 <div className="flex items-center space-x-2">
@@ -156,11 +161,11 @@ function App() {
                   <span>No setup required</span>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
+                  <div className="w-2 h-2 bg-teal-400 rounded-full animate-pulse"></div>
                   <span>Results in 24 hours</span>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse"></div>
+                  <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
                   <span>Average 3x ROAS boost</span>
                 </div>
               </div>
@@ -170,7 +175,12 @@ function App() {
             <div className="relative">
               {/* Main Dashboard Image Placeholder */}
               <div className="relative bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl shadow-2xl border border-slate-700 overflow-hidden transform hover:scale-105 transition-transform duration-500">
-                <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/10 to-purple-600/10"></div>
+                <div className="absolute inset-0 bg-gradient-to-tr from-teal-600/10 to-blue-600/10"></div>
+                
+                {/* AI-Verified Results Badge */}
+                <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-teal-500 to-blue-500 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
+                  ✨ AI-Verified Results
+                </div>
                 
                 {/* Mock Dashboard Header */}
                 <div className="flex items-center justify-between p-6 border-b border-slate-700">
@@ -191,11 +201,11 @@ function App() {
                       <div className="text-slate-400 text-xs">ROAS Boost</div>
                     </div>
                     <div className="bg-slate-700/50 rounded-lg p-4 text-center">
-                      <div className="text-blue-400 text-2xl font-bold">-34%</div>
+                      <div className="text-teal-400 text-2xl font-bold">-34%</div>
                       <div className="text-slate-400 text-xs">CAC Reduction</div>
                     </div>
                     <div className="bg-slate-700/50 rounded-lg p-4 text-center">
-                      <div className="text-purple-400 text-2xl font-bold">25+</div>
+                      <div className="text-blue-400 text-2xl font-bold">25+</div>
                       <div className="text-slate-400 text-xs">AI Variants</div>
                     </div>
                   </div>
@@ -205,7 +215,7 @@ function App() {
                     {[40, 65, 45, 80, 55, 90, 70, 95, 85, 100].map((height, index) => (
                       <div
                         key={index}
-                        className="bg-gradient-to-t from-blue-600 to-purple-600 rounded-t"
+                        className="bg-gradient-to-t from-teal-600 to-blue-600 rounded-t"
                         style={{ height: `${height}%`, width: '8%' }}
                       ></div>
                     ))}
@@ -219,7 +229,7 @@ function App() {
                           <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
                           <span className="text-slate-300 text-sm">{campaign}</span>
                         </div>
-                        <div className="text-blue-400 text-sm font-semibold">+{(index + 1) * 45}%</div>
+                        <div className="text-teal-400 text-sm font-semibold">+{(index + 1) * 45}%</div>
                       </div>
                     ))}
                   </div>
@@ -227,11 +237,11 @@ function App() {
               </div>
 
               {/* Floating Elements */}
-              <div className="absolute -top-4 -right-4 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl p-3 shadow-lg animate-bounce">
+              <div className="absolute -top-4 -right-4 bg-gradient-to-r from-teal-600 to-blue-600 rounded-xl p-3 shadow-lg animate-bounce">
                 <Zap className="h-6 w-6 text-white" />
               </div>
               
-              <div className="absolute -bottom-4 -left-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl p-3 shadow-lg animate-pulse">
+              <div className="absolute -bottom-4 -left-4 bg-gradient-to-r from-blue-600 to-teal-600 rounded-xl p-3 shadow-lg animate-pulse">
                 <div className="text-white font-bold text-sm">AI ON</div>
               </div>
             </div>
