@@ -130,7 +130,7 @@ function App() {
               {/* Subheadline */}
               <p className="text-xl lg:text-2xl text-slate-300 leading-relaxed max-w-2xl">
                 Omnify's autonomous AI Brain transforms your top ads into 25+ optimized creatives, 
-                <span className="text-teal-400 font-semibold"> cuts CAC by 20%</span>, and deploys them in minutes—not weeks.
+                <span className="text-teal-400 font-semibold"> cuts CAC upto 20%</span>, and deploys them in minutes—not weeks.
               </p>
 
               {/* CTA Buttons */}
