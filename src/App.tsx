@@ -222,11 +222,11 @@ function App() {
           {/* Benefits Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Benefit Card 1 - Slash Ad Spend */}
-            <div className="group bg-gradient-to-br from-slate-800/80 to-slate-900/80 rounded-2xl p-8 shadow-2xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-slate-700 hover:border-red-500/50 backdrop-blur-sm">
-              <div className="absolute inset-0 bg-gradient-to-tr from-red-600/5 to-red-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="group bg-gradient-to-br from-slate-800/80 to-slate-900/80 rounded-2xl p-8 shadow-2xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-slate-700 hover:border-green-500/50 backdrop-blur-sm">
+              <div className="absolute inset-0 bg-gradient-to-tr from-green-600/5 to-green-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <div className="relative z-10">
                 <div className="mb-6">
-                  <div className="w-16 h-16 bg-gradient-to-br from-red-500 to-red-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                     <TrendingDown className="h-8 w-8 text-white" />
                   </div>
                 </div>
