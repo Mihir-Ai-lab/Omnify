@@ -71,11 +71,6 @@ const Footer: React.FC = () => {
               </div>
             </div>
             
-            {/* Brand Description */}
-            <p className="text-slate-400 leading-relaxed max-w-md font-medium">
-              Built for $50M–$150M DTC Brands
-            </p>
-            
             {/* Copyright and Legal */}
             <div className="space-y-3">
               <p className="text-slate-500 text-sm">

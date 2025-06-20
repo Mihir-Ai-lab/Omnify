@@ -35,9 +35,6 @@ function App() {
               <span className="text-xl font-bold text-slate-900">Omnify</span>
               <span className="text-sm text-slate-600 font-medium hidden sm:inline">Marketing Cloud</span>
             </div>
-            <div className="text-sm text-gray-600 max-w-[280px] sm:max-w-none" style={{ fontFamily: 'Helvetica, Arial, sans-serif', fontSize: '14px' }}>
-              🏷️ Built for $50M–$150M DTC Brands
-            </div>
           </div>
 
           {/* Desktop Navigation */}
