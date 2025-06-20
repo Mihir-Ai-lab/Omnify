@@ -233,7 +233,7 @@ function App() {
                     <TrendingDown className="h-8 w-8 text-white" />
                   </div>
                 </div>
-                <h3 className="text-xl font-bold text-white mb-4" style={{ color: '#1F3A93' }}>Slash Ad Spend</h3>
+                <h3 className="text-xl font-bold text-white mb-4">Slash Ad Spend</h3>
                 <p className="text-slate-300 leading-relaxed">
                   Cut your CAC by up to 20% through autonomous, ROI-driven optimization.
                 </p>
@@ -249,7 +249,7 @@ function App() {
                     <Brain className="h-8 w-8 text-white" />
                   </div>
                 </div>
-                <h3 className="text-xl font-bold text-white mb-4" style={{ color: '#1F3A93' }}>Predict & Prevent Churn</h3>
+                <h3 className="text-xl font-bold text-white mb-4">Predict & Prevent Churn</h3>
                 <p className="text-slate-300 leading-relaxed">
                   Spot high-risk users early and retain them with proactive AI insights.
                 </p>
@@ -265,7 +265,7 @@ function App() {
                     <PenTool className="h-8 w-8 text-white" />
                   </div>
                 </div>
-                <h3 className="text-xl font-bold text-white mb-4" style={{ color: '#1F3A93' }}>Personalized Content at Scale</h3>
+                <h3 className="text-xl font-bold text-white mb-4">Personalized Content at Scale</h3>
                 <p className="text-slate-300 leading-relaxed">
                   Auto-generate creatives and email copy tailored to each platform — instantly.
                 </p>
@@ -281,7 +281,7 @@ function App() {
                     <BarChart3 className="h-8 w-8 text-white" />
                   </div>
                 </div>
-                <h3 className="text-xl font-bold text-white mb-4" style={{ color: '#1F3A93' }}>Unified Marketing Intelligence</h3>
+                <h3 className="text-xl font-bold text-white mb-4">Unified Marketing Intelligence</h3>
                 <p className="text-slate-300 leading-relaxed">
                   See CAC, ROAS, LTV, CTR — all in one dashboard across Meta, Google, TikTok, etc.
                 </p>
