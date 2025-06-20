@@ -36,7 +36,7 @@ const faqData: FAQItem[] = [
   {
     id: 5,
     question: "What kind of ROI can I expect?",
-    answer: "Our customers typically see 20-35% CAC reduction and 2-4x ROAS improvement within 30 days. High-growth DTC brands ($50M+ ARR) average $180k+ in additional profit per quarter. We offer a 15% CAC reduction guarantee in 30 days, or we'll refund your first month.",
+    answer: "If we don’t help reduce your CAC or improve ROAS measurably, we’ll continue working at no additional cost until we do. Our customers often see up to 20% CAC reduction within the first 60 days, depending on current performance and media mix. High-growth DTC brands ($50M+ ARR) have reported $100k–$180k in additional profit per quarter through improved ROAS and more efficient budget allocation.",
     icon: <BarChart3 className="h-5 w-5" />
   }
 ];
