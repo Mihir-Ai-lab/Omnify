@@ -148,7 +148,7 @@ function App() {
 
               {/* Guarantee Badge */}
               <div className="inline-flex items-center space-x-2 bg-teal-600/10 border border-teal-600/20 rounded-full px-4 py-2 text-teal-400 text-sm font-medium">
-                <span>🚀 15% CAC Reduction Guarantee in 30 Days</span>
+                <span>🚀 20% CAC Reduction Guarantee in 60 Days</span>
               </div>
 
               {/* Trust Indicators */}
