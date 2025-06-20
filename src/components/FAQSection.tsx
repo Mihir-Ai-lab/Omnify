@@ -12,7 +12,7 @@ const faqData: FAQItem[] = [
   {
     id: 1,
     question: "What platforms does Omnify support?",
-    answer: "Omnify integrates with all major advertising platforms including Facebook Ads, Google Ads, Instagram, TikTok Ads, LinkedIn Ads, Twitter Ads, Snapchat Ads, and Pinterest Ads. Our AI automatically optimizes creative variations for each platform's specific requirements and audience behaviors, ensuring maximum performance across your entire marketing stack.",
+    answer: "Omnify integrates with all major advertising platforms including Meta Ads, Google Ads, Instagram Ads, TikTok Ads, LinkedIn Ads, Twitter Ads, Snapchat Ads, and Pinterest Ads. Our AI automatically optimizes creative variations for each platform's specific requirements and audience behaviors, ensuring maximum performance across your entire marketing stack.",
     icon: <Zap className="h-5 w-5" />
   },
   {
