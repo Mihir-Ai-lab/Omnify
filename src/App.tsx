@@ -181,62 +181,16 @@ function App() {
                 ✨ AI-Verified Results
               </div>
 
-              {/* Main Dashboard Image Placeholder */}
+              {/* Main Dashboard Image */}
               <div className="relative bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl shadow-2xl border border-slate-700 overflow-hidden transform hover:scale-105 transition-transform duration-500 mt-4">
                 <div className="absolute inset-0 bg-gradient-to-tr from-teal-600/10 to-blue-600/10"></div>
                 
-                {/* Mock Dashboard Header */}
-                <div className="flex items-center justify-between p-6 border-b border-slate-700">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-3 h-3 bg-red-400 rounded-full"></div>
-                    <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
-                    <div className="w-3 h-3 bg-green-400 rounded-full"></div>
-                  </div>
-                  <div className="text-slate-400 text-sm font-medium">Omnify AI Dashboard</div>
-                </div>
-
-                {/* Mock Dashboard Content */}
-                <div className="p-6 space-y-6">
-                  {/* Metrics Cards */}
-                  <div className="grid grid-cols-3 gap-4">
-                    <div className="bg-slate-700/50 rounded-lg p-4 text-center">
-                      <div className="text-green-400 text-2xl font-bold">+127%</div>
-                      <div className="text-slate-400 text-xs">ROAS Boost</div>
-                    </div>
-                    <div className="bg-slate-700/50 rounded-lg p-4 text-center">
-                      <div className="text-teal-400 text-2xl font-bold">-34%</div>
-                      <div className="text-slate-400 text-xs">CAC Reduction</div>
-                    </div>
-                    <div className="bg-slate-700/50 rounded-lg p-4 text-center">
-                      <div className="text-blue-400 text-2xl font-bold">25+</div>
-                      <div className="text-slate-400 text-xs">AI Variants</div>
-                    </div>
-                  </div>
-
-                  {/* Mock Chart */}
-                  <div className="bg-slate-700/30 rounded-lg p-4 h-32 flex items-end justify-between space-x-2">
-                    {[40, 65, 45, 80, 55, 90, 70, 95, 85, 100].map((height, index) => (
-                      <div
-                        key={index}
-                        className="bg-gradient-to-t from-teal-600 to-blue-600 rounded-t"
-                        style={{ height: `${height}%`, width: '8%' }}
-                      ></div>
-                    ))}
-                  </div>
-
-                  {/* Mock Campaign List */}
-                  <div className="space-y-3">
-                    {['Holiday Campaign 2024', 'Product Launch Q1', 'Retargeting Blast'].map((campaign, index) => (
-                      <div key={index} className="flex items-center justify-between bg-slate-700/30 rounded-lg p-3">
-                        <div className="flex items-center space-x-3">
-                          <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                          <span className="text-slate-300 text-sm">{campaign}</span>
-                        </div>
-                        <div className="text-teal-400 text-sm font-semibold">+{(index + 1) * 45}%</div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+                <img
+                  src="/Omnify Dashboard.jpg"
+                  alt="Omnify AI Dashboard showing marketing performance metrics, ROI trends, and campaign analytics"
+                  className="w-full h-auto object-cover relative z-10"
+                  loading="lazy"
+                />
               </div>
 
               {/* Floating Elements */}
