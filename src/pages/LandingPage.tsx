@@ -157,116 +157,205 @@ const LandingPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-neutral-900 text-white">
+    <div className="min-h-screen bg-[#1a1f2e] text-white">
       <Header variant="landing" />
       
-      {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-neutral-900 via-primary-900 to-neutral-800 py-20 lg:py-32">
+      {/* Hero Section - Pixel Perfect Match */}
+      <section className="relative overflow-hidden bg-[#1a1f2e] pt-8 pb-16 lg:pt-16 lg:pb-24">
+        {/* Background Elements */}
         <div className="absolute inset-0">
-          <div className="absolute top-20 left-20 w-96 h-96 bg-primary-600 rounded-full blur-3xl opacity-20"></div>
-          <div className="absolute bottom-20 right-20 w-96 h-96 bg-accent-500 rounded-full blur-3xl opacity-20"></div>
+          <div className="absolute top-20 left-20 w-96 h-96 bg-[#00d4aa] rounded-full blur-3xl opacity-10"></div>
+          <div className="absolute bottom-20 right-20 w-96 h-96 bg-[#4f46e5] rounded-full blur-3xl opacity-10"></div>
         </div>
         
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <div className="space-y-8">
-              <Badge variant="primary" size="md" className="bg-accent-500/20 text-accent-400 border-accent-500/30">
-                <Zap className="w-4 h-4 mr-2" />
-                AI Growth Engine
-              </Badge>
-              
-              <h1 className="text-4xl lg:text-6xl font-bold leading-tight">
-                Stop Bleeding{' '}
-                <span className="text-accent-400">Ad</span>
-                <br />
-                <span className="text-accent-400">Spend</span>
-                <br />
-                Start Winning with{' '}
-                <span className="text-accent-400">AI</span>
-              </h1>
-              
-              <p className="text-xl text-neutral-300 leading-relaxed max-w-2xl">
-                Omnify's autonomous AI brain transforms your top ads into 
-                24/7 optimized campaigns, cuts waste, and delivers 
-                predictable growth.
-              </p>
-              
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button 
-                  variant="primary" 
-                  size="lg"
-                  className="bg-accent-500 hover:bg-accent-600 text-white"
-                  rightIcon={<ArrowRight className="w-5 h-5" />}
-                >
-                  Start Your Smart Trial
-                </Button>
-                <Button 
-                  variant="outline" 
-                  size="lg"
-                  className="border-neutral-600 text-neutral-300 hover:bg-neutral-800"
-                  leftIcon={<Play className="w-5 h-5" />}
-                >
-                  See How It Works
-                </Button>
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+            {/* Left Content */}
+            <div className="space-y-8 lg:pr-8">
+              {/* Top Badge */}
+              <div className="flex items-center">
+                <div className="inline-flex items-center px-4 py-2 rounded-full bg-[#00d4aa]/10 border border-[#00d4aa]/20">
+                  <Zap className="w-4 h-4 mr-2 text-[#00d4aa]" />
+                  <span className="text-[#00d4aa] text-sm font-medium">AI-Powered Marketing Revolution</span>
+                </div>
               </div>
               
-              <div className="flex items-center space-x-8 text-sm text-neutral-400">
+              {/* Main Headlines */}
+              <div className="space-y-4">
+                <h1 className="text-5xl lg:text-7xl font-bold leading-[0.9] tracking-tight">
+                  <span className="text-white">Stop Bleeding </span>
+                  <span className="text-[#00d4aa]">Ad</span>
+                  <br />
+                  <span className="text-[#00d4aa]">Spend</span>
+                  <br />
+                  <span className="text-white">Start Winning with</span>
+                  <br />
+                  <span className="text-[#00d4aa]">AI</span>
+                </h1>
+              </div>
+              
+              {/* Description */}
+              <div className="space-y-6">
+                <p className="text-xl lg:text-2xl text-[#94a3b8] leading-relaxed max-w-2xl">
+                  Omnify's autonomous AI Brain transforms your top ads into 
+                  25+ optimized creatives, <span className="text-[#00d4aa] font-semibold">cuts CAC upto 20%</span>, and deploys 
+                  them in minutes—not weeks.
+                </p>
+              </div>
+              
+              {/* CTA Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4 pt-4">
+                <button className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-[#00d4aa] to-[#00b894] text-white font-semibold rounded-xl hover:from-[#00b894] hover:to-[#00a085] transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-[1.02]">
+                  Book Your Demo Now
+                  <ArrowRight className="w-5 h-5 ml-2" />
+                </button>
+                <button className="inline-flex items-center justify-center px-8 py-4 bg-transparent border-2 border-[#475569] text-white font-semibold rounded-xl hover:bg-[#475569]/10 transition-all duration-200">
+                  <Play className="w-5 h-5 mr-2" />
+                  See How It Works
+                </button>
+              </div>
+              
+              {/* Bottom Features */}
+              <div className="flex items-center space-x-8 pt-6">
                 <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-success-500 rounded-full"></div>
-                  <span>No credit card required</span>
+                  <div className="w-2 h-2 bg-[#00d4aa] rounded-full"></div>
+                  <span className="text-[#00d4aa] text-sm font-medium">20% CAC Reduction Guarantee in 60 Days</span>
+                </div>
+              </div>
+              
+              {/* Trust Indicators */}
+              <div className="flex items-center space-x-8 text-sm text-[#64748b] pt-4">
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-[#64748b] rounded-full"></div>
+                  <span>No setup required</span>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-accent-500 rounded-full"></div>
+                  <div className="w-2 h-2 bg-[#64748b] rounded-full"></div>
                   <span>Results in 24 hours</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-[#64748b] rounded-full"></div>
+                  <span>Average 3x ROAS boost</span>
                 </div>
               </div>
             </div>
             
-            <div className="relative">
-              <div className="relative bg-neutral-800 rounded-3xl shadow-2xl border border-neutral-700 overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-tr from-primary-600/10 to-accent-500/10"></div>
-                <div className="relative p-8">
-                  {/* Mock Dashboard Interface */}
-                  <div className="space-y-6">
-                    <div className="flex items-center justify-between">
-                      <h3 className="text-lg font-semibold text-white">Campaign Performance</h3>
-                      <Badge variant="success" dot className="bg-success-500/20 text-success-400 border-success-500/30">Live</Badge>
+            {/* Right Dashboard Mockup */}
+            <div className="relative lg:pl-8">
+              {/* AI-Verified Results Badge */}
+              <div className="absolute -top-4 right-8 z-20">
+                <div className="inline-flex items-center px-4 py-2 rounded-full bg-[#00d4aa] text-white text-sm font-medium shadow-lg">
+                  <Star className="w-4 h-4 mr-2" />
+                  AI-Verified Results
+                </div>
+              </div>
+              
+              {/* Main Dashboard Container */}
+              <div className="relative bg-white rounded-2xl shadow-2xl overflow-hidden border border-[#e2e8f0]">
+                {/* Browser Header */}
+                <div className="bg-[#f8fafc] px-4 py-3 border-b border-[#e2e8f0]">
+                  <div className="flex items-center space-x-2">
+                    <div className="flex space-x-1">
+                      <div className="w-3 h-3 bg-[#ef4444] rounded-full"></div>
+                      <div className="w-3 h-3 bg-[#f59e0b] rounded-full"></div>
+                      <div className="w-3 h-3 bg-[#10b981] rounded-full"></div>
                     </div>
-                    
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="bg-neutral-700 rounded-xl p-4 border border-neutral-600">
-                        <div className="text-2xl font-bold text-success-400">-47%</div>
-                        <div className="text-sm text-neutral-400">CAC Reduction</div>
-                      </div>
-                      <div className="bg-neutral-700 rounded-xl p-4 border border-neutral-600">
-                        <div className="text-2xl font-bold text-accent-400">3.2x</div>
-                        <div className="text-sm text-neutral-400">ROAS</div>
-                      </div>
+                    <div className="flex-1 bg-white rounded-md px-3 py-1 text-xs text-[#64748b] ml-4">
+                      app.omnify.ai/dashboard
                     </div>
-                    
-                    <div className="bg-gradient-to-r from-primary-600 to-accent-500 rounded-xl p-4">
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <div className="text-sm opacity-90">AI Optimization</div>
-                          <div className="text-lg font-semibold">Running</div>
-                        </div>
-                        <Zap className="w-8 h-8 opacity-90" />
-                      </div>
+                  </div>
+                </div>
+                
+                {/* Dashboard Content */}
+                <div className="p-6 bg-white">
+                  {/* Header */}
+                  <div className="flex items-center justify-between mb-6">
+                    <div>
+                      <h3 className="text-xl font-bold text-[#1e293b]">Omnify Marketing Cloud</h3>
+                      <p className="text-sm text-[#64748b]">AI-powered marketing optimization for DTC & ecommerce brands</p>
                     </div>
-                    
-                    {/* Mock Chart Area */}
-                    <div className="bg-neutral-700 rounded-xl p-4 border border-neutral-600">
-                      <div className="h-24 bg-gradient-to-r from-primary-500/20 to-accent-500/20 rounded-lg flex items-end justify-between px-2 pb-2">
-                        {[40, 65, 45, 80, 60, 90, 75].map((height, i) => (
-                          <div 
-                            key={i} 
-                            className="bg-accent-500 rounded-sm w-3" 
-                            style={{ height: `${height}%` }}
+                  </div>
+                  
+                  {/* Metrics Cards */}
+                  <div className="grid grid-cols-4 gap-4 mb-6">
+                    <div className="bg-[#f8fafc] rounded-lg p-3 border border-[#e2e8f0]">
+                      <div className="text-lg font-bold text-[#1e293b]">$142.5K</div>
+                      <div className="text-xs text-[#64748b]">Ad Spend</div>
+                      <div className="text-xs text-[#ef4444]">-15.2%</div>
+                    </div>
+                    <div className="bg-[#f8fafc] rounded-lg p-3 border border-[#e2e8f0]">
+                      <div className="text-lg font-bold text-[#1e293b]">$892</div>
+                      <div className="text-xs text-[#64748b]">Avg Order Value</div>
+                      <div className="text-xs text-[#10b981]">+8.7%</div>
+                    </div>
+                    <div className="bg-[#f8fafc] rounded-lg p-3 border border-[#e2e8f0]">
+                      <div className="text-lg font-bold text-[#1e293b]">334K</div>
+                      <div className="text-xs text-[#64748b]">Impressions</div>
+                      <div className="text-xs text-[#10b981]">+12.3%</div>
+                    </div>
+                    <div className="bg-[#f8fafc] rounded-lg p-3 border border-[#e2e8f0]">
+                      <div className="text-lg font-bold text-[#1e293b]">4.2x</div>
+                      <div className="text-xs text-[#64748b]">ROAS</div>
+                      <div className="text-xs text-[#10b981]">+47%</div>
+                    </div>
+                  </div>
+                  
+                  {/* ROI Performance Chart */}
+                  <div className="mb-6">
+                    <h4 className="text-sm font-semibold text-[#1e293b] mb-3">ROI Performance Trend</h4>
+                    <div className="bg-[#f8fafc] rounded-lg p-4 border border-[#e2e8f0] h-32">
+                      {/* Chart placeholder with trend line */}
+                      <div className="relative h-full">
+                        <svg className="w-full h-full" viewBox="0 0 300 100">
+                          <polyline
+                            fill="none"
+                            stroke="#00d4aa"
+                            strokeWidth="2"
+                            points="0,80 50,70 100,60 150,45 200,35 250,25 300,20"
                           />
-                        ))}
+                          <circle cx="300" cy="20" r="3" fill="#00d4aa" />
+                        </svg>
                       </div>
                     </div>
                   </div>
+                  
+                  {/* AI Agent Status */}
+                  <div className="bg-[#f0f9ff] rounded-lg p-4 border border-[#0ea5e9]/20 mb-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h4 className="text-sm font-semibold text-[#0369a1]">AI Agent Status</h4>
+                        <div className="flex items-center space-x-2 mt-1">
+                          <div className="w-2 h-2 bg-[#10b981] rounded-full"></div>
+                          <span className="text-xs text-[#64748b]">All Engines ON</span>
+                        </div>
+                      </div>
+                      <button className="bg-[#3b82f6] text-white px-4 py-2 rounded-lg text-xs font-medium">
+                        View AI Insights
+                      </button>
+                    </div>
+                  </div>
+                  
+                  {/* Live Campaign Performance */}
+                  <div>
+                    <h4 className="text-sm font-semibold text-[#1e293b] mb-3">Live Campaign Performance</h4>
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between p-2 bg-[#f8fafc] rounded border border-[#e2e8f0]">
+                        <span className="text-xs text-[#64748b]">Holiday Campaign 2024</span>
+                        <span className="text-xs font-medium text-[#10b981]">+23.4%</span>
+                      </div>
+                      <div className="flex items-center justify-between p-2 bg-[#f8fafc] rounded border border-[#e2e8f0]">
+                        <span className="text-xs text-[#64748b]">Retargeting Campaign</span>
+                        <span className="text-xs font-medium text-[#10b981]">+18.7%</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Floating AI Badge */}
+              <div className="absolute -bottom-4 -left-4 z-10">
+                <div className="bg-[#1a1f2e] rounded-full p-4 border-4 border-[#00d4aa] shadow-lg">
+                  <Zap className="w-8 h-8 text-[#00d4aa]" />
                 </div>
               </div>
             </div>
@@ -275,7 +364,7 @@ const LandingPage: React.FC = () => {
       </section>
 
       {/* Why Choose Omnify Section */}
-      <section className="py-20 bg-neutral-800">
+      <section className="py-20 bg-[#0f172a]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-5xl font-bold text-white mb-6">
@@ -285,14 +374,14 @@ const LandingPage: React.FC = () => {
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature, index) => (
-              <Card key={index} padding="lg" className="bg-neutral-700 border-neutral-600 text-center h-full hover:bg-neutral-600 transition-colors duration-200">
+              <Card key={index} padding="lg" className="bg-[#1e293b] border-[#334155] text-center h-full hover:bg-[#334155] transition-colors duration-200">
                 <div className={`w-16 h-16 ${feature.color} rounded-2xl flex items-center justify-center mx-auto mb-6 border`}>
                   <feature.icon className={`w-8 h-8 ${feature.iconColor}`} />
                 </div>
                 <h3 className="text-xl font-semibold text-white mb-4">
                   {feature.title}
                 </h3>
-                <p className="text-neutral-300">
+                <p className="text-[#94a3b8]">
                   {feature.description}
                 </p>
               </Card>
@@ -302,13 +391,13 @@ const LandingPage: React.FC = () => {
       </section>
 
       {/* How It Works Section */}
-      <section className="py-20 bg-neutral-900">
+      <section className="py-20 bg-[#1a1f2e]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-5xl font-bold text-white mb-6">
               How Omnify's AI Growth Engine Works
             </h2>
-            <p className="text-xl text-neutral-400 max-w-3xl mx-auto">
+            <p className="text-xl text-[#94a3b8] max-w-3xl mx-auto">
               Our autonomous AI system learns from your best campaigns and scales them across all channels.
             </p>
           </div>
@@ -318,28 +407,28 @@ const LandingPage: React.FC = () => {
               <div key={index} className={`flex flex-col lg:flex-row items-center gap-12 ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}>
                 <div className="flex-1 space-y-6">
                   <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-accent-500 rounded-full flex items-center justify-center text-white font-bold text-lg">
+                    <div className="w-12 h-12 bg-[#00d4aa] rounded-full flex items-center justify-center text-white font-bold text-lg">
                       {step.step}
                     </div>
                     <h3 className="text-2xl font-bold text-white">
                       {step.title}
                     </h3>
                   </div>
-                  <p className="text-lg text-neutral-300 leading-relaxed">
+                  <p className="text-lg text-[#94a3b8] leading-relaxed">
                     {step.description}
                   </p>
                 </div>
                 
                 <div className="flex-1">
-                  <div className="bg-neutral-800 rounded-2xl p-8 border border-neutral-700">
+                  <div className="bg-[#1e293b] rounded-2xl p-8 border border-[#334155]">
                     <div className="w-16 h-16 bg-primary-500/20 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-primary-500/30">
                       <step.icon className="w-8 h-8 text-primary-400" />
                     </div>
                     <div className="space-y-4">
                       {step.mockData.map((item, i) => (
-                        <div key={i} className="flex items-center justify-between p-3 bg-neutral-700 rounded-lg border border-neutral-600">
-                          <span className="text-neutral-300 text-sm">{item.label}</span>
-                          <span className="text-accent-400 font-semibold">
+                        <div key={i} className="flex items-center justify-between p-3 bg-[#334155] rounded-lg border border-[#475569]">
+                          <span className="text-[#94a3b8] text-sm">{item.label}</span>
+                          <span className="text-[#00d4aa] font-semibold">
                             {typeof item.value === 'number' && item.value > 100 ? 
                               `$${(item.value / 1000).toFixed(0)}k` : 
                               `${item.value > 0 ? '+' : ''}${item.value}${item.label === 'CTR' ? '%' : item.label === 'ROAS' ? 'x' : item.label === 'CAC' ? '%' : ''}`
@@ -357,20 +446,20 @@ const LandingPage: React.FC = () => {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-20 bg-neutral-800">
+      <section className="py-20 bg-[#0f172a]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-5xl font-bold text-white mb-6">
               What High-Growth DTC Teams Say About Omnify
             </h2>
-            <p className="text-xl text-neutral-400 max-w-3xl mx-auto">
+            <p className="text-xl text-[#94a3b8] max-w-3xl mx-auto">
               See how growth teams are transforming their marketing with Omnify's AI.
             </p>
           </div>
           
           <div className="grid md:grid-cols-3 gap-8">
             {testimonials.map((testimonial, index) => (
-              <Card key={index} padding="lg" className="bg-neutral-700 border-neutral-600 h-full">
+              <Card key={index} padding="lg" className="bg-[#1e293b] border-[#334155] h-full">
                 <div className="flex flex-col h-full">
                   <div className="flex-1">
                     <div className="flex items-center mb-4">
@@ -378,7 +467,7 @@ const LandingPage: React.FC = () => {
                         <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
                       ))}
                     </div>
-                    <p className="text-neutral-200 text-lg leading-relaxed mb-6">
+                    <p className="text-[#e2e8f0] text-lg leading-relaxed mb-6">
                       "{testimonial.quote}"
                     </p>
                   </div>
@@ -392,7 +481,7 @@ const LandingPage: React.FC = () => {
                       <div className="font-semibold text-white">
                         {testimonial.author}
                       </div>
-                      <div className="text-neutral-400 text-sm">
+                      <div className="text-[#94a3b8] text-sm">
                         {testimonial.role} at {testimonial.company}
                       </div>
                     </div>
@@ -405,36 +494,36 @@ const LandingPage: React.FC = () => {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-20 bg-neutral-900">
+      <section className="py-20 bg-[#1a1f2e]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-5xl font-bold text-white mb-6">
               Frequently Asked Questions
             </h2>
-            <p className="text-xl text-neutral-400">
+            <p className="text-xl text-[#94a3b8]">
               Everything you need to know about Omnify's AI-powered marketing platform.
             </p>
           </div>
           
           <div className="space-y-4">
             {faqs.map((faq, index) => (
-              <Card key={index} padding="none" className="bg-neutral-800 border-neutral-700">
+              <Card key={index} padding="none" className="bg-[#1e293b] border-[#334155]">
                 <button
                   onClick={() => toggleFaq(index)}
-                  className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-neutral-700 transition-colors duration-200"
+                  className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-[#334155] transition-colors duration-200"
                 >
                   <span className="font-semibold text-white text-lg">
                     {faq.question}
                   </span>
                   {openFaq === index ? (
-                    <ChevronUp className="w-5 h-5 text-neutral-400" />
+                    <ChevronUp className="w-5 h-5 text-[#94a3b8]" />
                   ) : (
-                    <ChevronDown className="w-5 h-5 text-neutral-400" />
+                    <ChevronDown className="w-5 h-5 text-[#94a3b8]" />
                   )}
                 </button>
                 {openFaq === index && (
                   <div className="px-6 pb-4">
-                    <p className="text-neutral-300 leading-relaxed">
+                    <p className="text-[#94a3b8] leading-relaxed">
                       {faq.answer}
                     </p>
                   </div>
@@ -446,7 +535,7 @@ const LandingPage: React.FC = () => {
       </section>
 
       {/* Final CTA Section */}
-      <section className="py-20 bg-gradient-to-br from-primary-600 to-accent-500">
+      <section className="py-20 bg-gradient-to-br from-[#00d4aa] to-[#3b82f6]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl lg:text-5xl font-bold text-white mb-6">
             Ready to Stop Bleeding<br />Ad Spend?
@@ -460,7 +549,7 @@ const LandingPage: React.FC = () => {
             <Button 
               variant="primary" 
               size="xl"
-              className="bg-white text-primary-600 hover:bg-neutral-100"
+              className="bg-white text-[#1a1f2e] hover:bg-neutral-100"
               rightIcon={<ArrowRight className="w-5 h-5" />}
             >
               Start Your Smart Trial
