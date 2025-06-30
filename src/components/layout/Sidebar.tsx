@@ -74,23 +74,24 @@ const Sidebar: React.FC<SidebarProps> = ({
   const isActive = (href: string) => currentPath === href;
 
   return (
-    <div className={`glass-dark border-r border-white/10 transition-all duration-300 ${
+    <div className={`omnify-container-lg border-r border-white/10 transition-all duration-300 ${
       isCollapsed ? 'w-16' : 'w-64'
-    } flex flex-col h-full shadow-2xl`}>
+    } flex flex-col h-full shadow-2xl fixed left-0 top-0 z-40`} 
+    style={{ background: 'linear-gradient(180deg, #2D3748 0%, #1A202C 100%)' }}>
       {/* Header */}
       <div className="p-4 border-b border-white/10">
         <div className="flex items-center justify-between">
           {!isCollapsed && (
             <div className="flex items-center space-x-3">
               <div className="relative">
-                <Zap className="h-8 w-8 text-teal-400" />
+                <Zap className="h-8 w-8 text-omnify-accent" />
                 <div className="absolute inset-0 blur-sm">
-                  <Zap className="h-8 w-8 text-teal-400 opacity-30" />
+                  <Zap className="h-8 w-8 text-omnify-accent opacity-30" />
                 </div>
               </div>
               <div>
-                <span className="text-lg font-bold text-white">Omnify</span>
-                <div className="text-xs text-slate-400 font-medium">Marketing Cloud</div>
+                <span className="omnify-heading-sm text-white">Omnify</span>
+                <div className="omnify-body-sm text-slate-400 font-medium">Marketing Cloud</div>
               </div>
             </div>
           )}
@@ -117,9 +118,9 @@ const Sidebar: React.FC<SidebarProps> = ({
             <li key={item.name}>
               <a
                 href={item.href}
-                className={`flex items-center px-3 py-3 rounded-xl text-sm font-medium transition-all duration-300 group ${
+                className={`flex items-center px-3 py-3 rounded-xl omnify-body font-medium transition-all duration-300 group ${
                   isActive(item.href)
-                    ? 'bg-gradient-to-r from-blue-500/20 to-teal-500/20 text-white border border-blue-500/30 shadow-lg neon-blue'
+                    ? 'bg-omnify-gradient text-white shadow-lg omnify-glow'
                     : 'text-slate-300 hover:bg-white/10 hover:text-white hover:shadow-lg'
                 }`}
                 style={{ animationDelay: `${index * 0.1}s` }}
@@ -129,7 +130,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                   <>
                     <span className="flex-1">{item.name}</span>
                     {item.badge && (
-                      <span className="bg-gradient-to-r from-teal-500 to-blue-500 text-white text-xs font-semibold px-2 py-1 rounded-full shadow-lg">
+                      <span className="bg-omnify-gradient text-white text-xs font-semibold px-2 py-1 rounded-full shadow-lg">
                         {item.badge}
                       </span>
                     )}
@@ -148,9 +149,9 @@ const Sidebar: React.FC<SidebarProps> = ({
             <li key={item.name}>
               <a
                 href={item.href}
-                className={`flex items-center px-3 py-3 rounded-xl text-sm font-medium transition-all duration-300 group ${
+                className={`flex items-center px-3 py-3 rounded-xl omnify-body font-medium transition-all duration-300 group ${
                   isActive(item.href)
-                    ? 'bg-gradient-to-r from-blue-500/20 to-teal-500/20 text-white border border-blue-500/30 shadow-lg neon-blue'
+                    ? 'bg-omnify-gradient text-white shadow-lg omnify-glow'
                     : 'text-slate-300 hover:bg-white/10 hover:text-white hover:shadow-lg'
                 }`}
               >

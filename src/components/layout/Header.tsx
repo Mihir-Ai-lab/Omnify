@@ -38,7 +38,7 @@ const Header: React.FC<HeaderProps> = ({ variant = 'landing' }) => {
   
   const headerClasses = variant === 'landing' 
     ? 'bg-white shadow-sm border-b border-gray-50' 
-    : 'glass-dark border-b border-white/10 shadow-lg';
+    : 'omnify-container-lg border-b border-white/10 shadow-lg backdrop-blur-xl';
     
   const textColor = variant === 'landing' ? 'text-neutral-900' : 'text-white';
   const linkColor = variant === 'landing' 
@@ -60,19 +60,19 @@ const Header: React.FC<HeaderProps> = ({ variant = 'landing' }) => {
             <div className="flex items-center space-x-3">
               <div className="relative">
                 <Zap className={`h-8 w-8 transition-all duration-300 group-hover:scale-110 ${
-                  variant === 'landing' ? 'text-blue-600' : 'text-teal-400'
+                  variant === 'landing' ? 'text-blue-600' : 'text-omnify-accent'
                 }`} />
                 <div className="absolute inset-0 blur-sm opacity-50">
                   <Zap className={`h-8 w-8 ${
-                    variant === 'landing' ? 'text-blue-600' : 'text-teal-400'
+                    variant === 'landing' ? 'text-blue-600' : 'text-omnify-accent'
                   }`} />
                 </div>
               </div>
               <div>
-                <span className={`text-xl font-bold transition-colors duration-300 ${textColor}`}>
+                <span className={`omnify-heading-sm transition-colors duration-300 ${textColor}`}>
                   Omnify
                 </span>
-                <span className={`text-sm font-medium ml-2 ${
+                <span className={`omnify-body-sm ml-2 ${
                   variant === 'landing' ? 'text-neutral-600' : 'text-slate-400'
                 }`}>
                   Marketing Cloud
@@ -89,7 +89,7 @@ const Header: React.FC<HeaderProps> = ({ variant = 'landing' }) => {
                   <a
                     key={link.name}
                     href={link.href}
-                    className={`px-3 py-2 text-sm font-medium transition-all duration-200 rounded-lg hover:bg-white/10 ${linkColor}`}
+                    className={`px-3 py-2 omnify-body font-medium transition-all duration-200 rounded-lg hover:bg-white/10 ${linkColor}`}
                   >
                     {link.name}
                   </a>
@@ -97,7 +97,7 @@ const Header: React.FC<HeaderProps> = ({ variant = 'landing' }) => {
                   <Link
                     key={link.name}
                     to={link.href}
-                    className={`px-3 py-2 text-sm font-medium transition-all duration-200 rounded-lg hover:bg-white/10 ${linkColor}`}
+                    className={`px-3 py-2 omnify-body font-medium transition-all duration-200 rounded-lg hover:bg-white/10 ${linkColor}`}
                   >
                     {link.name}
                   </Link>
@@ -115,11 +115,11 @@ const Header: React.FC<HeaderProps> = ({ variant = 'landing' }) => {
                   <Search className="h-5 w-5" />
                 </button>
                 {isSearchOpen && (
-                  <div className="absolute right-0 mt-2 w-80 glass-dark rounded-xl shadow-xl border border-white/10 p-4">
+                  <div className="absolute right-0 mt-2 w-80 omnify-container rounded-xl shadow-xl border border-white/10 p-4">
                     <input
                       type="text"
                       placeholder="Search campaigns, analytics..."
-                      className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="omnify-input"
                       autoFocus
                     />
                   </div>
@@ -133,7 +133,7 @@ const Header: React.FC<HeaderProps> = ({ variant = 'landing' }) => {
                 {/* Notifications */}
                 <button className="relative p-2 text-slate-400 hover:text-white transition-colors duration-200 rounded-lg hover:bg-white/10">
                   <Bell className="h-5 w-5" />
-                  <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
+                  <span className="absolute top-1 right-1 w-2 h-2 bg-omnify-accent rounded-full animate-pulse"></span>
                 </button>
 
                 {/* User Menu */}
@@ -142,25 +142,25 @@ const Header: React.FC<HeaderProps> = ({ variant = 'landing' }) => {
                     onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
                     className="flex items-center space-x-3 p-2 rounded-xl hover:bg-white/10 transition-all duration-200"
                   >
-                    <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-teal-500 rounded-full flex items-center justify-center">
+                    <div className="w-8 h-8 bg-omnify-gradient rounded-full flex items-center justify-center">
                       <span className="text-white text-sm font-semibold">
                         {user.name.charAt(0).toUpperCase()}
                       </span>
                     </div>
                     <div className="hidden lg:block text-left">
-                      <p className="text-sm font-medium text-white">{user.name}</p>
+                      <p className="omnify-body-sm font-medium text-white">{user.name}</p>
                       <p className="text-xs text-slate-400">{user.email}</p>
                     </div>
                   </button>
 
                   {/* User Dropdown */}
                   {isUserMenuOpen && (
-                    <div className="absolute right-0 mt-2 w-48 glass-dark rounded-xl shadow-xl border border-white/10 py-1 animate-slide-in-up">
+                    <div className="absolute right-0 mt-2 w-48 omnify-container rounded-xl shadow-xl border border-white/10 py-1 animate-slide-in-up">
                       {userMenuItems.map((item) => (
                         <Link
                           key={item.name}
                           to={item.href}
-                          className="flex items-center px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-white/10 transition-all duration-200"
+                          className="flex items-center px-4 py-2 omnify-body-sm text-slate-300 hover:text-white hover:bg-white/10 transition-all duration-200"
                           onClick={() => setIsUserMenuOpen(false)}
                         >
                           <item.icon className="w-4 h-4 mr-3" />
@@ -170,7 +170,7 @@ const Header: React.FC<HeaderProps> = ({ variant = 'landing' }) => {
                       <hr className="my-1 border-white/10" />
                       <button
                         onClick={handleLogout}
-                        className="flex items-center w-full px-4 py-2 text-sm text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-all duration-200"
+                        className="flex items-center w-full px-4 py-2 omnify-body-sm text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-all duration-200"
                       >
                         <LogOut className="w-4 h-4 mr-3" />
                         Sign Out
@@ -192,9 +192,8 @@ const Header: React.FC<HeaderProps> = ({ variant = 'landing' }) => {
                 </Link>
                 <Link to="/signup">
                   <Button 
-                    variant="primary" 
+                    variant={variant === 'landing' ? 'primary' : 'omnify-primary'}
                     size="sm"
-                    className="btn-futuristic"
                   >
                     Get Started
                   </Button>
@@ -233,7 +232,7 @@ const Header: React.FC<HeaderProps> = ({ variant = 'landing' }) => {
                   <a
                     key={link.name}
                     href={link.href}
-                    className={`block px-3 py-2 text-base font-medium rounded-md transition-all duration-200 ${
+                    className={`block px-3 py-2 omnify-body font-medium rounded-md transition-all duration-200 ${
                       variant === 'landing'
                         ? 'text-neutral-700 hover:text-blue-600 hover:bg-neutral-50'
                         : 'text-slate-300 hover:text-white hover:bg-white/10'
@@ -246,7 +245,7 @@ const Header: React.FC<HeaderProps> = ({ variant = 'landing' }) => {
                   <Link
                     key={link.name}
                     to={link.href}
-                    className={`block px-3 py-2 text-base font-medium rounded-md transition-all duration-200 ${
+                    className={`block px-3 py-2 omnify-body font-medium rounded-md transition-all duration-200 ${
                       variant === 'landing'
                         ? 'text-neutral-700 hover:text-blue-600 hover:bg-neutral-50'
                         : 'text-slate-300 hover:text-white hover:bg-white/10'
@@ -267,7 +266,7 @@ const Header: React.FC<HeaderProps> = ({ variant = 'landing' }) => {
                   </Button>
                 </Link>
                 <Link to="/signup" onClick={() => setIsMobileMenuOpen(false)}>
-                  <Button variant="primary" size="sm" fullWidth className="btn-futuristic">
+                  <Button variant="omnify-primary" size="sm" fullWidth>
                     Get Started
                   </Button>
                 </Link>
@@ -277,19 +276,19 @@ const Header: React.FC<HeaderProps> = ({ variant = 'landing' }) => {
             {variant === 'dashboard' && isAuthenticated && user && (
               <div className="mt-4 pt-4 border-t border-white/10">
                 <div className="flex items-center px-3 py-2 mb-2">
-                  <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-teal-500 rounded-full flex items-center justify-center mr-3">
+                  <div className="w-8 h-8 bg-omnify-gradient rounded-full flex items-center justify-center mr-3">
                     <span className="text-white text-sm font-semibold">
                       {user.name.charAt(0).toUpperCase()}
                     </span>
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-white">{user.name}</p>
+                    <p className="omnify-body-sm font-medium text-white">{user.name}</p>
                     <p className="text-xs text-slate-400">{user.email}</p>
                   </div>
                 </div>
                 <button
                   onClick={handleLogout}
-                  className="w-full text-left px-3 py-2 text-base font-medium text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-md transition-all duration-200"
+                  className="w-full text-left px-3 py-2 omnify-body font-medium text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-md transition-all duration-200"
                 >
                   Sign Out
                 </button>

@@ -2,7 +2,7 @@ import React from 'react';
 import { Loader2 } from 'lucide-react';
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger' | 'futuristic';
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger' | 'futuristic' | 'omnify-primary' | 'omnify-secondary' | 'omnify-accent';
   size?: 'sm' | 'md' | 'lg' | 'xl';
   loading?: boolean;
   leftIcon?: React.ReactNode;
@@ -34,6 +34,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       ghost: 'text-slate-600 hover:text-slate-900 hover:bg-slate-100 focus:ring-slate-500 dark:text-slate-400 dark:hover:text-white dark:hover:bg-white/10',
       danger: 'bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white focus:ring-red-500 shadow-lg hover:shadow-xl hover:shadow-red-500/25 transform hover:-translate-y-0.5',
       futuristic: 'bg-gradient-to-r from-blue-600 via-purple-600 to-teal-500 hover:from-blue-700 hover:via-purple-700 hover:to-teal-600 text-white focus:ring-blue-500 shadow-lg hover:shadow-xl hover:shadow-blue-500/30 transform hover:-translate-y-1 border border-white/20',
+      'omnify-primary': 'omnify-btn omnify-btn-primary',
+      'omnify-secondary': 'omnify-btn omnify-btn-secondary',
+      'omnify-accent': 'omnify-btn omnify-btn-accent',
     };
 
     const sizeClasses = {

@@ -1,7 +1,7 @@
 import React from 'react';
 
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
-  variant?: 'default' | 'elevated' | 'outlined' | 'filled' | 'glass' | 'futuristic';
+  variant?: 'default' | 'elevated' | 'outlined' | 'filled' | 'glass' | 'futuristic' | 'omnify';
   padding?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
   hover?: boolean;
   glow?: boolean;
@@ -26,6 +26,7 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
       filled: 'bg-neutral-50 border border-neutral-200 dark:bg-slate-700 dark:border-slate-600',
       glass: 'glass border border-white/20 shadow-xl',
       futuristic: 'glass-dark border border-white/10 shadow-2xl backdrop-blur-xl',
+      omnify: 'omnify-card',
     };
 
     const paddingClasses = {
@@ -59,7 +60,7 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
         )}
         
         {/* Content */}
-        <div className="relative z-10">
+        <div className={variant === 'omnify' ? 'omnify-card-content' : 'relative z-10'}>
           {children}
         </div>
       </div>

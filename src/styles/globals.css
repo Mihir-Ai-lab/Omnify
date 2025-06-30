@@ -1,6 +1,440 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* CSS Variables for Omnify Brand */
+:root {
+  /* Primary Colors */
+  --omnify-primary: #6C63FF;
+  --omnify-primary-dark: #5A52E8;
+  --omnify-primary-light: #8B84FF;
+  --omnify-secondary: #2D3748;
+  --omnify-secondary-dark: #1A202C;
+  --omnify-secondary-light: #4A5568;
+  --omnify-accent: #00F5FF;
+  --omnify-accent-dark: #00D4E6;
+  --omnify-accent-light: #33F7FF;
+  
+  /* Gradient Colors */
+  --omnify-gradient-primary: linear-gradient(135deg, #6C63FF 0%, #00F5FF 100%);
+  --omnify-gradient-secondary: linear-gradient(135deg, #2D3748 0%, #4A5568 100%);
+  --omnify-gradient-accent: linear-gradient(135deg, #00F5FF 0%, #6C63FF 100%);
+  --omnify-gradient-bg: linear-gradient(135deg, rgba(108, 99, 255, 0.15) 0%, rgba(0, 245, 255, 0.15) 100%);
+  
+  /* Typography */
+  --omnify-font-heading: 'Orbitron', monospace;
+  --omnify-font-body: 'Inter', sans-serif;
+  
+  /* Spacing */
+  --omnify-space-xs: 8px;
+  --omnify-space-sm: 16px;
+  --omnify-space-md: 24px;
+  --omnify-space-lg: 32px;
+  --omnify-space-xl: 48px;
+  
+  /* Border Radius */
+  --omnify-radius: 8px;
+  --omnify-radius-lg: 16px;
+  --omnify-radius-xl: 24px;
+  
+  /* Shadows */
+  --omnify-shadow-glow: 0 0 20px rgba(108, 99, 255, 0.3);
+  --omnify-shadow-accent-glow: 0 0 20px rgba(0, 245, 255, 0.3);
+  --omnify-shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.1);
+  
+  /* Transitions */
+  --omnify-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --omnify-transition-fast: all 0.15s ease-out;
+}
+
+/* Base Styles */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--omnify-font-body);
+  background: var(--omnify-secondary);
+  color: #ffffff;
+  line-height: 1.6;
+}
+
+/* Typography Classes */
+.omnify-heading {
+  font-family: var(--omnify-font-heading);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+.omnify-heading-xl {
+  font-family: var(--omnify-font-heading);
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  background: var(--omnify-gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.omnify-heading-lg {
+  font-family: var(--omnify-font-heading);
+  font-size: 2rem;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+.omnify-heading-md {
+  font-family: var(--omnify-font-heading);
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+.omnify-heading-sm {
+  font-family: var(--omnify-font-heading);
+  font-size: 1.25rem;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+}
+
+.omnify-body {
+  font-family: var(--omnify-font-body);
+  font-weight: 400;
+}
+
+.omnify-body-lg {
+  font-family: var(--omnify-font-body);
+  font-size: 1.125rem;
+  font-weight: 400;
+}
+
+.omnify-body-sm {
+  font-family: var(--omnify-font-body);
+  font-size: 0.875rem;
+  font-weight: 400;
+}
+
+/* Container Classes */
+.omnify-container {
+  background: rgba(45, 55, 72, 0.8);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--omnify-radius);
+  padding: var(--omnify-space-md);
+  transition: var(--omnify-transition);
+}
+
+.omnify-container:hover {
+  border-color: rgba(108, 99, 255, 0.3);
+  box-shadow: var(--omnify-shadow-glow);
+}
+
+.omnify-container-lg {
+  background: rgba(45, 55, 72, 0.8);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--omnify-radius-lg);
+  padding: var(--omnify-space-lg);
+  transition: var(--omnify-transition);
+}
+
+.omnify-container-lg:hover {
+  border-color: rgba(108, 99, 255, 0.3);
+  box-shadow: var(--omnify-shadow-glow);
+}
+
+/* Button Classes */
+.omnify-btn {
+  font-family: var(--omnify-font-body);
+  font-weight: 500;
+  padding: var(--omnify-space-sm) var(--omnify-space-md);
+  border-radius: var(--omnify-radius);
+  border: none;
+  cursor: pointer;
+  transition: var(--omnify-transition);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--omnify-space-xs);
+  text-decoration: none;
+}
+
+.omnify-btn-primary {
+  background: var(--omnify-gradient-primary);
+  color: white;
+  box-shadow: var(--omnify-shadow-soft);
+}
+
+.omnify-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--omnify-shadow-glow), var(--omnify-shadow-soft);
+}
+
+.omnify-btn-secondary {
+  background: var(--omnify-gradient-secondary);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.omnify-btn-secondary:hover {
+  border-color: var(--omnify-primary);
+  box-shadow: var(--omnify-shadow-glow);
+}
+
+.omnify-btn-accent {
+  background: var(--omnify-accent);
+  color: var(--omnify-secondary);
+  font-weight: 600;
+}
+
+.omnify-btn-accent:hover {
+  background: var(--omnify-accent-light);
+  box-shadow: var(--omnify-shadow-accent-glow);
+  transform: translateY(-2px);
+}
+
+.omnify-btn-ghost {
+  background: transparent;
+  color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.omnify-btn-ghost:hover {
+  background: rgba(108, 99, 255, 0.1);
+  color: white;
+  border-color: var(--omnify-primary);
+}
+
+/* Input Classes */
+.omnify-input {
+  font-family: var(--omnify-font-body);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--omnify-radius);
+  padding: var(--omnify-space-sm);
+  color: white;
+  transition: var(--omnify-transition);
+  width: 100%;
+}
+
+.omnify-input:focus {
+  outline: none;
+  border-color: var(--omnify-primary);
+  box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.2);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.omnify-input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Card Classes */
+.omnify-card {
+  background: rgba(45, 55, 72, 0.8);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--omnify-radius-lg);
+  padding: var(--omnify-space-md);
+  transition: var(--omnify-transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.omnify-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--omnify-gradient-bg);
+  opacity: 0;
+  transition: var(--omnify-transition);
+  pointer-events: none;
+}
+
+.omnify-card:hover::before {
+  opacity: 1;
+}
+
+.omnify-card:hover {
+  border-color: rgba(108, 99, 255, 0.3);
+  box-shadow: var(--omnify-shadow-glow);
+  transform: translateY(-4px);
+}
+
+.omnify-card-content {
+  position: relative;
+  z-index: 1;
+}
+
+/* Glow Effects */
+.omnify-glow {
+  box-shadow: var(--omnify-shadow-glow);
+}
+
+.omnify-glow-accent {
+  box-shadow: var(--omnify-shadow-accent-glow);
+}
+
+/* Animations */
+@keyframes omnify-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes omnify-float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes omnify-glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(108, 99, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(108, 99, 255, 0.6);
+  }
+}
+
+.omnify-animate-pulse {
+  animation: omnify-pulse 2s ease-in-out infinite;
+}
+
+.omnify-animate-float {
+  animation: omnify-float 3s ease-in-out infinite;
+}
+
+.omnify-animate-glow {
+  animation: omnify-glow-pulse 2s ease-in-out infinite;
+}
+
+/* Utility Classes */
+.omnify-gradient-text {
+  background: var(--omnify-gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.omnify-gradient-bg {
+  background: var(--omnify-gradient-bg);
+}
+
+.omnify-backdrop-blur {
+  backdrop-filter: blur(20px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .omnify-heading-xl {
+    font-size: 2rem;
+  }
+  
+  .omnify-heading-lg {
+    font-size: 1.75rem;
+  }
+  
+  .omnify-container,
+  .omnify-container-lg {
+    padding: var(--omnify-space-sm);
+  }
+}
+
+/* Dark Mode Enhancements */
+@media (prefers-color-scheme: dark) {
+  .omnify-container,
+  .omnify-container-lg,
+  .omnify-card {
+    background: rgba(26, 32, 44, 0.9);
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .omnify-container,
+  .omnify-container-lg,
+  .omnify-card {
+    border-width: 2px;
+  }
+  
+  .omnify-btn {
+    border-width: 2px;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--omnify-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--omnify-gradient-primary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--omnify-primary);
+}
+
+/* Focus Styles */
+.omnify-focus:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.3);
+}
+
+/* Loading States */
+.omnify-loading {
+  position: relative;
+  overflow: hidden;
+}
+
+.omnify-loading::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(108, 99, 255, 0.3), transparent);
+  animation: omnify-shimmer 2s infinite;
+}
+
+@keyframes omnify-shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
 
 /* Enhanced animations and effects */
 @keyframes float {
@@ -139,24 +573,6 @@
 /* Smooth scrolling */
 html {
   scroll-behavior: smooth;
-}
-
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #0f172a;
-}
-
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(to bottom, #3b82f6, #14b8a6);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(to bottom, #2563eb, #0d9488);
 }
 
 /* Page transition effects */
