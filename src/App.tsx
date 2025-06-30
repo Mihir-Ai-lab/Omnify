@@ -1,34 +1,62 @@
 import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider } from './contexts/AuthContext';
+import ProtectedRoute from './components/auth/ProtectedRoute';
+
+// Pages
 import LandingPage from './pages/LandingPage';
+import LoginPage from './pages/auth/LoginPage';
+import SignupPage from './pages/auth/SignupPage';
+import ForgotPasswordPage from './pages/auth/ForgotPasswordPage';
 import Dashboard from './pages/Dashboard';
 import CampaignList from './pages/CampaignList';
 import CampaignForm from './pages/CampaignForm';
 import Settings from './pages/Settings';
+import NotFoundPage from './pages/NotFoundPage';
 
 function App() {
-  // Simple routing based on pathname for now
-  // In a production app, you'd use React Router or Next.js routing
-  const currentPath = window.location.pathname;
-
-  const renderPage = () => {
-    switch (currentPath) {
-      case '/dashboard':
-        return <Dashboard />;
-      case '/campaigns':
-        return <CampaignList />;
-      case '/campaigns/new':
-        return <CampaignForm />;
-      case '/settings':
-        return <Settings />;
-      default:
-        return <LandingPage />;
-    }
-  };
-
   return (
-    <div className="App">
-      {renderPage()}
-    </div>
+    <AuthProvider>
+      <Router>
+        <div className="App">
+          <Routes>
+            {/* Public Routes */}
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignupPage />} />
+            <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+            
+            {/* Protected Routes */}
+            <Route path="/dashboard" element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            } />
+            <Route path="/campaigns" element={
+              <ProtectedRoute>
+                <CampaignList />
+              </ProtectedRoute>
+            } />
+            <Route path="/campaigns/new" element={
+              <ProtectedRoute>
+                <CampaignForm />
+              </ProtectedRoute>
+            } />
+            <Route path="/settings" element={
+              <ProtectedRoute>
+                <Settings />
+              </ProtectedRoute>
+            } />
+            
+            {/* Redirect old routes */}
+            <Route path="/profile" element={<Navigate to="/settings" replace />} />
+            
+            {/* 404 Page */}
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </div>
+      </Router>
+    </AuthProvider>
   );
 }
 

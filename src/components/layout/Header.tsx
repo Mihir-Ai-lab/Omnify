@@ -1,19 +1,18 @@
 import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { Zap, Menu, X, Bell, User, Settings, LogOut } from 'lucide-react';
+import { useAuth } from '../../contexts/AuthContext';
 import Button from '../common/Button';
 
 export interface HeaderProps {
   variant?: 'landing' | 'dashboard';
-  user?: {
-    name: string;
-    email: string;
-    avatar?: string;
-  };
 }
 
-const Header: React.FC<HeaderProps> = ({ variant = 'landing', user }) => {
+const Header: React.FC<HeaderProps> = ({ variant = 'landing' }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const { user, logout, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
 
   const navigationLinks = [
     { name: 'Features', href: '#features' },
@@ -32,7 +31,6 @@ const Header: React.FC<HeaderProps> = ({ variant = 'landing', user }) => {
   const userMenuItems = [
     { name: 'Profile', href: '/profile', icon: User },
     { name: 'Settings', href: '/settings', icon: Settings },
-    { name: 'Sign out', href: '/logout', icon: LogOut },
   ];
 
   const links = variant === 'dashboard' ? dashboardLinks : navigationLinks;
@@ -40,12 +38,18 @@ const Header: React.FC<HeaderProps> = ({ variant = 'landing', user }) => {
   const textColor = variant === 'landing' ? 'text-white' : 'text-neutral-900';
   const linkColor = variant === 'landing' ? 'text-neutral-300 hover:text-white' : 'text-neutral-700 hover:text-primary-600';
 
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+    setIsUserMenuOpen(false);
+  };
+
   return (
     <header className={`sticky top-0 z-50 border-b shadow-sm ${headerBg}`}>
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <div className="flex items-center">
+          <Link to="/" className="flex items-center">
             <div className="flex items-center space-x-3">
               <div className="relative">
                 <Zap className={`h-8 w-8 ${variant === 'landing' ? 'text-accent-500' : 'text-primary-600'}`} />
@@ -60,24 +64,34 @@ const Header: React.FC<HeaderProps> = ({ variant = 'landing', user }) => {
                 </span>
               </div>
             </div>
-          </div>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             <div className="flex space-x-6">
               {links.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  className={`px-3 py-2 text-sm font-medium transition-colors duration-200 ${linkColor}`}
-                >
-                  {link.name}
-                </a>
+                link.href.startsWith('#') ? (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    className={`px-3 py-2 text-sm font-medium transition-colors duration-200 ${linkColor}`}
+                  >
+                    {link.name}
+                  </a>
+                ) : (
+                  <Link
+                    key={link.name}
+                    to={link.href}
+                    className={`px-3 py-2 text-sm font-medium transition-colors duration-200 ${linkColor}`}
+                  >
+                    {link.name}
+                  </Link>
+                )
               ))}
             </div>
 
             {/* User Section */}
-            {variant === 'dashboard' && user ? (
+            {variant === 'dashboard' && isAuthenticated && user ? (
               <div className="flex items-center space-x-4">
                 {/* Notifications */}
                 <button className="relative p-2 text-neutral-400 hover:text-neutral-600 transition-colors duration-200">
@@ -106,35 +120,48 @@ const Header: React.FC<HeaderProps> = ({ variant = 'landing', user }) => {
                   {isUserMenuOpen && (
                     <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-neutral-200 py-1">
                       {userMenuItems.map((item) => (
-                        <a
+                        <Link
                           key={item.name}
-                          href={item.href}
+                          to={item.href}
                           className="flex items-center px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 transition-colors duration-200"
+                          onClick={() => setIsUserMenuOpen(false)}
                         >
                           <item.icon className="w-4 h-4 mr-3" />
                           {item.name}
-                        </a>
+                        </Link>
                       ))}
+                      <hr className="my-1 border-neutral-200" />
+                      <button
+                        onClick={handleLogout}
+                        className="flex items-center w-full px-4 py-2 text-sm text-error-600 hover:bg-error-50 transition-colors duration-200"
+                      >
+                        <LogOut className="w-4 h-4 mr-3" />
+                        Sign Out
+                      </button>
                     </div>
                   )}
                 </div>
               </div>
             ) : (
               <div className="flex items-center space-x-4">
-                <Button 
-                  variant="ghost" 
-                  size="sm"
-                  className={variant === 'landing' ? 'text-neutral-300 hover:text-white hover:bg-neutral-800' : ''}
-                >
-                  Sign In
-                </Button>
-                <Button 
-                  variant="primary" 
-                  size="sm"
-                  className={variant === 'landing' ? 'bg-accent-500 hover:bg-accent-600' : ''}
-                >
-                  Get Started
-                </Button>
+                <Link to="/login">
+                  <Button 
+                    variant="ghost" 
+                    size="sm"
+                    className={variant === 'landing' ? 'text-neutral-300 hover:text-white hover:bg-neutral-800' : ''}
+                  >
+                    Sign In
+                  </Button>
+                </Link>
+                <Link to="/signup">
+                  <Button 
+                    variant="primary" 
+                    size="sm"
+                    className={variant === 'landing' ? 'bg-accent-500 hover:bg-accent-600' : ''}
+                  >
+                    Get Started
+                  </Button>
+                </Link>
               </div>
             )}
           </div>
@@ -163,29 +190,70 @@ const Header: React.FC<HeaderProps> = ({ variant = 'landing', user }) => {
           <div className={`md:hidden border-t py-4 ${variant === 'landing' ? 'border-neutral-800' : 'border-neutral-200'}`}>
             <div className="space-y-1">
               {links.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  className={`block px-3 py-2 text-base font-medium rounded-md transition-colors duration-200 ${
-                    variant === 'landing'
-                      ? 'text-neutral-300 hover:text-white hover:bg-neutral-800'
-                      : 'text-neutral-700 hover:text-primary-600 hover:bg-neutral-50'
-                  }`}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {link.name}
-                </a>
+                link.href.startsWith('#') ? (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    className={`block px-3 py-2 text-base font-medium rounded-md transition-colors duration-200 ${
+                      variant === 'landing'
+                        ? 'text-neutral-300 hover:text-white hover:bg-neutral-800'
+                        : 'text-neutral-700 hover:text-primary-600 hover:bg-neutral-50'
+                    }`}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {link.name}
+                  </a>
+                ) : (
+                  <Link
+                    key={link.name}
+                    to={link.href}
+                    className={`block px-3 py-2 text-base font-medium rounded-md transition-colors duration-200 ${
+                      variant === 'landing'
+                        ? 'text-neutral-300 hover:text-white hover:bg-neutral-800'
+                        : 'text-neutral-700 hover:text-primary-600 hover:bg-neutral-50'
+                    }`}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {link.name}
+                  </Link>
+                )
               ))}
             </div>
 
-            {variant === 'landing' && (
+            {variant === 'landing' && !isAuthenticated && (
               <div className="mt-4 space-y-2">
-                <Button variant="ghost" size="sm" fullWidth className="text-neutral-300 hover:text-white hover:bg-neutral-800">
-                  Sign In
-                </Button>
-                <Button variant="primary" size="sm" fullWidth className="bg-accent-500 hover:bg-accent-600">
-                  Get Started
-                </Button>
+                <Link to="/login" onClick={() => setIsMobileMenuOpen(false)}>
+                  <Button variant="ghost" size="sm" fullWidth className="text-neutral-300 hover:text-white hover:bg-neutral-800">
+                    Sign In
+                  </Button>
+                </Link>
+                <Link to="/signup" onClick={() => setIsMobileMenuOpen(false)}>
+                  <Button variant="primary" size="sm" fullWidth className="bg-accent-500 hover:bg-accent-600">
+                    Get Started
+                  </Button>
+                </Link>
+              </div>
+            )}
+
+            {variant === 'dashboard' && isAuthenticated && user && (
+              <div className="mt-4 pt-4 border-t border-neutral-200">
+                <div className="flex items-center px-3 py-2 mb-2">
+                  <div className="w-8 h-8 bg-primary-600 rounded-full flex items-center justify-center mr-3">
+                    <span className="text-white text-sm font-semibold">
+                      {user.name.charAt(0).toUpperCase()}
+                    </span>
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-neutral-900">{user.name}</p>
+                    <p className="text-xs text-neutral-500">{user.email}</p>
+                  </div>
+                </div>
+                <button
+                  onClick={handleLogout}
+                  className="w-full text-left px-3 py-2 text-base font-medium text-error-600 hover:bg-error-50 rounded-md transition-colors duration-200"
+                >
+                  Sign Out
+                </button>
               </div>
             )}
           </div>

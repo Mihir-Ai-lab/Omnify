@@ -1,533 +1,387 @@
-import React, { useState, useEffect } from 'react';
-import { Zap, Play, ArrowRight, Menu, X, TrendingDown, Brain, PenTool, BarChart3, Upload, Layers, Rocket, RefreshCw, PieChart, ChevronDown, Star, Users, Award, Shield } from 'lucide-react';
-import TestimonialCarousel from '../components/landing/TestimonialCarousel';
-import FAQSection from '../components/landing/FAQSection';
-import CTASection from '../components/landing/CTASection';
-import Footer from '../components/landing/Footer';
+import React from 'react';
+import { ArrowRight, Play, Zap, TrendingUp, Brain, Target, Shield, Users, Award } from 'lucide-react';
+import Header from '../components/layout/Header';
+import Footer from '../components/layout/Footer';
+import Button from '../components/common/Button';
+import Card from '../components/common/Card';
+import Badge from '../components/common/Badge';
+import { Link } from 'react-router-dom';
 
-function LandingPage() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+const LandingPage: React.FC = () => {
+  const features = [
+    {
+      icon: Brain,
+      title: 'AI-Powered Optimization',
+      description: 'ROI Engine X™ automatically optimizes your campaigns using advanced machine learning algorithms.',
+    },
+    {
+      icon: Target,
+      title: 'Precision Targeting',
+      description: 'Reach the right audience at the right time with our intelligent targeting system.',
+    },
+    {
+      icon: TrendingUp,
+      title: 'Real-time Analytics',
+      description: 'Monitor CAC, ROAS, LTV, and CTR with comprehensive real-time dashboards.',
+    },
+    {
+      icon: Shield,
+      title: 'Enterprise Security',
+      description: 'SOC 2 compliant with enterprise-grade security and data protection.',
+    },
+  ];
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  const benefits = [
+    {
+      metric: '47%',
+      description: 'Average CAC Reduction',
+    },
+    {
+      metric: '3.2x',
+      description: 'ROAS Improvement',
+    },
+    {
+      metric: '24hrs',
+      description: 'Time to First Results',
+    },
+    {
+      metric: '99.9%',
+      description: 'Platform Uptime',
+    },
+  ];
+
+  const testimonials = [
+    {
+      quote: "Omnify reduced our CAC by 52% in just 3 weeks. The ROI Engine X™ is a game-changer.",
+      author: "Sarah Chen",
+      role: "VP of Growth",
+      company: "TechFlow",
+    },
+    {
+      quote: "Finally, a platform that understands DTC marketing. Our ROAS improved 4x in the first month.",
+      author: "Marcus Rodriguez",
+      role: "Head of Marketing",
+      company: "ScaleUp Inc",
+    },
+    {
+      quote: "The autonomous optimization saved us 20+ hours per week. Our team can focus on strategy.",
+      author: "Emily Watson",
+      role: "CMO",
+      company: "GrowthLabs",
+    },
+  ];
 
   return (
-    <div className="min-h-screen bg-slate-950">
-      {/* Header */}
-      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled 
-          ? 'bg-white shadow-md border-b border-gray-100' 
-          : 'bg-white shadow-sm border-b border-gray-50'
-      }`}>
-        <nav className="container mx-auto flex justify-between items-center py-4 px-6 min-h-[72px]">
-          {/* Logo and Tagline */}
-          <div className="flex flex-col">
-            <div className="flex items-center space-x-2 mb-1">
-              <div className="relative">
-                <Zap className="h-8 w-8 text-blue-600" />
-              </div>
-              <span className="text-xl font-bold text-slate-900">Omnify</span>
-              <span className="text-sm text-slate-600 font-medium hidden sm:inline">Marketing Cloud</span>
-            </div>
-          </div>
-
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-8">
-            <div className="flex space-x-8">
-              <a href="#features" className="text-slate-700 hover:text-blue-600 transition-colors duration-200 font-medium py-2 min-h-[44px] flex items-center">
-                Features
-              </a>
-              <a href="#how-it-works" className="text-slate-700 hover:text-blue-600 transition-colors duration-200 font-medium py-2 min-h-[44px] flex items-center">
-                How It Works
-              </a>
-              <a href="#testimonials" className="text-slate-700 hover:text-blue-600 transition-colors duration-200 font-medium py-2 min-h-[44px] flex items-center">
-                Testimonials
-              </a>
-              <a href="#faqs" className="text-slate-700 hover:text-blue-600 transition-colors duration-200 font-medium py-2 min-h-[44px] flex items-center">
-                FAQ
-              </a>
-            </div>
-            <button className="bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white font-bold px-6 py-3 rounded-lg transition-all duration-200 transform hover:scale-105 hover:shadow-lg hover:shadow-blue-500/25 min-h-[44px]">
-              Book Demo
-            </button>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <button 
-            className="lg:hidden text-slate-900 p-2 min-h-[44px] min-w-[44px] flex items-center justify-center"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label="Toggle mobile menu"
-          >
-            <div className="relative w-6 h-6">
-              <span className={`absolute block h-0.5 w-6 bg-current transform transition duration-300 ease-in-out ${isMobileMenuOpen ? 'rotate-45 translate-y-2' : 'translate-y-0'}`}></span>
-              <span className={`absolute block h-0.5 w-6 bg-current transform transition duration-300 ease-in-out translate-y-2 ${isMobileMenuOpen ? 'opacity-0' : 'opacity-100'}`}></span>
-              <span className={`absolute block h-0.5 w-6 bg-current transform transition duration-300 ease-in-out translate-y-4 ${isMobileMenuOpen ? '-rotate-45 -translate-y-2' : 'translate-y-0'}`}></span>
-            </div>
-          </button>
-        </nav>
-
-        {/* Mobile Menu */}
-        {isMobileMenuOpen && (
-          <div className="lg:hidden bg-white border-t border-gray-200 shadow-lg">
-            <div className="container mx-auto px-6 py-4 space-y-4">
-              <a href="#features" className="block text-slate-700 hover:text-blue-600 transition-colors duration-200 font-medium py-3 min-h-[44px] flex items-center" onClick={() => setIsMobileMenuOpen(false)}>
-                Features
-              </a>
-              <a href="#how-it-works" className="block text-slate-700 hover:text-blue-600 transition-colors duration-200 font-medium py-3 min-h-[44px] flex items-center" onClick={() => setIsMobileMenuOpen(false)}>
-                How It Works
-              </a>
-              <a href="#testimonials" className="block text-slate-700 hover:text-blue-600 transition-colors duration-200 font-medium py-3 min-h-[44px] flex items-center" onClick={() => setIsMobileMenuOpen(false)}>
-                Testimonials
-              </a>
-              <a href="#faqs" className="block text-slate-700 hover:text-blue-600 transition-colors duration-200 font-medium py-3 min-h-[44px] flex items-center" onClick={() => setIsMobileMenuOpen(false)}>
-                FAQ
-              </a>
-              <button className="w-full bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white font-bold px-6 py-3 rounded-lg transition-all duration-200 mt-4 min-h-[44px]">
-                Book Demo
-              </button>
-            </div>
-          </div>
-        )}
-      </header>
-
+    <div className="min-h-screen bg-white">
+      <Header variant="landing" />
+      
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center overflow-hidden">
-        {/* Background Gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950"></div>
-        
-        {/* Animated Background Elements */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-primary-50 via-white to-accent-50 py-20 lg:py-32">
         <div className="absolute inset-0">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-teal-600/10 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-radial from-blue-600/5 to-transparent rounded-full"></div>
+          <div className="absolute top-20 left-20 w-96 h-96 bg-primary-100 rounded-full blur-3xl opacity-30"></div>
+          <div className="absolute bottom-20 right-20 w-96 h-96 bg-accent-100 rounded-full blur-3xl opacity-30"></div>
         </div>
-
-        <div className="container mx-auto px-6 py-24 relative z-10">
+        
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            {/* Hero Content */}
-            <div className="space-y-8 text-center lg:text-left">
-              {/* Badge */}
-              <div className="inline-flex items-center space-x-2 bg-teal-600/10 border border-teal-600/20 rounded-full px-4 py-2 text-teal-400 text-sm font-medium">
-                <Zap className="h-4 w-4" />
-                <span>⚡ AI-Powered Marketing Revolution</span>
-              </div>
-
-              {/* Main Headline */}
-              <h1 className="text-4xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight" style={{ fontFamily: 'Inter, system-ui, -apple-system, sans-serif' }}>
-                Stop Bleeding
-                <span className="bg-gradient-to-r from-teal-400 to-blue-400 bg-clip-text text-transparent"> Ad Spend</span>
+            <div className="space-y-8">
+              <Badge variant="primary" size="md">
+                <Zap className="w-4 h-4 mr-2" />
+                ROI Engine X™ Now Available
+              </Badge>
+              
+              <h1 className="text-4xl lg:text-6xl font-bold text-neutral-900 leading-tight">
+                Predict. Create. Deploy.{' '}
+                <span className="bg-gradient-to-r from-primary-600 to-accent-500 bg-clip-text text-transparent">
+                  Optimize.
+                </span>
                 <br />
-                Start Winning with
-                <span className="bg-gradient-to-r from-blue-400 to-teal-400 bg-clip-text text-transparent"> AI</span>
+                Without switching tabs.
               </h1>
-
-              {/* Subheadline */}
-              <p className="text-xl lg:text-2xl text-slate-300 leading-relaxed max-w-2xl">
-                Omnify's autonomous AI Brain transforms your top ads into 25+ optimized creatives, 
-                <span className="text-teal-400 font-semibold"> cuts CAC upto 20%</span>, and deploys them in minutes—not weeks.
+              
+              <p className="text-xl text-neutral-600 leading-relaxed max-w-2xl">
+                The AI-native marketing orchestration platform for mid-market DTC brands. 
+                Reduce CAC by up to 47% with autonomous budget optimization and ROI-linked content.
               </p>
-
-              {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <button className="group bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-teal-500/25 flex items-center justify-center space-x-2">
-                  <span>Book Your Demo Now</span>
-                  <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform duration-200" />
-                </button>
-                
-                <button className="group flex items-center justify-center space-x-2 text-slate-300 hover:text-white px-6 py-4 rounded-xl border border-slate-700 hover:border-slate-600 transition-all duration-200 hover:bg-slate-800/50">
-                  <Play className="h-5 w-5 group-hover:scale-110 transition-transform duration-200" />
-                  <span className="font-semibold">See How It Works</span>
-                </button>
+              
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Link to="/signup">
+                  <Button 
+                    variant="primary" 
+                    size="lg"
+                    rightIcon={<ArrowRight className="w-5 h-5" />}
+                  >
+                    Start Free Trial
+                  </Button>
+                </Link>
+                <Button 
+                  variant="outline" 
+                  size="lg"
+                  leftIcon={<Play className="w-5 h-5" />}
+                >
+                  Watch Demo
+                </Button>
               </div>
-
-              {/* Guarantee Badge */}
-              <div className="inline-flex items-center space-x-2 bg-teal-600/10 border border-teal-600/20 rounded-full px-4 py-2 text-teal-400 text-sm font-medium">
-                <span>🚀 20% CAC Reduction Guarantee in 60 Days</span>
-              </div>
-
-              {/* Trust Indicators */}
-              <div className="flex flex-col sm:flex-row items-center gap-8 text-slate-400 text-sm">
+              
+              <div className="flex items-center space-x-8 text-sm text-neutral-500">
                 <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                  <div className="w-2 h-2 bg-success-500 rounded-full"></div>
                   <span>No setup required</span>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-teal-400 rounded-full animate-pulse"></div>
+                  <div className="w-2 h-2 bg-accent-500 rounded-full"></div>
                   <span>Results in 24 hours</span>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
-                  <span>Average 3x ROAS boost</span>
+              </div>
+            </div>
+            
+            <div className="relative">
+              <div className="relative bg-white rounded-3xl shadow-2xl border border-neutral-200 overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-tr from-primary-50 to-accent-50 opacity-50"></div>
+                <div className="relative p-8">
+                  <div className="space-y-6">
+                    <div className="flex items-center justify-between">
+                      <h3 className="text-lg font-semibold text-neutral-900">Campaign Performance</h3>
+                      <Badge variant="success" dot>Live</Badge>
+                    </div>
+                    
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="bg-white rounded-xl p-4 shadow-sm border border-neutral-100">
+                        <div className="text-2xl font-bold text-success-600">-32%</div>
+                        <div className="text-sm text-neutral-600">CAC Reduction</div>
+                      </div>
+                      <div className="bg-white rounded-xl p-4 shadow-sm border border-neutral-100">
+                        <div className="text-2xl font-bold text-primary-600">4.2x</div>
+                        <div className="text-sm text-neutral-600">ROAS</div>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-gradient-to-r from-primary-500 to-accent-500 rounded-xl p-4 text-white">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <div className="text-sm opacity-90">AI Optimization</div>
+                          <div className="text-lg font-semibold">Running</div>
+                        </div>
+                        <Zap className="w-8 h-8 opacity-90" />
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
 
-            {/* Hero Visual */}
-            <div className="relative">
-              {/* AI-Verified Results Badge - Fixed positioning for mobile */}
-              <div className="absolute -top-8 sm:-top-6 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-teal-500 to-blue-500 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg hover:shadow-xl transition-shadow duration-300" style={{ 
-                filter: 'drop-shadow(0 4px 8px rgba(20, 184, 166, 0.3))',
-                zIndex: 10
-              }}>
-                ✨ AI-Verified Results
+      {/* Problem Section */}
+      <section id="problem" className="py-20 bg-neutral-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl lg:text-5xl font-bold text-neutral-900 mb-6">
+              The Marketing Chaos Ends Here
+            </h2>
+            <p className="text-xl text-neutral-600 max-w-3xl mx-auto">
+              Stop juggling 12 different tools, burning budget on failed campaigns, 
+              and missing optimization opportunities while your competitors scale.
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-3 gap-8">
+            <Card padding="lg" className="text-center">
+              <div className="w-16 h-16 bg-error-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <TrendingUp className="w-8 h-8 text-error-600 rotate-180" />
               </div>
+              <h3 className="text-xl font-semibold text-neutral-900 mb-4">
+                Wasted Ad Spend
+              </h3>
+              <p className="text-neutral-600">
+                Average DTC brands waste 40% of their ad budget on underperforming campaigns 
+                due to delayed optimization and poor targeting.
+              </p>
+            </Card>
+            
+            <Card padding="lg" className="text-center">
+              <div className="w-16 h-16 bg-warning-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <Brain className="w-8 h-8 text-warning-600" />
+              </div>
+              <h3 className="text-xl font-semibold text-neutral-900 mb-4">
+                Tool Overload
+              </h3>
+              <p className="text-neutral-600">
+                Marketing teams use 12+ disconnected tools, leading to data silos, 
+                manual work, and missed insights that could drive growth.
+              </p>
+            </Card>
+            
+            <Card padding="lg" className="text-center">
+              <div className="w-16 h-16 bg-error-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <Target className="w-8 h-8 text-error-600" />
+              </div>
+              <h3 className="text-xl font-semibold text-neutral-900 mb-4">
+                Slow Optimization
+              </h3>
+              <p className="text-neutral-600">
+                By the time you identify and fix campaign issues, you've already 
+                lost thousands in ad spend and potential customers.
+              </p>
+            </Card>
+          </div>
+        </div>
+      </section>
 
-              {/* Main Dashboard Image */}
-              <div className="relative bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl shadow-2xl border border-slate-700 overflow-hidden transform hover:scale-105 transition-transform duration-500 mt-4">
-                <div className="absolute inset-0 bg-gradient-to-tr from-teal-600/10 to-blue-600/10"></div>
-                
-                <img
-                  src="/Omnify Dashboard.jpg"
-                  alt="Omnify AI Dashboard showing marketing performance metrics, ROI trends, and campaign analytics"
-                  className="w-full h-auto object-cover relative z-10"
-                  loading="lazy"
-                />
-              </div>
-
-              {/* Floating Elements */}
-              <div className="absolute -top-4 -right-4 bg-gradient-to-r from-teal-600 to-blue-600 rounded-xl p-3 shadow-lg animate-bounce">
-                <Zap className="h-6 w-6 text-white" />
-              </div>
-              
-              <div className="absolute -bottom-4 -left-4 bg-gradient-to-r from-blue-600 to-teal-600 rounded-xl p-3 shadow-lg animate-pulse">
-                <div className="text-white font-bold text-sm">AI ON</div>
-              </div>
-            </div>
+      {/* Features Section */}
+      <section id="features" className="py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <Badge variant="primary" size="lg" className="mb-4">
+              ROI Engine X™
+            </Badge>
+            <h2 className="text-3xl lg:text-5xl font-bold text-neutral-900 mb-6">
+              AI-Powered Marketing Orchestration
+            </h2>
+            <p className="text-xl text-neutral-600 max-w-3xl mx-auto">
+              Our autonomous AI engine handles the complexity so you can focus on strategy and growth.
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {features.map((feature, index) => (
+              <Card key={index} padding="lg" hover className="text-center h-full">
+                <div className="w-16 h-16 bg-gradient-to-br from-primary-500 to-accent-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                  <feature.icon className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-xl font-semibold text-neutral-900 mb-4">
+                  {feature.title}
+                </h3>
+                <p className="text-neutral-600">
+                  {feature.description}
+                </p>
+              </Card>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Benefits Section */}
-      <section id="features" className="relative py-24 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 overflow-hidden">
-        {/* Background Elements */}
-        <div className="absolute inset-0">
-          <div className="absolute top-20 left-20 w-96 h-96 bg-teal-600/5 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-20 right-20 w-96 h-96 bg-blue-600/5 rounded-full blur-3xl"></div>
-        </div>
-
-        <div className="container mx-auto px-6 relative z-10">
-          {/* Section Title */}
+      <section className="py-20 bg-gradient-to-br from-primary-600 to-accent-600 text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold text-white mb-4">
-              Why Growth Teams at $50M+ DTC Brands Choose Omnify
+            <h2 className="text-3xl lg:text-5xl font-bold mb-6">
+              Results That Speak for Themselves
             </h2>
-          </div>
-
-          {/* Benefits Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {/* Benefit Card 1 - Slash Ad Spend */}
-            <div className="group bg-gradient-to-br from-slate-800/80 to-slate-900/80 rounded-2xl p-8 shadow-2xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-slate-700 hover:border-green-500/50 backdrop-blur-sm">
-              <div className="absolute inset-0 bg-gradient-to-tr from-green-600/5 to-green-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              <div className="relative z-10">
-                <div className="mb-6">
-                  <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <TrendingDown className="h-8 w-8 text-white" />
-                  </div>
-                </div>
-                <h3 className="text-xl font-bold text-white mb-4">Slash Ad Spend</h3>
-                <p className="text-slate-300 leading-relaxed">
-                  Cut your CAC by up to 20% through autonomous, ROI-driven optimization.
-                </p>
-              </div>
-            </div>
-
-            {/* Benefit Card 2 - Predict & Prevent Churn */}
-            <div className="group bg-gradient-to-br from-slate-800/80 to-slate-900/80 rounded-2xl p-8 shadow-2xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-slate-700 hover:border-purple-500/50 backdrop-blur-sm">
-              <div className="absolute inset-0 bg-gradient-to-tr from-purple-600/5 to-purple-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              <div className="relative z-10">
-                <div className="mb-6">
-                  <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <Brain className="h-8 w-8 text-white" />
-                  </div>
-                </div>
-                <h3 className="text-xl font-bold text-white mb-4">Predict & Prevent Churn</h3>
-                <p className="text-slate-300 leading-relaxed">
-                  Spot high-risk users early and retain them with proactive AI insights.
-                </p>
-              </div>
-            </div>
-
-            {/* Benefit Card 3 - Personalized Content at Scale */}
-            <div className="group bg-gradient-to-br from-slate-800/80 to-slate-900/80 rounded-2xl p-8 shadow-2xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-slate-700 hover:border-yellow-500/50 backdrop-blur-sm">
-              <div className="absolute inset-0 bg-gradient-to-tr from-yellow-600/5 to-yellow-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              <div className="relative z-10">
-                <div className="mb-6">
-                  <div className="w-16 h-16 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <PenTool className="h-8 w-8 text-white" />
-                  </div>
-                </div>
-                <h3 className="text-xl font-bold text-white mb-4">Personalized Content at Scale</h3>
-                <p className="text-slate-300 leading-relaxed">
-                  Auto-generate creatives and email copy tailored to each platform — instantly.
-                </p>
-              </div>
-            </div>
-
-            {/* Benefit Card 4 - Unified Marketing Intelligence */}
-            <div className="group bg-gradient-to-br from-slate-800/80 to-slate-900/80 rounded-2xl p-8 shadow-2xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-slate-700 hover:border-teal-500/50 backdrop-blur-sm">
-              <div className="absolute inset-0 bg-gradient-to-tr from-teal-600/5 to-teal-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              <div className="relative z-10">
-                <div className="mb-6">
-                  <div className="w-16 h-16 bg-gradient-to-br from-teal-500 to-teal-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <BarChart3 className="h-8 w-8 text-white" />
-                  </div>
-                </div>
-                <h3 className="text-xl font-bold text-white mb-4">Unified Marketing Intelligence</h3>
-                <p className="text-slate-300 leading-relaxed">
-                  See CAC, ROAS, LTV, CTR — all in one dashboard across Meta, Google, TikTok, etc.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* How Omnify's AI Growth Engine Works Section */}
-      <section id="how-it-works" className="relative py-24 bg-gradient-to-br from-slate-950 via-blue-950/20 to-purple-950/20 overflow-hidden">
-        {/* Background Elements */}
-        <div className="absolute inset-0">
-          <div className="absolute top-20 left-20 w-96 h-96 bg-blue-600/5 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-20 right-20 w-96 h-96 bg-purple-600/5 rounded-full blur-3xl"></div>
-        </div>
-
-        <div className="container mx-auto px-6 relative z-10">
-          {/* Section Title */}
-          <div className="text-center mb-20">
-            <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">
-              How Omnify's AI Growth Engine Works
-            </h2>
-            <p className="text-xl text-slate-300 max-w-3xl mx-auto">
-              Our autonomous AI agents work together to transform your marketing performance
+            <p className="text-xl opacity-90 max-w-3xl mx-auto">
+              Join hundreds of DTC brands already transforming their marketing performance with Omnify.
             </p>
           </div>
-
-          {/* Steps Container */}
-          <div className="max-w-6xl mx-auto">
-            {/* Step 1 - Upload Your Disasters & Winners */}
-            <div className="flex flex-col lg:flex-row items-center gap-12 mb-20">
-              <div className="lg:w-1/2 space-y-6">
-                <div className="flex items-center space-x-4">
-                  <div className="relative w-12 h-12 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
-                    <div className="absolute inset-0 rounded-full animate-pulse bg-gradient-to-r from-blue-600/30 to-purple-600/30 scale-150"></div>
-                    <span className="relative z-10">1</span>
-                  </div>
-                  <h3 className="text-2xl lg:text-3xl font-bold text-white">
-                    <span className="text-teal-400">Upload Your Disasters & Winners</span>
-                  </h3>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {benefits.map((benefit, index) => (
+              <div key={index} className="text-center">
+                <div className="text-4xl lg:text-6xl font-bold mb-2">
+                  {benefit.metric}
                 </div>
-                <p className="text-lg text-slate-300 leading-relaxed">
-                  Show us your failed campaigns and top performers. Our AI finds the patterns your team missed in 47 seconds.
-                </p>
-              </div>
-              <div className="lg:w-1/2">
-                <div className="relative bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-8 border border-slate-700 shadow-2xl">
-                  <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/10 to-purple-600/10 rounded-2xl"></div>
-                  <div className="relative">
-                    <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                      <Upload className="h-10 w-10 text-white" />
-                    </div>
-                    <div className="space-y-3">
-                      {['Failed Campaign #1 - 0.8% CTR', 'Top Performer #1 - 4.2% CTR', 'Failed Campaign #2 - 1.1% CTR'].map((ad, index) => (
-                        <div key={index} className="flex items-center justify-between bg-slate-700/50 rounded-lg p-3">
-                          <span className="text-slate-300">{ad}</span>
-                          <div className={`w-2 h-2 rounded-full animate-pulse ${index === 1 ? 'bg-green-400' : 'bg-red-400'}`}></div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
+                <div className="text-lg opacity-90">
+                  {benefit.description}
                 </div>
               </div>
-            </div>
-
-            {/* Step 2 - AI Becomes Your Marketing Department */}
-            <div className="flex flex-col lg:flex-row-reverse items-center gap-12 mb-20">
-              <div className="lg:w-1/2 space-y-6">
-                <div className="flex items-center space-x-4">
-                  <div className="relative w-12 h-12 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
-                    <div className="absolute inset-0 rounded-full animate-pulse bg-gradient-to-r from-purple-600/30 to-pink-600/30 scale-150"></div>
-                    <span className="relative z-10">2</span>
-                  </div>
-                  <h3 className="text-2xl lg:text-3xl font-bold text-white">
-                    <span className="text-teal-400">AI Becomes Your Marketing Department</span>
-                  </h3>
-                </div>
-                <p className="text-lg text-slate-300 leading-relaxed">
-                  While you sleep, our AI creates, tests, and optimizes 25+ campaigns across every channel—better than any human team.
-                </p>
-              </div>
-              <div className="lg:w-1/2">
-                <div className="relative bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-8 border border-slate-700 shadow-2xl">
-                  <div className="absolute inset-0 bg-gradient-to-tr from-purple-600/10 to-pink-600/10 rounded-2xl"></div>
-                  <div className="relative">
-                    <div className="w-20 h-20 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                      <Brain className="h-10 w-10 text-white" />
-                    </div>
-                    <div className="grid grid-cols-3 gap-3">
-                      {Array.from({ length: 9 }).map((_, index) => (
-                        <div key={index} className="bg-slate-700/50 rounded-lg p-3 text-center">
-                          <div className="w-full h-12 bg-gradient-to-r from-purple-600/20 to-pink-600/20 rounded mb-2"></div>
-                          <div className="text-xs text-slate-400">Campaign {index + 1}</div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Step 3 - Board Meeting Confidence */}
-            <div className="flex flex-col lg:flex-row items-center gap-12 mb-20">
-              <div className="lg:w-1/2 space-y-6">
-                <div className="flex items-center space-x-4">
-                  <div className="relative w-12 h-12 bg-gradient-to-r from-green-600 to-emerald-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
-                    <div className="absolute inset-0 rounded-full animate-pulse bg-gradient-to-r from-green-600/30 to-emerald-600/30 scale-150"></div>
-                    <span className="relative z-10">3</span>
-                  </div>
-                  <h3 className="text-2xl lg:text-3xl font-bold text-white">
-                    <span className="text-teal-400">Board Meeting Confidence</span>
-                  </h3>
-                </div>
-                <p className="text-lg text-slate-300 leading-relaxed">
-                  Walk into your next board meeting knowing exactly which campaigns drove $2M in profit and which ones to kill immediately.
-                </p>
-              </div>
-              <div className="lg:w-1/2">
-                <div className="relative bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-8 border border-slate-700 shadow-2xl">
-                  <div className="absolute inset-0 bg-gradient-to-tr from-green-600/10 to-emerald-600/10 rounded-2xl"></div>
-                  <div className="relative">
-                    <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                      <Award className="h-10 w-10 text-white" />
-                    </div>
-                    <div className="space-y-3">
-                      {[
-                        { name: 'Holiday Campaign', profit: '+$2.1M', status: 'winner' },
-                        { name: 'Q1 Launch', profit: '-$180k', status: 'loser' },
-                        { name: 'Retargeting', profit: '+$890k', status: 'winner' }
-                      ].map((campaign, index) => (
-                        <div key={index} className="flex items-center justify-between bg-slate-700/50 rounded-lg p-3">
-                          <span className="text-slate-300">{campaign.name}</span>
-                          <div className="flex items-center space-x-2">
-                            <span className={`text-sm font-semibold ${campaign.status === 'winner' ? 'text-green-400' : 'text-red-400'}`}>
-                              {campaign.profit}
-                            </span>
-                            <div className={`w-2 h-2 rounded-full animate-pulse ${campaign.status === 'winner' ? 'bg-green-400' : 'bg-red-400'}`}></div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Step 4 - Get Results Daily */}
-            <div className="flex flex-col lg:flex-row-reverse items-center gap-12">
-              <div className="lg:w-1/2 space-y-6">
-                <div className="flex items-center space-x-4">
-                  <div className="relative w-12 h-12 bg-gradient-to-r from-indigo-600 to-blue-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
-                    <div className="absolute inset-0 rounded-full animate-pulse bg-gradient-to-r from-indigo-600/30 to-blue-600/30 scale-150"></div>
-                    <span className="relative z-10">4</span>
-                  </div>
-                  <h3 className="text-2xl lg:text-3xl font-bold text-white">
-                    <span className="text-teal-400">Get Results Daily</span>
-                  </h3>
-                </div>
-                <p className="text-lg text-slate-300 leading-relaxed">
-                  Your unified dashboard tracks ROI, LTV, CAC, churn, and channel performance—updated in real-time. Our AI analysts run 24/7, so you don't have to.
-                </p>
-              </div>
-              <div className="lg:w-1/2">
-                <div className="relative bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-8 border border-slate-700 shadow-2xl">
-                  <div className="absolute inset-0 bg-gradient-to-tr from-indigo-600/10 to-blue-600/10 rounded-2xl"></div>
-                  <div className="relative">
-                    <div className="w-20 h-20 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                      <PieChart className="h-10 w-10 text-white" />
-                    </div>
-                    <div className="grid grid-cols-2 gap-4 mb-4">
-                      <div className="bg-slate-700/50 rounded-lg p-3 text-center">
-                        <div className="text-green-400 text-xl font-bold">+247%</div>
-                        <div className="text-slate-400 text-xs">ROAS</div>
-                      </div>
-                      <div className="bg-slate-700/50 rounded-lg p-3 text-center">
-                        <div className="text-blue-400 text-xl font-bold">$47.2k</div>
-                        <div className="text-slate-400 text-xs">Daily Revenue</div>
-                      </div>
-                    </div>
-                    <div className="bg-slate-700/30 rounded-lg p-3 h-16 flex items-end justify-between space-x-1">
-                      {[60, 80, 45, 90, 70, 100, 85].map((height, index) => (
-                        <div
-                          key={index}
-                          className="bg-gradient-to-t from-indigo-600 to-blue-600 rounded-t"
-                          style={{ height: `${height}%`, width: '12%' }}
-                        ></div>
-                      ))}
-                    </div>
-                    <div className="mt-4 flex items-center justify-center">
-                      <div className="flex items-center space-x-2 text-teal-400 text-sm">
-                        <div className="w-2 h-2 bg-teal-400 rounded-full animate-pulse"></div>
-                        <span>Live Updates 24/7</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Testimonials Section */}
-      <section id="testimonials" className="relative py-24 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 overflow-hidden">
-        {/* Background Elements */}
-        <div className="absolute inset-0">
-          <div className="absolute top-20 left-20 w-96 h-96 bg-blue-600/5 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-20 right-20 w-96 h-96 bg-purple-600/5 rounded-full blur-3xl"></div>
-        </div>
-
-        <div className="max-w-6xl mx-auto px-6 relative z-10">
-          {/* Section Title */}
+      <section className="py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">
-              What High-Growth DTC Teams Say About Omnify
+            <h2 className="text-3xl lg:text-5xl font-bold text-neutral-900 mb-6">
+              Trusted by Growth Teams
             </h2>
-            <p className="text-xl text-slate-300 max-w-3xl mx-auto">
-              See how growth teams are transforming their marketing with Omnify's AI
+            <p className="text-xl text-neutral-600 max-w-3xl mx-auto">
+              See how marketing teams at fast-growing DTC brands are scaling with Omnify.
             </p>
           </div>
-
-          {/* Testimonial Carousel */}
-          <TestimonialCarousel />
-
-          {/* Trust Badges */}
-          <div className="flex flex-wrap justify-center items-center gap-12 mt-16 opacity-70">
-            <div className="text-slate-400 font-semibold text-lg">FEATURED IN</div>
-            <div className="flex flex-wrap justify-center items-center gap-8">
-              {['TechCrunch', 'Forbes', 'Wired', 'Fast Company', 'Inc'].map((brand) => (
-                <div key={brand} className="text-slate-500 font-medium text-lg hover:text-slate-400 transition-colors duration-200">
-                  {brand}
+          
+          <div className="grid md:grid-cols-3 gap-8">
+            {testimonials.map((testimonial, index) => (
+              <Card key={index} padding="lg" className="h-full">
+                <div className="flex flex-col h-full">
+                  <div className="flex-1">
+                    <div className="text-primary-600 text-4xl mb-4 font-serif">"</div>
+                    <p className="text-neutral-700 text-lg leading-relaxed mb-6">
+                      {testimonial.quote}
+                    </p>
+                  </div>
+                  <div className="flex items-center space-x-4">
+                    <div className="w-12 h-12 bg-primary-600 rounded-full flex items-center justify-center">
+                      <span className="text-white font-semibold">
+                        {testimonial.author.charAt(0)}
+                      </span>
+                    </div>
+                    <div>
+                      <div className="font-semibold text-neutral-900">
+                        {testimonial.author}
+                      </div>
+                      <div className="text-neutral-600 text-sm">
+                        {testimonial.role} at {testimonial.company}
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              ))}
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 bg-gradient-to-br from-neutral-900 to-neutral-800 text-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl lg:text-5xl font-bold mb-6">
+            Ready to Transform Your Marketing?
+          </h2>
+          <p className="text-xl opacity-90 mb-8 max-w-2xl mx-auto">
+            Join the AI marketing revolution. Start optimizing your campaigns in under 10 minutes.
+          </p>
+          
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link to="/signup">
+              <Button 
+                variant="primary" 
+                size="xl"
+                rightIcon={<ArrowRight className="w-5 h-5" />}
+              >
+                Start Free Trial
+              </Button>
+            </Link>
+            <Button 
+              variant="outline" 
+              size="xl"
+              className="border-white text-white hover:bg-white hover:text-neutral-900"
+            >
+              Schedule Demo
+            </Button>
+          </div>
+          
+          <div className="flex items-center justify-center space-x-8 mt-8 text-sm opacity-75">
+            <div className="flex items-center space-x-2">
+              <Shield className="w-4 h-4" />
+              <span>SOC 2 Compliant</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Users className="w-4 h-4" />
+              <span>500+ DTC Brands</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Award className="w-4 h-4" />
+              <span>99.9% Uptime</span>
             </div>
           </div>
         </div>
       </section>
 
-      {/* FAQ Section */}
-      <FAQSection />
-
-      {/* Call-to-Action Section */}
-      <CTASection />
-
-      {/* Footer */}
       <Footer />
     </div>
   );
-}
+};
 
 export default LandingPage;
