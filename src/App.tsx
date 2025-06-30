@@ -1,23 +1,35 @@
 import React from 'react';
 import LandingPage from './pages/LandingPage';
+import Dashboard from './pages/Dashboard';
+import CampaignList from './pages/CampaignList';
+import CampaignForm from './pages/CampaignForm';
+import Settings from './pages/Settings';
 
 function App() {
-  // For now, we'll just show the landing page
-  // In a real app, you'd use React Router or similar for routing
+  // Simple routing based on pathname for now
+  // In a production app, you'd use React Router or Next.js routing
   const currentPath = window.location.pathname;
 
-  switch (currentPath) {
-    case '/dashboard':
-      return React.lazy(() => import('./pages/Dashboard'));
-    case '/campaigns':
-      return React.lazy(() => import('./pages/CampaignList'));
-    case '/campaigns/new':
-      return React.lazy(() => import('./pages/CampaignForm'));
-    case '/settings':
-      return React.lazy(() => import('./pages/Settings'));
-    default:
-      return <LandingPage />;
-  }
+  const renderPage = () => {
+    switch (currentPath) {
+      case '/dashboard':
+        return <Dashboard />;
+      case '/campaigns':
+        return <CampaignList />;
+      case '/campaigns/new':
+        return <CampaignForm />;
+      case '/settings':
+        return <Settings />;
+      default:
+        return <LandingPage />;
+    }
+  };
+
+  return (
+    <div className="App">
+      {renderPage()}
+    </div>
+  );
 }
 
 export default App;

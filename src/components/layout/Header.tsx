@@ -36,23 +36,26 @@ const Header: React.FC<HeaderProps> = ({ variant = 'landing', user }) => {
   ];
 
   const links = variant === 'dashboard' ? dashboardLinks : navigationLinks;
+  const headerBg = variant === 'landing' ? 'bg-neutral-900/95 backdrop-blur-sm border-neutral-800' : 'bg-white border-neutral-200';
+  const textColor = variant === 'landing' ? 'text-white' : 'text-neutral-900';
+  const linkColor = variant === 'landing' ? 'text-neutral-300 hover:text-white' : 'text-neutral-700 hover:text-primary-600';
 
   return (
-    <header className="sticky top-0 z-50 bg-white border-b border-neutral-200 shadow-sm">
+    <header className={`sticky top-0 z-50 border-b shadow-sm ${headerBg}`}>
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex items-center">
             <div className="flex items-center space-x-3">
               <div className="relative">
-                <Zap className="h-8 w-8 text-primary-600" />
+                <Zap className={`h-8 w-8 ${variant === 'landing' ? 'text-accent-500' : 'text-primary-600'}`} />
                 <div className="absolute inset-0 blur-sm">
-                  <Zap className="h-8 w-8 text-primary-600 opacity-30" />
+                  <Zap className={`h-8 w-8 ${variant === 'landing' ? 'text-accent-500' : 'text-primary-600'} opacity-30`} />
                 </div>
               </div>
               <div>
-                <span className="text-xl font-bold text-neutral-900">Omnify</span>
-                <span className="text-sm text-neutral-600 font-medium ml-2">
+                <span className={`text-xl font-bold ${textColor}`}>Omnify</span>
+                <span className={`text-sm font-medium ml-2 ${variant === 'landing' ? 'text-neutral-400' : 'text-neutral-600'}`}>
                   Marketing Cloud
                 </span>
               </div>
@@ -66,7 +69,7 @@ const Header: React.FC<HeaderProps> = ({ variant = 'landing', user }) => {
                 <a
                   key={link.name}
                   href={link.href}
-                  className="text-neutral-700 hover:text-primary-600 px-3 py-2 text-sm font-medium transition-colors duration-200"
+                  className={`px-3 py-2 text-sm font-medium transition-colors duration-200 ${linkColor}`}
                 >
                   {link.name}
                 </a>
@@ -118,10 +121,18 @@ const Header: React.FC<HeaderProps> = ({ variant = 'landing', user }) => {
               </div>
             ) : (
               <div className="flex items-center space-x-4">
-                <Button variant="ghost" size="sm">
+                <Button 
+                  variant="ghost" 
+                  size="sm"
+                  className={variant === 'landing' ? 'text-neutral-300 hover:text-white hover:bg-neutral-800' : ''}
+                >
                   Sign In
                 </Button>
-                <Button variant="primary" size="sm">
+                <Button 
+                  variant="primary" 
+                  size="sm"
+                  className={variant === 'landing' ? 'bg-accent-500 hover:bg-accent-600' : ''}
+                >
                   Get Started
                 </Button>
               </div>
@@ -132,7 +143,11 @@ const Header: React.FC<HeaderProps> = ({ variant = 'landing', user }) => {
           <div className="md:hidden">
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2 rounded-md text-neutral-400 hover:text-neutral-600 hover:bg-neutral-100 transition-colors duration-200"
+              className={`p-2 rounded-md transition-colors duration-200 ${
+                variant === 'landing' 
+                  ? 'text-neutral-400 hover:text-white hover:bg-neutral-800' 
+                  : 'text-neutral-400 hover:text-neutral-600 hover:bg-neutral-100'
+              }`}
             >
               {isMobileMenuOpen ? (
                 <X className="h-6 w-6" />
@@ -145,13 +160,17 @@ const Header: React.FC<HeaderProps> = ({ variant = 'landing', user }) => {
 
         {/* Mobile Navigation */}
         {isMobileMenuOpen && (
-          <div className="md:hidden border-t border-neutral-200 py-4">
+          <div className={`md:hidden border-t py-4 ${variant === 'landing' ? 'border-neutral-800' : 'border-neutral-200'}`}>
             <div className="space-y-1">
               {links.map((link) => (
                 <a
                   key={link.name}
                   href={link.href}
-                  className="block px-3 py-2 text-base font-medium text-neutral-700 hover:text-primary-600 hover:bg-neutral-50 rounded-md transition-colors duration-200"
+                  className={`block px-3 py-2 text-base font-medium rounded-md transition-colors duration-200 ${
+                    variant === 'landing'
+                      ? 'text-neutral-300 hover:text-white hover:bg-neutral-800'
+                      : 'text-neutral-700 hover:text-primary-600 hover:bg-neutral-50'
+                  }`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {link.name}
@@ -161,10 +180,10 @@ const Header: React.FC<HeaderProps> = ({ variant = 'landing', user }) => {
 
             {variant === 'landing' && (
               <div className="mt-4 space-y-2">
-                <Button variant="ghost" size="sm" fullWidth>
+                <Button variant="ghost" size="sm" fullWidth className="text-neutral-300 hover:text-white hover:bg-neutral-800">
                   Sign In
                 </Button>
-                <Button variant="primary" size="sm" fullWidth>
+                <Button variant="primary" size="sm" fullWidth className="bg-accent-500 hover:bg-accent-600">
                   Get Started
                 </Button>
               </div>

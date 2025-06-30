@@ -14,7 +14,9 @@ import {
   CheckCircle,
   Star,
   ChevronDown,
-  ChevronUp
+  ChevronUp,
+  Eye,
+  DollarSign
 } from 'lucide-react';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
@@ -30,25 +32,29 @@ const LandingPage: React.FC = () => {
       icon: TrendingUp,
       title: 'Real AI Speed',
       description: 'Get real-time insights and optimization recommendations powered by advanced machine learning algorithms.',
-      color: 'success',
+      color: 'bg-success-500/20 border-success-500/30',
+      iconColor: 'text-success-400',
     },
     {
       icon: Brain,
       title: 'Predict & Prevent Churn',
       description: 'Identify at-risk customers before they churn and take proactive measures to retain them.',
-      color: 'primary',
+      color: 'bg-primary-500/20 border-primary-500/30',
+      iconColor: 'text-primary-400',
     },
     {
       icon: Target,
       title: 'Personalized Content at Scale',
       description: 'Create personalized marketing content for thousands of customers automatically.',
-      color: 'warning',
+      color: 'bg-warning-500/20 border-warning-500/30',
+      iconColor: 'text-warning-400',
     },
     {
       icon: Shield,
       title: 'Unified Marketing Intelligence',
       description: 'Consolidate all your marketing data into one intelligent platform for better decision making.',
-      color: 'accent',
+      color: 'bg-accent-500/20 border-accent-500/30',
+      iconColor: 'text-accent-400',
     },
   ];
 
@@ -58,24 +64,44 @@ const LandingPage: React.FC = () => {
       title: 'Upload Your Disasters & Winners',
       description: 'Share your best campaigns and past disasters. Our AI finds the patterns that drive success and failure.',
       icon: Upload,
+      mockData: [
+        { label: 'Campaign A', value: 85 },
+        { label: 'Campaign B', value: 45 },
+        { label: 'Campaign C', value: 92 },
+      ]
     },
     {
       step: 2,
       title: 'AI Becomes Your Marketing Department',
       description: 'Watch our deep AI of 3 years, tests, and optimizes 47+ campaigns types and creative formats.',
       icon: Brain,
+      mockData: [
+        { label: 'Meta Ads', value: 78 },
+        { label: 'Google Ads', value: 65 },
+        { label: 'TikTok Ads', value: 89 },
+      ]
     },
     {
       step: 3,
       title: 'Board Meeting Confidence',
       description: 'Walk into your next board meeting with campaigns that consistently deliver results.',
       icon: BarChart3,
+      mockData: [
+        { label: 'ROAS', value: 320 },
+        { label: 'CAC', value: -47 },
+        { label: 'LTV', value: 156 },
+      ]
     },
     {
       step: 4,
       title: 'Get Results Daily',
       description: 'Your unified dashboard tracks ROI, CAC, churn, and channel performance in real-time so you can optimize on the fly.',
       icon: CheckCircle,
+      mockData: [
+        { label: 'Revenue', value: 245000 },
+        { label: 'Conversions', value: 1250 },
+        { label: 'CTR', value: 3.4 },
+      ]
     },
   ];
 
@@ -151,7 +177,9 @@ const LandingPage: React.FC = () => {
               
               <h1 className="text-4xl lg:text-6xl font-bold leading-tight">
                 Stop Bleeding{' '}
-                <span className="text-accent-400">Ad Spend</span>
+                <span className="text-accent-400">Ad</span>
+                <br />
+                <span className="text-accent-400">Spend</span>
                 <br />
                 Start Winning with{' '}
                 <span className="text-accent-400">AI</span>
@@ -258,8 +286,8 @@ const LandingPage: React.FC = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature, index) => (
               <Card key={index} padding="lg" className="bg-neutral-700 border-neutral-600 text-center h-full hover:bg-neutral-600 transition-colors duration-200">
-                <div className={`w-16 h-16 bg-${feature.color}-500/20 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-${feature.color}-500/30`}>
-                  <feature.icon className={`w-8 h-8 text-${feature.color}-400`} />
+                <div className={`w-16 h-16 ${feature.color} rounded-2xl flex items-center justify-center mx-auto mb-6 border`}>
+                  <feature.icon className={`w-8 h-8 ${feature.iconColor}`} />
                 </div>
                 <h3 className="text-xl font-semibold text-white mb-4">
                   {feature.title}
@@ -308,14 +336,17 @@ const LandingPage: React.FC = () => {
                       <step.icon className="w-8 h-8 text-primary-400" />
                     </div>
                     <div className="space-y-4">
-                      <div className="h-4 bg-neutral-700 rounded-full">
-                        <div className="h-4 bg-accent-500 rounded-full" style={{ width: `${75 + index * 5}%` }}></div>
-                      </div>
-                      <div className="grid grid-cols-3 gap-2">
-                        {[1, 2, 3].map((i) => (
-                          <div key={i} className="h-8 bg-neutral-700 rounded border border-neutral-600"></div>
-                        ))}
-                      </div>
+                      {step.mockData.map((item, i) => (
+                        <div key={i} className="flex items-center justify-between p-3 bg-neutral-700 rounded-lg border border-neutral-600">
+                          <span className="text-neutral-300 text-sm">{item.label}</span>
+                          <span className="text-accent-400 font-semibold">
+                            {typeof item.value === 'number' && item.value > 100 ? 
+                              `$${(item.value / 1000).toFixed(0)}k` : 
+                              `${item.value > 0 ? '+' : ''}${item.value}${item.label === 'CTR' ? '%' : item.label === 'ROAS' ? 'x' : item.label === 'CAC' ? '%' : ''}`
+                            }
+                          </span>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 </div>
@@ -418,7 +449,7 @@ const LandingPage: React.FC = () => {
       <section className="py-20 bg-gradient-to-br from-primary-600 to-accent-500">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl lg:text-5xl font-bold text-white mb-6">
-            Ready to Stop Bleeding Ad Spend?
+            Ready to Stop Bleeding<br />Ad Spend?
           </h2>
           <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
             Join the AI marketing revolution. Start optimizing your campaigns 
