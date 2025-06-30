@@ -4,6 +4,7 @@ export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
   variant?: 'primary' | 'secondary' | 'success' | 'warning' | 'error' | 'neutral';
   size?: 'sm' | 'md' | 'lg';
   dot?: boolean;
+  glow?: boolean;
 }
 
 const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
@@ -12,18 +13,19 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
     variant = 'primary',
     size = 'md',
     dot = false,
+    glow = false,
     children,
     ...props
   }, ref) => {
-    const baseClasses = 'inline-flex items-center font-medium rounded-full';
+    const baseClasses = 'inline-flex items-center font-medium rounded-full transition-all duration-200';
     
     const variantClasses = {
-      primary: 'bg-primary-100 text-primary-800 border border-primary-200',
-      secondary: 'bg-accent-100 text-accent-800 border border-accent-200',
-      success: 'bg-success-100 text-success-800 border border-success-200',
-      warning: 'bg-warning-100 text-warning-800 border border-warning-200',
-      error: 'bg-error-100 text-error-800 border border-error-200',
-      neutral: 'bg-neutral-100 text-neutral-800 border border-neutral-200',
+      primary: 'bg-gradient-to-r from-blue-500/20 to-blue-600/20 text-blue-300 border border-blue-500/30',
+      secondary: 'bg-gradient-to-r from-teal-500/20 to-teal-600/20 text-teal-300 border border-teal-500/30',
+      success: 'bg-gradient-to-r from-green-500/20 to-green-600/20 text-green-300 border border-green-500/30',
+      warning: 'bg-gradient-to-r from-yellow-500/20 to-yellow-600/20 text-yellow-300 border border-yellow-500/30',
+      error: 'bg-gradient-to-r from-red-500/20 to-red-600/20 text-red-300 border border-red-500/30',
+      neutral: 'bg-gradient-to-r from-slate-500/20 to-slate-600/20 text-slate-300 border border-slate-500/30',
     };
 
     const sizeClasses = {
@@ -33,25 +35,35 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
     };
 
     const dotClasses = {
-      primary: 'bg-primary-500',
-      secondary: 'bg-accent-500',
-      success: 'bg-success-500',
-      warning: 'bg-warning-500',
-      error: 'bg-error-500',
-      neutral: 'bg-neutral-500',
+      primary: 'bg-blue-400',
+      secondary: 'bg-teal-400',
+      success: 'bg-green-400',
+      warning: 'bg-yellow-400',
+      error: 'bg-red-400',
+      neutral: 'bg-slate-400',
     };
+
+    const glowClasses = glow ? {
+      primary: 'shadow-lg shadow-blue-500/25',
+      secondary: 'shadow-lg shadow-teal-500/25',
+      success: 'shadow-lg shadow-green-500/25',
+      warning: 'shadow-lg shadow-yellow-500/25',
+      error: 'shadow-lg shadow-red-500/25',
+      neutral: 'shadow-lg shadow-slate-500/25',
+    }[variant] : '';
 
     const classes = [
       baseClasses,
       variantClasses[variant],
       sizeClasses[size],
+      glowClasses,
       className,
     ].filter(Boolean).join(' ');
 
     return (
       <span ref={ref} className={classes} {...props}>
         {dot && (
-          <span className={`w-2 h-2 rounded-full mr-2 ${dotClasses[variant]}`} />
+          <span className={`w-2 h-2 rounded-full mr-2 animate-pulse ${dotClasses[variant]}`} />
         )}
         {children}
       </span>

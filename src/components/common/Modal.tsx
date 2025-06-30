@@ -58,19 +58,19 @@ const Modal: React.FC<ModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto">
+    <div className="fixed inset-0 z-50 overflow-y-auto animate-fade-in">
       <div
         className="flex min-h-full items-center justify-center p-4 text-center sm:p-0"
         onClick={handleOverlayClick}
       >
-        <div className="fixed inset-0 bg-neutral-900 bg-opacity-75 transition-opacity" />
+        <div className="fixed inset-0 bg-slate-900/80 backdrop-blur-sm transition-opacity" />
         
-        <div className={`relative transform overflow-hidden rounded-2xl bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full ${sizeClasses[size]}`}>
+        <div className={`relative transform overflow-hidden rounded-2xl glass-dark text-left shadow-2xl transition-all sm:my-8 sm:w-full border border-white/10 animate-slide-in-up ${sizeClasses[size]}`}>
           {/* Header */}
           {(title || showCloseButton) && (
-            <div className="flex items-center justify-between px-6 py-4 border-b border-neutral-200">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-white/10">
               {title && (
-                <h3 className="text-lg font-semibold text-neutral-900">
+                <h3 className="text-lg font-semibold text-white">
                   {title}
                 </h3>
               )}
@@ -79,7 +79,7 @@ const Modal: React.FC<ModalProps> = ({
                   variant="ghost"
                   size="sm"
                   onClick={onClose}
-                  className="ml-auto"
+                  className="ml-auto text-slate-400 hover:text-white"
                   aria-label="Close modal"
                 >
                   <X className="w-5 h-5" />
@@ -95,7 +95,7 @@ const Modal: React.FC<ModalProps> = ({
 
           {/* Footer */}
           {footer && (
-            <div className="px-6 py-4 border-t border-neutral-200 bg-neutral-50">
+            <div className="px-6 py-4 border-t border-white/10 bg-white/5">
               {footer}
             </div>
           )}
