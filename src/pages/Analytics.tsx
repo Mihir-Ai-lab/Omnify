@@ -20,8 +20,10 @@ import {
   FileText,
   FileSpreadsheet,
   FileImage,
-  ChevronDown
+  ChevronDown,
+  LineChart
 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import Header from '../components/layout/Header';
 import Sidebar from '../components/layout/Sidebar';
 import Card from '../components/common/Card';
@@ -44,6 +46,10 @@ const Analytics: React.FC = () => {
   const [showExportDropdown, setShowExportDropdown] = useState(false);
   const [showTrendTooltip, setShowTrendTooltip] = useState<number | null>(null);
   const [activeLegendItems, setActiveLegendItems] = useState<string[]>(['roas', 'cac', 'conversions']);
+  const [periodData, setPeriodData] = useState<any>(null);
+  const [isDataLoading, setIsDataLoading] = useState(false);
+  
+  const navigate = useNavigate();
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 1000);
@@ -53,6 +59,11 @@ const Analytics: React.FC = () => {
       clearInterval(updateTimer);
     };
   }, []);
+
+  // Load data when period changes
+  useEffect(() => {
+    loadPeriodData(selectedPeriod);
+  }, [selectedPeriod]);
 
   const periods = [
     { value: '7d', label: '7 Days' },
@@ -74,12 +85,63 @@ const Analytics: React.FC = () => {
     { value: 'pdf', label: 'PDF Report', icon: FileImage, description: 'Formatted report' },
   ];
 
+  // Dynamic data based on selected period
+  const getMetricsForPeriod = (period: string) => {
+    const baseMetrics = {
+      '7d': {
+        roas: { value: 4.2, change: 18.7 },
+        cac: { value: 47.32, change: -23.5 },
+        ltv: { value: 287.45, change: 12.3 },
+        ctr: { value: 0.034, change: 8.9 },
+        impressions: { value: 2450000, change: 15.2 },
+        conversions: { value: 1247, change: 22.8 }
+      },
+      '30d': {
+        roas: { value: 3.8, change: 15.2 },
+        cac: { value: 52.18, change: -18.3 },
+        ltv: { value: 312.67, change: 18.7 },
+        ctr: { value: 0.029, change: 12.4 },
+        impressions: { value: 8750000, change: 28.9 },
+        conversions: { value: 4892, change: 31.2 }
+      },
+      '90d': {
+        roas: { value: 3.5, change: 8.9 },
+        cac: { value: 58.94, change: -12.7 },
+        ltv: { value: 298.33, change: 9.8 },
+        ctr: { value: 0.027, change: 6.2 },
+        impressions: { value: 24500000, change: 22.1 },
+        conversions: { value: 13247, change: 19.8 }
+      },
+      '1y': {
+        roas: { value: 3.2, change: 24.6 },
+        cac: { value: 64.21, change: -28.9 },
+        ltv: { value: 276.89, change: 15.4 },
+        ctr: { value: 0.025, change: 18.7 },
+        impressions: { value: 89750000, change: 45.3 },
+        conversions: { value: 52847, change: 38.9 }
+      }
+    };
+    return baseMetrics[period as keyof typeof baseMetrics] || baseMetrics['30d'];
+  };
+
+  const loadPeriodData = async (period: string) => {
+    setIsDataLoading(true);
+    
+    // Simulate API call
+    setTimeout(() => {
+      const newData = getMetricsForPeriod(period);
+      setPeriodData(newData);
+      setIsDataLoading(false);
+      console.log(`Data loaded for period: ${period}`, newData);
+    }, 800);
+  };
+
   const metrics = [
     {
       id: 'roas',
       title: 'Return on Ad Spend',
-      value: 4.2,
-      change: 18.7,
+      value: periodData?.roas?.value || 4.2,
+      change: periodData?.roas?.change || 18.7,
       trend: 'up',
       icon: TrendingUp,
       color: 'blue',
@@ -89,8 +151,8 @@ const Analytics: React.FC = () => {
     {
       id: 'cac',
       title: 'Customer Acquisition Cost',
-      value: 47.32,
-      change: -23.5,
+      value: periodData?.cac?.value || 47.32,
+      change: periodData?.cac?.change || -23.5,
       trend: 'down',
       icon: DollarSign,
       color: 'green',
@@ -99,8 +161,8 @@ const Analytics: React.FC = () => {
     {
       id: 'ltv',
       title: 'Customer Lifetime Value',
-      value: 287.45,
-      change: 12.3,
+      value: periodData?.ltv?.value || 287.45,
+      change: periodData?.ltv?.change || 12.3,
       trend: 'up',
       icon: Users,
       color: 'purple',
@@ -109,8 +171,8 @@ const Analytics: React.FC = () => {
     {
       id: 'ctr',
       title: 'Click-Through Rate',
-      value: 0.034,
-      change: 8.9,
+      value: periodData?.ctr?.value || 0.034,
+      change: periodData?.ctr?.change || 8.9,
       trend: 'up',
       icon: Eye,
       color: 'teal',
@@ -119,8 +181,8 @@ const Analytics: React.FC = () => {
     {
       id: 'impressions',
       title: 'Total Impressions',
-      value: 2450000,
-      change: 15.2,
+      value: periodData?.impressions?.value || 2450000,
+      change: periodData?.impressions?.change || 15.2,
       trend: 'up',
       icon: Activity,
       color: 'orange',
@@ -129,8 +191,8 @@ const Analytics: React.FC = () => {
     {
       id: 'conversions',
       title: 'Conversions',
-      value: 1247,
-      change: 22.8,
+      value: periodData?.conversions?.value || 1247,
+      change: periodData?.conversions?.change || 22.8,
       trend: 'up',
       icon: Target,
       color: 'pink',
@@ -165,9 +227,15 @@ const Analytics: React.FC = () => {
     { day: 'Sun', roas: 4.2, cac: 47, conversions: 342, date: '2024-12-01' },
   ];
 
+  const handlePeriodChange = (newPeriod: string) => {
+    setSelectedPeriod(newPeriod);
+    console.log(`Period changed to: ${newPeriod}`);
+  };
+
   const handleRefresh = () => {
     setIsRefreshing(true);
     setLastUpdated(new Date());
+    loadPeriodData(selectedPeriod);
     setTimeout(() => {
       setIsRefreshing(false);
       console.log('Analytics data refreshed');
@@ -213,6 +281,12 @@ const Analytics: React.FC = () => {
         channels: channelData,
         campaigns: topCampaigns
       });
+      
+      // In a real app, this would trigger an actual download
+      const link = document.createElement('a');
+      link.href = '#';
+      link.download = filename;
+      link.click();
     }, 2000);
   };
 
@@ -229,9 +303,51 @@ const Analytics: React.FC = () => {
     console.log('Legend toggled:', metricId);
   };
 
+  // Navigation handlers with proper routing
   const handleViewDetails = (widget: string) => {
-    console.log(`Navigating to detailed view for: ${widget}`);
-    // In a real app, this would navigate to a detailed analytics page
+    try {
+      switch (widget) {
+        case 'performance-trends':
+          navigate('/analytics?view=trends&period=' + selectedPeriod);
+          break;
+        case 'channel-distribution':
+          navigate('/analytics?view=channels&period=' + selectedPeriod);
+          break;
+        case 'channel-performance':
+          navigate('/analytics?view=channel-performance&period=' + selectedPeriod);
+          break;
+        case 'top-campaigns':
+          navigate('/campaigns?sort=performance&period=' + selectedPeriod);
+          break;
+        case 'activity-feed':
+          navigate('/analytics?view=activity&period=' + selectedPeriod);
+          break;
+        default:
+          console.log(`Viewing details for: ${widget}`);
+      }
+    } catch (error) {
+      console.error('Navigation error:', error);
+      // Fallback: show alert or notification
+      alert(`Unable to navigate to ${widget} details. Please try again.`);
+    }
+  };
+
+  const handleViewAllCampaigns = () => {
+    try {
+      navigate('/campaigns');
+    } catch (error) {
+      console.error('Navigation error:', error);
+      alert('Unable to navigate to campaigns. Please try again.');
+    }
+  };
+
+  const handleViewAllChannels = () => {
+    try {
+      navigate('/analytics?view=channels');
+    } catch (error) {
+      console.error('Navigation error:', error);
+      alert('Unable to navigate to channel details. Please try again.');
+    }
   };
 
   const formatMetricValue = (metric: any) => {
@@ -283,7 +399,7 @@ const Analytics: React.FC = () => {
                 Real-time insights and performance metrics across all channels
               </p>
               <p className="text-slate-500 text-sm mt-1">
-                Last updated: {lastUpdated.toLocaleTimeString()}
+                Last updated: {lastUpdated.toLocaleTimeString()} • Period: {periods.find(p => p.value === selectedPeriod)?.label}
               </p>
             </div>
             
@@ -293,8 +409,9 @@ const Analytics: React.FC = () => {
                 <Calendar className="w-4 h-4 text-slate-400" />
                 <select
                   value={selectedPeriod}
-                  onChange={(e) => setSelectedPeriod(e.target.value)}
-                  className="bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-blue-500 backdrop-blur-sm"
+                  onChange={(e) => handlePeriodChange(e.target.value)}
+                  disabled={isDataLoading}
+                  className="bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-blue-500 backdrop-blur-sm disabled:opacity-50"
                 >
                   {periods.map((period) => (
                     <option key={period.value} value={period.value} className="bg-slate-800 text-white">
@@ -302,6 +419,9 @@ const Analytics: React.FC = () => {
                     </option>
                   ))}
                 </select>
+                {isDataLoading && (
+                  <div className="w-4 h-4 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+                )}
               </div>
               
               {/* Filter Dropdown */}
@@ -434,7 +554,7 @@ const Analytics: React.FC = () => {
                   glow={selectedMetric === metric.id}
                   className={`animate-slide-in-up cursor-pointer transition-all duration-300 ${
                     selectedMetric === metric.id ? 'ring-2 ring-blue-500' : ''
-                  }`}
+                  } ${isDataLoading ? 'opacity-50' : ''}`}
                   style={{ animationDelay: `${index * 0.1}s` }}
                   onClick={() => setSelectedMetric(metric.id)}
                 >
@@ -494,8 +614,8 @@ const Analytics: React.FC = () => {
                   {/* Chart Header */}
                   <div className="flex items-center justify-between mb-4">
                     <div className="text-center">
-                      <TrendingUp className="w-8 h-8 text-blue-400 mx-auto mb-2" />
-                      <p className="text-slate-300 text-sm">7-Day Trend Analysis</p>
+                      <LineChart className="w-8 h-8 text-blue-400 mx-auto mb-2" />
+                      <p className="text-slate-300 text-sm">{periods.find(p => p.value === selectedPeriod)?.label} Trend Analysis</p>
                     </div>
                     
                     {/* Legend */}
@@ -564,15 +684,15 @@ const Analytics: React.FC = () => {
                   {/* Chart Summary */}
                   <div className="mt-4 grid grid-cols-3 gap-4 text-center">
                     <div>
-                      <div className="text-green-400 text-lg font-bold">+18.7%</div>
+                      <div className="text-green-400 text-lg font-bold">+{metrics[0].change}%</div>
                       <div className="text-xs text-slate-400">ROAS Growth</div>
                     </div>
                     <div>
-                      <div className="text-green-400 text-lg font-bold">-23.5%</div>
-                      <div className="text-xs text-slate-400">CAC Reduction</div>
+                      <div className="text-green-400 text-lg font-bold">{metrics[1].change}%</div>
+                      <div className="text-xs text-slate-400">CAC Change</div>
                     </div>
                     <div>
-                      <div className="text-blue-400 text-lg font-bold">1,247</div>
+                      <div className="text-blue-400 text-lg font-bold">{formatCompactNumber(metrics[5].value)}</div>
                       <div className="text-xs text-slate-400">Total Conversions</div>
                     </div>
                   </div>
@@ -665,7 +785,7 @@ const Analytics: React.FC = () => {
                   variant="ghost" 
                   size="sm" 
                   className="text-slate-400 hover:text-white"
-                  onClick={() => handleViewDetails('channel-performance')}
+                  onClick={handleViewAllChannels}
                   rightIcon={<ExternalLink className="w-4 h-4" />}
                 >
                   View All
@@ -721,7 +841,7 @@ const Analytics: React.FC = () => {
                   variant="ghost" 
                   size="sm" 
                   className="text-slate-400 hover:text-white"
-                  onClick={() => handleViewDetails('top-campaigns')}
+                  onClick={handleViewAllCampaigns}
                   rightIcon={<ExternalLink className="w-4 h-4" />}
                 >
                   View All
