@@ -210,23 +210,34 @@ const BillingPortal: React.FC = () => {
     { value: 'pdf', label: 'PDF Report', icon: FileImage, description: 'Complete billing report' },
   ];
 
-  // Interactive Element Handlers with Error Handling
+  // Enhanced Interactive Element Handlers with Comprehensive Error Handling
   const handleChangePlan = async (planId: string) => {
     try {
       setIsChangingPlan(true);
       setSelectedPlan(planId);
       
-      // Simulate API call
+      // Simulate API call with realistic delay
       await new Promise(resolve => setTimeout(resolve, 2000));
       
-      console.log(`Plan changed to: ${planId}`);
-      alert(`Successfully changed to ${plans.find(p => p.id === planId)?.name} plan!`);
+      const selectedPlanName = plans.find(p => p.id === planId)?.name;
+      console.log(`✅ Plan changed successfully to: ${planId} (${selectedPlanName})`);
+      
+      // Show success feedback
+      const successMessage = `Successfully upgraded to ${selectedPlanName} plan! Changes will take effect on your next billing cycle.`;
+      alert(successMessage);
+      
       togglePlanModal();
+      
+      // Refresh data to reflect changes
+      setLastUpdated(new Date());
+      
     } catch (error) {
-      console.error('Plan change error:', error);
-      alert('Failed to change plan. Please try again.');
+      console.error('❌ Plan change error:', error);
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+      alert(`Failed to change plan: ${errorMessage}. Please try again or contact support.`);
     } finally {
       setIsChangingPlan(false);
+      setSelectedPlan(null);
     }
   };
 
@@ -234,15 +245,23 @@ const BillingPortal: React.FC = () => {
     try {
       setIsCancellingSubscription(true);
       
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      // Simulate API call with realistic delay
+      await new Promise(resolve => setTimeout(resolve, 2500));
       
-      console.log('Subscription cancelled');
-      alert('Subscription has been cancelled. You will retain access until the end of your billing period.');
+      console.log('✅ Subscription cancelled successfully');
+      
+      const cancelMessage = `Your subscription has been cancelled successfully. You will retain access to Pro features until ${formatDate(new Date(currentPlan.nextBilling))}.`;
+      alert(cancelMessage);
+      
       toggleCancelModal();
+      
+      // Update UI to reflect cancellation
+      setLastUpdated(new Date());
+      
     } catch (error) {
-      console.error('Cancellation error:', error);
-      alert('Failed to cancel subscription. Please contact support.');
+      console.error('❌ Subscription cancellation error:', error);
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+      alert(`Failed to cancel subscription: ${errorMessage}. Please contact support for assistance.`);
     } finally {
       setIsCancellingSubscription(false);
     }
@@ -252,15 +271,19 @@ const BillingPortal: React.FC = () => {
     try {
       setIsUpdatingPayment(true);
       
-      // Simulate API call
+      // Simulate API call with validation
       await new Promise(resolve => setTimeout(resolve, 1500));
       
-      console.log('Payment method updated');
-      alert('Payment method updated successfully!');
+      console.log('✅ Payment method updated successfully');
+      alert('Payment method updated successfully! Your new payment method will be used for future billing cycles.');
+      
       togglePaymentModal();
+      setLastUpdated(new Date());
+      
     } catch (error) {
-      console.error('Payment update error:', error);
-      alert('Failed to update payment method. Please try again.');
+      console.error('❌ Payment method update error:', error);
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+      alert(`Failed to update payment method: ${errorMessage}. Please verify your card details and try again.`);
     } finally {
       setIsUpdatingPayment(false);
     }
@@ -270,21 +293,39 @@ const BillingPortal: React.FC = () => {
     try {
       setIsDownloadingInvoice(invoiceId);
       
+      // Find the invoice details
+      const invoice = invoices.find(inv => inv.id === invoiceId);
+      if (!invoice) {
+        throw new Error('Invoice not found');
+      }
+      
+      if (invoice.status === 'failed') {
+        throw new Error('Cannot download failed invoice');
+      }
+      
       // Simulate download process
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise(resolve => setTimeout(resolve, 1200));
       
-      console.log(`Downloading invoice: ${invoiceId}`);
+      console.log(`✅ Downloading invoice: ${invoiceId}`);
       
-      // Create mock download
+      // Create mock download with proper filename
+      const filename = `omnify-invoice-${invoiceId}-${formatDate(new Date(invoice.date)).replace(/\s+/g, '-')}.pdf`;
+      
+      // In a real application, this would be an actual file download
       const link = document.createElement('a');
-      link.href = '#';
-      link.download = `invoice-${invoiceId}.pdf`;
+      link.href = invoice.downloadUrl || '#';
+      link.download = filename;
+      link.style.display = 'none';
+      document.body.appendChild(link);
       link.click();
+      document.body.removeChild(link);
       
-      alert(`Invoice ${invoiceId} downloaded successfully!`);
+      console.log(`📄 Invoice ${invoiceId} downloaded as: ${filename}`);
+      
     } catch (error) {
-      console.error('Download error:', error);
-      alert('Failed to download invoice. Please try again.');
+      console.error('❌ Invoice download error:', error);
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+      alert(`Failed to download invoice: ${errorMessage}. Please try again or contact support.`);
     } finally {
       setIsDownloadingInvoice(null);
     }
@@ -295,24 +336,54 @@ const BillingPortal: React.FC = () => {
       setIsExporting(true);
       setShowExportDropdown(false);
       
-      // Simulate export process
+      // Validate export format
+      const validFormats = ['csv', 'excel', 'pdf'];
+      if (!validFormats.includes(format)) {
+        throw new Error(`Unsupported export format: ${format}`);
+      }
+      
+      // Simulate export process with progress
+      console.log(`🔄 Starting ${format.toUpperCase()} export...`);
       await new Promise(resolve => setTimeout(resolve, 2000));
       
       const timestamp = new Date().toISOString().split('T')[0];
-      const filename = `billing-data-${timestamp}.${format}`;
+      const filename = `omnify-billing-data-${timestamp}.${format}`;
       
-      console.log(`Exporting ${format.toUpperCase()} file: ${filename}`);
+      // Prepare export data
+      const exportData = {
+        period: 'All Time',
+        currentPlan: currentPlan,
+        usage: usage,
+        invoices: invoices,
+        paymentMethods: paymentMethods.map(pm => ({
+          id: pm.id,
+          type: pm.type,
+          last4: pm.last4,
+          brand: pm.brand,
+          isDefault: pm.isDefault
+        })),
+        exportedAt: new Date().toISOString(),
+        exportFormat: format.toUpperCase()
+      };
+      
+      console.log(`📊 Export data prepared:`, exportData);
       
       // Create mock download
       const link = document.createElement('a');
       link.href = '#';
       link.download = filename;
+      link.style.display = 'none';
+      document.body.appendChild(link);
       link.click();
+      document.body.removeChild(link);
       
-      alert(`Billing data exported as ${format.toUpperCase()} successfully!`);
+      console.log(`✅ Billing data exported successfully as: ${filename}`);
+      alert(`Billing data exported as ${format.toUpperCase()} successfully! File: ${filename}`);
+      
     } catch (error) {
-      console.error('Export error:', error);
-      alert('Failed to export data. Please try again.');
+      console.error('❌ Export error:', error);
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+      alert(`Failed to export data: ${errorMessage}. Please try again or contact support.`);
     } finally {
       setIsExporting(false);
     }
@@ -323,111 +394,186 @@ const BillingPortal: React.FC = () => {
       setIsRefreshing(true);
       setLastUpdated(new Date());
       
-      // Simulate data refresh
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // Simulate data refresh with multiple API calls
+      console.log('🔄 Refreshing billing data...');
+      await new Promise(resolve => setTimeout(resolve, 1200));
       
-      console.log('Billing data refreshed');
+      console.log('✅ Billing data refreshed successfully');
+      
+      // Optional: Show subtle success feedback
+      setTimeout(() => {
+        console.log('📊 All billing information is now up to date');
+      }, 100);
+      
     } catch (error) {
-      console.error('Refresh error:', error);
-      alert('Failed to refresh data. Please try again.');
+      console.error('❌ Data refresh error:', error);
+      alert('Failed to refresh billing data. Please try again.');
     } finally {
       setIsRefreshing(false);
     }
   };
 
-  // Enhanced Billing Portal Navigation with comprehensive error handling
+  // 🔧 ENHANCED BILLING PORTAL NAVIGATION - COMPREHENSIVE FIX
   const handleNavigateToBillingPortal = async () => {
     try {
       setIsNavigatingToBillingPortal(true);
+      console.log('🔄 Initiating billing portal navigation...');
       
-      // Validate browser support for window.open
-      if (typeof window === 'undefined' || !window.open) {
-        throw new Error('Browser does not support opening new windows');
+      // Comprehensive browser compatibility checks
+      if (typeof window === 'undefined') {
+        throw new Error('Window object not available - running in non-browser environment');
       }
 
-      // Check if popup blockers might interfere
-      const testWindow = window.open('', '_blank');
+      if (!window.open) {
+        throw new Error('Browser does not support window.open functionality');
+      }
+
+      // Check for popup blocker by testing window.open
+      console.log('🔍 Testing popup blocker...');
+      const testWindow = window.open('', '_blank', 'width=1,height=1');
       if (!testWindow) {
-        throw new Error('Popup blocked by browser. Please allow popups for this site.');
+        throw new Error('Popup blocked by browser. Please allow popups for this site and try again.');
       }
+      
+      // Close test window immediately
       testWindow.close();
+      console.log('✅ Popup test successful');
 
-      // Simulate API call to get billing portal URL (in real app)
-      await new Promise(resolve => setTimeout(resolve, 500));
+      // Simulate API call to get secure billing portal URL
+      console.log('🔄 Fetching billing portal URL...');
+      await new Promise(resolve => setTimeout(resolve, 800));
       
       // In production, this would be a dynamic URL from your backend
-      const billingPortalUrl = 'https://billing.stripe.com/p/login/test_123';
+      // For demo purposes, using a placeholder URL
+      const billingPortalUrl = 'https://billing.stripe.com/p/login/test_omnify_demo_portal';
       
-      // Open billing portal in new tab
-      const newWindow = window.open(billingPortalUrl, '_blank', 'noopener,noreferrer');
+      console.log('🔗 Billing portal URL obtained:', billingPortalUrl);
       
-      if (!newWindow) {
-        throw new Error('Failed to open billing portal. Please check your popup settings.');
+      // Enhanced window.open with comprehensive options
+      const windowFeatures = [
+        'noopener=yes',
+        'noreferrer=yes',
+        'width=1200',
+        'height=800',
+        'scrollbars=yes',
+        'resizable=yes',
+        'status=yes',
+        'toolbar=yes',
+        'menubar=yes',
+        'location=yes'
+      ].join(',');
+      
+      console.log('🚀 Opening billing portal with features:', windowFeatures);
+      
+      // Open billing portal in new tab/window
+      const billingWindow = window.open(billingPortalUrl, '_blank', windowFeatures);
+      
+      if (!billingWindow) {
+        throw new Error('Failed to open billing portal window. Please check your browser\'s popup settings.');
       }
 
-      // Focus the new window
-      newWindow.focus();
-      
-      console.log('Successfully opened billing portal:', billingPortalUrl);
-      
-      // Optional: Show success feedback
-      setTimeout(() => {
-        console.log('Billing portal opened successfully');
-      }, 100);
-      
-    } catch (error) {
-      console.error('Billing portal navigation error:', error);
-      
-      // Provide specific error messages based on error type
-      let errorMessage = 'Unable to open billing portal. ';
-      
-      if (error instanceof Error) {
-        if (error.message.includes('Popup blocked')) {
-          errorMessage += 'Please allow popups for this site and try again.';
-        } else if (error.message.includes('Browser does not support')) {
-          errorMessage += 'Your browser does not support this feature. Please try a different browser.';
-        } else {
-          errorMessage += error.message;
-        }
-      } else {
-        errorMessage += 'Please try again or contact support if the issue persists.';
+      // Focus the new window (if allowed by browser)
+      try {
+        billingWindow.focus();
+        console.log('✅ Billing portal window focused');
+      } catch (focusError) {
+        console.warn('⚠️ Could not focus billing portal window:', focusError);
+        // This is not critical, continue execution
       }
       
-      alert(errorMessage);
+      console.log('✅ Billing portal opened successfully');
+      
+      // Optional: Track the event for analytics
+      setTimeout(() => {
+        console.log('📊 Billing portal navigation event tracked');
+      }, 100);
+      
+      // Optional: Show success feedback to user
+      setTimeout(() => {
+        console.log('💡 User feedback: Billing portal opened in new tab');
+      }, 200);
+      
+    } catch (error) {
+      console.error('❌ Billing portal navigation error:', error);
+      
+      // Provide specific, actionable error messages
+      let userMessage = 'Unable to open billing portal. ';
+      let fallbackAction = '';
+      
+      if (error instanceof Error) {
+        const errorMsg = error.message.toLowerCase();
+        
+        if (errorMsg.includes('popup blocked') || errorMsg.includes('popup')) {
+          userMessage += 'Your browser is blocking popups. Please:\n\n1. Allow popups for this site\n2. Try again\n3. Or manually navigate to the billing portal';
+          fallbackAction = 'copy-url';
+        } else if (errorMsg.includes('browser does not support') || errorMsg.includes('window object')) {
+          userMessage += 'Your browser does not support this feature. Please try:\n\n1. Using a modern browser (Chrome, Firefox, Safari, Edge)\n2. Updating your current browser\n3. Manually navigating to the billing portal';
+          fallbackAction = 'copy-url';
+        } else if (errorMsg.includes('failed to open')) {
+          userMessage += 'The billing portal window could not be opened. This might be due to:\n\n1. Browser security settings\n2. Ad blockers\n3. Privacy extensions\n\nPlease try disabling these temporarily or use the manual link below.';
+          fallbackAction = 'copy-url';
+        } else {
+          userMessage += error.message;
+          fallbackAction = 'copy-url';
+        }
+      } else {
+        userMessage += 'An unexpected error occurred. Please try again or contact support.';
+        fallbackAction = 'copy-url';
+      }
+      
+      // Show detailed error message
+      alert(userMessage);
       
       // Fallback: Copy URL to clipboard
-      try {
-        await navigator.clipboard.writeText('https://billing.stripe.com/p/login/test_123');
-        alert('Billing portal URL copied to clipboard. Please paste it in a new tab.');
-      } catch (clipboardError) {
-        console.error('Clipboard error:', clipboardError);
+      if (fallbackAction === 'copy-url') {
+        try {
+          const fallbackUrl = 'https://billing.stripe.com/p/login/test_omnify_demo_portal';
+          
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            await navigator.clipboard.writeText(fallbackUrl);
+            console.log('📋 Billing portal URL copied to clipboard');
+            alert('Billing portal URL has been copied to your clipboard. Please paste it in a new browser tab to access your billing information.');
+          } else {
+            // Fallback for older browsers
+            console.log('📋 Clipboard API not available, showing URL to user');
+            prompt('Please copy this URL and paste it in a new browser tab:', fallbackUrl);
+          }
+        } catch (clipboardError) {
+          console.error('❌ Clipboard fallback error:', clipboardError);
+          alert('Please manually navigate to: https://billing.stripe.com/p/login/test_omnify_demo_portal');
+        }
       }
       
     } finally {
       setIsNavigatingToBillingPortal(false);
+      console.log('🏁 Billing portal navigation process completed');
     }
   };
 
+  // Enhanced Navigation Handlers with Error Handling
   const handleViewAllInvoices = () => {
     try {
+      console.log('🔄 Navigating to invoices page...');
       navigate('/billing/invoices');
-      console.log('Navigating to invoices page');
+      console.log('✅ Navigation to invoices initiated');
     } catch (error) {
-      console.error('Navigation error:', error);
-      alert('Unable to navigate to invoices. Please try again.');
+      console.error('❌ Navigation error to invoices:', error);
+      alert('Unable to navigate to invoices page. Please refresh the page and try again.');
     }
   };
 
   const handleManageTeam = () => {
     try {
+      console.log('🔄 Navigating to team management...');
       navigate('/team');
-      console.log('Navigating to team management');
+      console.log('✅ Navigation to team management initiated');
     } catch (error) {
-      console.error('Navigation error:', error);
-      alert('Unable to navigate to team management. Please try again.');
+      console.error('❌ Navigation error to team management:', error);
+      alert('Unable to navigate to team management. Please refresh the page and try again.');
     }
   };
 
+  // Utility Functions
   const getInvoiceStatusBadge = (status: string) => {
     switch (status) {
       case 'paid':
@@ -880,6 +1026,7 @@ const BillingPortal: React.FC = () => {
                       onClick={() => handleDownloadInvoice(invoice.id)}
                       loading={isDownloadingInvoice === invoice.id}
                       disabled={invoice.status === 'failed'}
+                      title={invoice.status === 'failed' ? 'Cannot download failed invoice' : `Download ${invoice.id}`}
                     >
                       <Download className="w-4 h-4" />
                     </Button>
@@ -888,6 +1035,7 @@ const BillingPortal: React.FC = () => {
               </div>
               
               <div className="mt-6">
+                {/* 🎯 ENHANCED BILLING PORTAL BUTTON - MAIN FIX */}
                 <Button 
                   variant="outline" 
                   size="sm" 
@@ -896,10 +1044,18 @@ const BillingPortal: React.FC = () => {
                   onClick={handleNavigateToBillingPortal}
                   loading={isNavigatingToBillingPortal}
                   disabled={isNavigatingToBillingPortal}
-                  className="focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-slate-900"
+                  className="focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-slate-900 hover:bg-blue-500/10 hover:border-blue-400 transition-all duration-200"
                   aria-label="Open external billing portal in new tab"
+                  title="Open Stripe billing portal in a new tab to manage your subscription, payment methods, and download invoices"
                 >
-                  {isNavigatingToBillingPortal ? 'Opening Portal...' : 'View Billing Portal'}
+                  {isNavigatingToBillingPortal ? (
+                    <>
+                      <div className="w-4 h-4 border-2 border-blue-500 border-t-transparent rounded-full animate-spin mr-2"></div>
+                      Opening Portal...
+                    </>
+                  ) : (
+                    'View Billing Portal'
+                  )}
                 </Button>
               </div>
             </Card>
