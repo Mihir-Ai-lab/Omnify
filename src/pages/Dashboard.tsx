@@ -27,11 +27,6 @@ const Dashboard: React.FC = () => {
   const [selectedPeriod, setSelectedPeriod] = useState('7d');
   const [isLoading, setIsLoading] = useState(true);
 
-  const user = {
-    name: 'Sarah Chen',
-    email: 'sarah@techflow.com',
-  };
-
   useEffect(() => {
     // Simulate loading
     const timer = setTimeout(() => setIsLoading(false), 1000);
@@ -166,25 +161,28 @@ const Dashboard: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex">
+    <div className="min-h-screen" style={{ background: 'linear-gradient(135deg, #2D3748 0%, #1A202C 100%)' }}>
       <Sidebar 
         isCollapsed={sidebarCollapsed} 
         onToggle={toggleSidebar}
         currentPath="/dashboard"
       />
       
-      <div className="flex-1 flex flex-col">
+      <div 
+        className="flex-1 flex flex-col transition-all duration-300" 
+        style={{ marginLeft: sidebarCollapsed ? '64px' : '256px' }}
+      >
         <Header variant="dashboard" />
         
         <main className="flex-1 p-6 animate-fade-in">
           {/* Header */}
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-8">
             <div className="animate-slide-in-up">
-              <h1 className="text-4xl font-bold text-white mb-2 bg-gradient-to-r from-blue-400 to-teal-400 bg-clip-text text-transparent">
+              <h1 className="omnify-heading-xl mb-2">
                 Dashboard
               </h1>
-              <p className="text-slate-300 text-lg">
-                Welcome back, {user.name}. Here's what's happening with your campaigns.
+              <p className="omnify-body-lg text-slate-300">
+                Welcome back, Sarah. Here's what's happening with your campaigns.
               </p>
             </div>
             
@@ -194,7 +192,7 @@ const Dashboard: React.FC = () => {
                 <select
                   value={selectedPeriod}
                   onChange={(e) => setSelectedPeriod(e.target.value)}
-                  className="bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent backdrop-blur-sm"
+                  className="omnify-input text-sm"
                 >
                   {periods.map((period) => (
                     <option key={period.value} value={period.value} className="bg-slate-800 text-white">
@@ -208,7 +206,7 @@ const Dashboard: React.FC = () => {
                 Filter
               </Button>
               
-              <Button variant="futuristic" size="sm" leftIcon={<Download className="w-4 h-4" />}>
+              <Button variant="omnify-primary" size="sm" leftIcon={<Download className="w-4 h-4" />}>
                 Export
               </Button>
             </div>
@@ -235,10 +233,9 @@ const Dashboard: React.FC = () => {
               return (
                 <Card 
                   key={index} 
-                  variant="futuristic" 
+                  variant="omnify" 
                   padding="lg" 
                   hover 
-                  glow
                   className="animate-slide-in-up"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
@@ -255,10 +252,10 @@ const Dashboard: React.FC = () => {
                   </div>
                   
                   <div>
-                    <div className="text-3xl font-bold text-white mb-1">
+                    <div className="omnify-heading-md text-white mb-1">
                       {formattedValue}
                     </div>
-                    <div className="text-sm text-slate-400">
+                    <div className="omnify-body-sm text-slate-400">
                       {metric.title}
                     </div>
                   </div>
@@ -269,9 +266,9 @@ const Dashboard: React.FC = () => {
 
           {/* Charts Section */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-            <Card variant="futuristic" padding="lg" className="animate-slide-in-up">
+            <Card variant="omnify" padding="lg" className="animate-slide-in-up">
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-xl font-semibold text-white">
+                <h3 className="omnify-heading-sm text-white">
                   Performance Trends
                 </h3>
                 <Button variant="ghost" size="sm" className="text-slate-400 hover:text-white">
@@ -287,9 +284,9 @@ const Dashboard: React.FC = () => {
               </div>
             </Card>
             
-            <Card variant="futuristic" padding="lg" className="animate-slide-in-up" style={{ animationDelay: '0.1s' }}>
+            <Card variant="omnify" padding="lg" className="animate-slide-in-up" style={{ animationDelay: '0.1s' }}>
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-xl font-semibold text-white">
+                <h3 className="omnify-heading-sm text-white">
                   Channel Performance
                 </h3>
                 <Button variant="ghost" size="sm" className="text-slate-400 hover:text-white">
@@ -307,12 +304,12 @@ const Dashboard: React.FC = () => {
           </div>
 
           {/* Campaigns Table */}
-          <Card variant="futuristic" padding="lg" className="animate-slide-in-up">
+          <Card variant="omnify" padding="lg" className="animate-slide-in-up">
             <div className="flex items-center justify-between mb-6">
-              <h3 className="text-xl font-semibold text-white">
+              <h3 className="omnify-heading-sm text-white">
                 Active Campaigns
               </h3>
-              <Button variant="futuristic" size="sm" leftIcon={<Target className="w-4 h-4" />}>
+              <Button variant="omnify-primary" size="sm" leftIcon={<Target className="w-4 h-4" />}>
                 Create Campaign
               </Button>
             </div>
@@ -321,13 +318,13 @@ const Dashboard: React.FC = () => {
               <table className="w-full">
                 <thead>
                   <tr className="border-b border-white/10">
-                    <th className="text-left py-3 px-4 font-medium text-slate-300">Campaign</th>
-                    <th className="text-left py-3 px-4 font-medium text-slate-300">Channel</th>
-                    <th className="text-left py-3 px-4 font-medium text-slate-300">Budget</th>
-                    <th className="text-left py-3 px-4 font-medium text-slate-300">Spent</th>
-                    <th className="text-left py-3 px-4 font-medium text-slate-300">ROAS</th>
-                    <th className="text-left py-3 px-4 font-medium text-slate-300">Status</th>
-                    <th className="text-left py-3 px-4 font-medium text-slate-300">Performance</th>
+                    <th className="text-left py-3 px-4 omnify-body font-medium text-slate-300">Campaign</th>
+                    <th className="text-left py-3 px-4 omnify-body font-medium text-slate-300">Channel</th>
+                    <th className="text-left py-3 px-4 omnify-body font-medium text-slate-300">Budget</th>
+                    <th className="text-left py-3 px-4 omnify-body font-medium text-slate-300">Spent</th>
+                    <th className="text-left py-3 px-4 omnify-body font-medium text-slate-300">ROAS</th>
+                    <th className="text-left py-3 px-4 omnify-body font-medium text-slate-300">Status</th>
+                    <th className="text-left py-3 px-4 omnify-body font-medium text-slate-300">Performance</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -338,17 +335,17 @@ const Dashboard: React.FC = () => {
                       style={{ animationDelay: `${index * 0.1}s` }}
                     >
                       <td className="py-4 px-4">
-                        <div className="font-medium text-white">{campaign.name}</div>
+                        <div className="omnify-body font-medium text-white">{campaign.name}</div>
                       </td>
-                      <td className="py-4 px-4 text-slate-300">{campaign.channel}</td>
-                      <td className="py-4 px-4 text-slate-300">
+                      <td className="py-4 px-4 omnify-body text-slate-300">{campaign.channel}</td>
+                      <td className="py-4 px-4 omnify-body text-slate-300">
                         {formatCurrency(campaign.budget)}
                       </td>
-                      <td className="py-4 px-4 text-slate-300">
+                      <td className="py-4 px-4 omnify-body text-slate-300">
                         {formatCurrency(campaign.spent)}
                       </td>
                       <td className="py-4 px-4">
-                        <span className="font-medium text-white">
+                        <span className="omnify-body font-medium text-white">
                           {campaign.roas.toFixed(1)}x
                         </span>
                       </td>

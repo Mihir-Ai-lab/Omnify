@@ -74,10 +74,12 @@ const Sidebar: React.FC<SidebarProps> = ({
   const isActive = (href: string) => currentPath === href;
 
   return (
-    <div className={`omnify-container-lg border-r border-white/10 transition-all duration-300 ${
-      isCollapsed ? 'w-16' : 'w-64'
-    } flex flex-col h-full shadow-2xl fixed left-0 top-0 z-40`} 
-    style={{ background: 'linear-gradient(180deg, #2D3748 0%, #1A202C 100%)' }}>
+    <div 
+      className={`omnify-container-lg border-r border-white/10 transition-all duration-300 ${
+        isCollapsed ? 'w-16' : 'w-64'
+      } flex flex-col h-full shadow-2xl fixed left-0 top-0 z-40`} 
+      style={{ background: 'linear-gradient(180deg, #2D3748 0%, #1A202C 100%)' }}
+    >
       {/* Header */}
       <div className="p-4 border-b border-white/10">
         <div className="flex items-center justify-between">
@@ -99,7 +101,8 @@ const Sidebar: React.FC<SidebarProps> = ({
           {onToggle && (
             <button
               onClick={onToggle}
-              className="p-1.5 rounded-lg hover:bg-white/10 transition-all duration-200 text-slate-400 hover:text-white"
+              className="p-1.5 rounded-lg hover:bg-white/10 transition-all duration-200 text-slate-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-omnify-primary/50"
+              aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
             >
               {isCollapsed ? (
                 <ChevronRight className="w-4 h-4" />
