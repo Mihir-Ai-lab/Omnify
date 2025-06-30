@@ -11,6 +11,11 @@ import ForgotPasswordPage from './pages/auth/ForgotPasswordPage';
 import Dashboard from './pages/Dashboard';
 import CampaignList from './pages/CampaignList';
 import CampaignForm from './pages/CampaignForm';
+import CampaignWizard from './pages/CampaignWizard';
+import Analytics from './pages/Analytics';
+import TeamManagement from './pages/TeamManagement';
+import BillingPortal from './pages/BillingPortal';
+import HelpSupport from './pages/HelpSupport';
 import Settings from './pages/Settings';
 import NotFoundPage from './pages/NotFoundPage';
 
@@ -39,7 +44,32 @@ function App() {
             } />
             <Route path="/campaigns/new" element={
               <ProtectedRoute>
+                <CampaignWizard />
+              </ProtectedRoute>
+            } />
+            <Route path="/campaigns/form" element={
+              <ProtectedRoute>
                 <CampaignForm />
+              </ProtectedRoute>
+            } />
+            <Route path="/analytics" element={
+              <ProtectedRoute>
+                <Analytics />
+              </ProtectedRoute>
+            } />
+            <Route path="/team" element={
+              <ProtectedRoute>
+                <TeamManagement />
+              </ProtectedRoute>
+            } />
+            <Route path="/billing" element={
+              <ProtectedRoute>
+                <BillingPortal />
+              </ProtectedRoute>
+            } />
+            <Route path="/help" element={
+              <ProtectedRoute>
+                <HelpSupport />
               </ProtectedRoute>
             } />
             <Route path="/settings" element={
