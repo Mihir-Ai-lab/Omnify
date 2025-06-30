@@ -12,8 +12,13 @@ import {
   Download,
   Zap,
   Target,
-  BarChart3
+  BarChart3,
+  Plus,
+  ExternalLink,
+  Activity,
+  LineChart
 } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
 import Header from '../components/layout/Header';
 import Sidebar from '../components/layout/Sidebar';
 import Card from '../components/common/Card';
@@ -26,6 +31,9 @@ const Dashboard: React.FC = () => {
   const [sidebarCollapsed, { toggle: toggleSidebar }] = useToggle(false);
   const [selectedPeriod, setSelectedPeriod] = useState('7d');
   const [isLoading, setIsLoading] = useState(true);
+  const [isExporting, setIsExporting] = useState(false);
+  const [isFiltering, setIsFiltering] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Simulate loading
@@ -49,6 +57,8 @@ const Dashboard: React.FC = () => {
       icon: DollarSign,
       color: 'emerald',
       trend: 'down',
+      description: 'Average cost to acquire a new customer',
+      target: 45.00,
     },
     {
       title: 'Return on Ad Spend',
@@ -59,6 +69,8 @@ const Dashboard: React.FC = () => {
       icon: TrendingUp,
       color: 'blue',
       trend: 'up',
+      description: 'Revenue generated per dollar spent on ads',
+      target: 4.0,
     },
     {
       title: 'Customer Lifetime Value',
@@ -68,6 +80,8 @@ const Dashboard: React.FC = () => {
       icon: Users,
       color: 'purple',
       trend: 'up',
+      description: 'Predicted revenue from customer relationship',
+      target: 300.00,
     },
     {
       title: 'Click-Through Rate',
@@ -77,6 +91,8 @@ const Dashboard: React.FC = () => {
       icon: Eye,
       color: 'teal',
       trend: 'up',
+      description: 'Percentage of users who click on ads',
+      target: 0.035,
     },
   ];
 
@@ -90,6 +106,10 @@ const Dashboard: React.FC = () => {
       roas: 3.8,
       status: 'active',
       performance: 'good',
+      impressions: 245000,
+      clicks: 8750,
+      conversions: 342,
+      ctr: 3.57,
     },
     {
       id: 2,
@@ -100,6 +120,10 @@ const Dashboard: React.FC = () => {
       roas: 2.1,
       status: 'active',
       performance: 'poor',
+      impressions: 180000,
+      clicks: 5400,
+      conversions: 156,
+      ctr: 3.00,
     },
     {
       id: 3,
@@ -110,6 +134,10 @@ const Dashboard: React.FC = () => {
       roas: 5.2,
       status: 'active',
       performance: 'excellent',
+      impressions: 95000,
+      clicks: 4750,
+      conversions: 287,
+      ctr: 5.00,
     },
     {
       id: 4,
@@ -120,7 +148,27 @@ const Dashboard: React.FC = () => {
       roas: 1.8,
       status: 'paused',
       performance: 'poor',
+      impressions: 65000,
+      clicks: 1950,
+      conversions: 89,
+      ctr: 3.00,
     },
+  ];
+
+  // Mock performance data for charts
+  const performanceData = {
+    roas: [3.2, 3.5, 3.8, 4.1, 4.2, 4.0, 4.2],
+    cac: [52.1, 49.8, 47.5, 45.2, 47.3, 48.1, 47.3],
+    conversions: [156, 189, 234, 287, 312, 298, 342],
+    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+  };
+
+  const channelData = [
+    { name: 'Meta Ads', spend: 45000, roas: 4.2, percentage: 35 },
+    { name: 'Google Ads', spend: 38000, roas: 3.8, percentage: 30 },
+    { name: 'TikTok Ads', spend: 22000, roas: 5.1, percentage: 17 },
+    { name: 'LinkedIn Ads', spend: 15000, roas: 2.9, percentage: 12 },
+    { name: 'Email Marketing', spend: 8000, roas: 6.2, percentage: 6 },
   ];
 
   const getPerformanceBadge = (performance: string) => {
@@ -147,6 +195,37 @@ const Dashboard: React.FC = () => {
       default:
         return <Badge variant="neutral" size="sm" dot>Unknown</Badge>;
     }
+  };
+
+  const handleExport = async () => {
+    setIsExporting(true);
+    // Simulate export process
+    setTimeout(() => {
+      setIsExporting(false);
+      // In a real app, this would trigger a download
+      console.log('Exporting dashboard data...');
+    }, 2000);
+  };
+
+  const handleFilter = () => {
+    setIsFiltering(true);
+    // Simulate filter process
+    setTimeout(() => {
+      setIsFiltering(false);
+      console.log('Applying filters...');
+    }, 1000);
+  };
+
+  const handleViewDetails = (type: string) => {
+    if (type === 'performance') {
+      navigate('/analytics');
+    } else if (type === 'channel') {
+      navigate('/analytics');
+    }
+  };
+
+  const handleCreateCampaign = () => {
+    navigate('/campaigns/new');
   };
 
   if (isLoading) {
@@ -202,11 +281,24 @@ const Dashboard: React.FC = () => {
                 </select>
               </div>
               
-              <Button variant="ghost" size="sm" leftIcon={<Filter className="w-4 h-4" />}>
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                leftIcon={<Filter className="w-4 h-4" />}
+                loading={isFiltering}
+                onClick={handleFilter}
+                className="text-slate-400 hover:text-white"
+              >
                 Filter
               </Button>
               
-              <Button variant="futuristic" size="sm" leftIcon={<Download className="w-4 h-4" />}>
+              <Button 
+                variant="futuristic" 
+                size="sm" 
+                leftIcon={<Download className="w-4 h-4" />}
+                loading={isExporting}
+                onClick={handleExport}
+              >
                 Export
               </Button>
             </div>
@@ -230,6 +322,10 @@ const Dashboard: React.FC = () => {
                 formattedValue = formatCompactNumber(metric.value) + (metric.suffix || '');
               }
 
+              const isOnTarget = metric.format === 'currency' 
+                ? metric.value <= metric.target 
+                : metric.value >= metric.target;
+
               return (
                 <Card 
                   key={index} 
@@ -237,8 +333,9 @@ const Dashboard: React.FC = () => {
                   padding="lg" 
                   hover 
                   glow
-                  className="animate-slide-in-up"
+                  className="animate-slide-in-up cursor-pointer"
                   style={{ animationDelay: `${index * 0.1}s` }}
+                  onClick={() => navigate('/analytics')}
                 >
                   <div className="flex items-center justify-between mb-4">
                     <div className={`w-12 h-12 rounded-xl flex items-center justify-center bg-gradient-to-r from-${metric.color}-500 to-${metric.color}-600 shadow-lg`}>
@@ -252,13 +349,26 @@ const Dashboard: React.FC = () => {
                     </div>
                   </div>
                   
-                  <div>
+                  <div className="mb-3">
                     <div className="text-3xl font-bold text-white mb-1">
                       {formattedValue}
                     </div>
-                    <div className="text-sm text-slate-400">
+                    <div className="text-sm text-slate-400 mb-2">
                       {metric.title}
                     </div>
+                    <div className="text-xs text-slate-500">
+                      {metric.description}
+                    </div>
+                  </div>
+
+                  {/* Progress indicator */}
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="text-slate-500">
+                      Target: {metric.format === 'currency' ? formatCurrency(metric.target) : 
+                               metric.format === 'percentage' ? formatPercentage(metric.target) :
+                               metric.target + (metric.suffix || '')}
+                    </span>
+                    <div className={`w-2 h-2 rounded-full ${isOnTarget ? 'bg-green-400' : 'bg-yellow-400'} animate-pulse`}></div>
                   </div>
                 </Card>
               );
@@ -272,15 +382,38 @@ const Dashboard: React.FC = () => {
                 <h3 className="text-xl font-semibold text-white">
                   Performance Trends
                 </h3>
-                <Button variant="ghost" size="sm" className="text-slate-400 hover:text-white">
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className="text-slate-400 hover:text-white"
+                  onClick={() => handleViewDetails('performance')}
+                  rightIcon={<ExternalLink className="w-4 h-4" />}
+                >
                   View Details
                 </Button>
               </div>
-              <div className="h-64 bg-gradient-to-br from-blue-500/10 to-teal-500/10 rounded-xl flex items-center justify-center border border-white/10">
-                <div className="text-center">
-                  <TrendingUp className="w-12 h-12 text-blue-400 mx-auto mb-2" />
-                  <p className="text-slate-300">Interactive Chart Component</p>
-                  <p className="text-sm text-slate-500">Line chart showing ROAS, CAC trends</p>
+              <div className="h-64 bg-gradient-to-br from-blue-500/10 to-teal-500/10 rounded-xl flex flex-col items-center justify-center border border-white/10 relative overflow-hidden">
+                <div className="absolute inset-0 geometric-pattern opacity-20"></div>
+                <div className="text-center relative z-10">
+                  <LineChart className="w-12 h-12 text-blue-400 mx-auto mb-4" />
+                  <p className="text-slate-300 text-lg mb-2">ROAS & CAC Trends</p>
+                  <p className="text-sm text-slate-500 mb-4">7-day performance overview</p>
+                  
+                  {/* Mock trend data */}
+                  <div className="grid grid-cols-3 gap-4 mt-4">
+                    <div className="text-center">
+                      <div className="text-green-400 text-lg font-bold">+18.7%</div>
+                      <div className="text-xs text-slate-400">ROAS</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-green-400 text-lg font-bold">-23.5%</div>
+                      <div className="text-xs text-slate-400">CAC</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-blue-400 text-lg font-bold">342</div>
+                      <div className="text-xs text-slate-400">Conversions</div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </Card>
@@ -290,15 +423,46 @@ const Dashboard: React.FC = () => {
                 <h3 className="text-xl font-semibold text-white">
                   Channel Performance
                 </h3>
-                <Button variant="ghost" size="sm" className="text-slate-400 hover:text-white">
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className="text-slate-400 hover:text-white"
+                  onClick={() => handleViewDetails('channel')}
+                  rightIcon={<ExternalLink className="w-4 h-4" />}
+                >
                   View Details
                 </Button>
               </div>
-              <div className="h-64 bg-gradient-to-br from-purple-500/10 to-pink-500/10 rounded-xl flex items-center justify-center border border-white/10">
-                <div className="text-center">
-                  <BarChart3 className="w-12 h-12 text-purple-400 mx-auto mb-2" />
-                  <p className="text-slate-300">Interactive Chart Component</p>
-                  <p className="text-sm text-slate-500">Donut chart showing channel breakdown</p>
+              <div className="h-64 bg-gradient-to-br from-purple-500/10 to-pink-500/10 rounded-xl border border-white/10 relative overflow-hidden">
+                <div className="absolute inset-0 geometric-pattern opacity-20"></div>
+                <div className="relative z-10 p-4 h-full">
+                  <div className="text-center mb-4">
+                    <BarChart3 className="w-8 h-8 text-purple-400 mx-auto mb-2" />
+                    <p className="text-slate-300 text-sm">Channel Breakdown</p>
+                  </div>
+                  
+                  {/* Channel performance bars */}
+                  <div className="space-y-3">
+                    {channelData.slice(0, 4).map((channel, index) => (
+                      <div key={channel.name} className="flex items-center justify-between">
+                        <div className="flex items-center space-x-2 flex-1">
+                          <div className="text-xs text-slate-300 w-16 truncate">{channel.name}</div>
+                          <div className="flex-1 bg-slate-700 rounded-full h-2">
+                            <div 
+                              className="bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full transition-all duration-1000"
+                              style={{ width: `${channel.percentage}%` }}
+                            ></div>
+                          </div>
+                        </div>
+                        <div className="text-xs text-slate-400 ml-2">{channel.percentage}%</div>
+                      </div>
+                    ))}
+                  </div>
+                  
+                  <div className="mt-4 text-center">
+                    <div className="text-sm text-slate-400">Total Ad Spend</div>
+                    <div className="text-lg font-bold text-white">{formatCurrency(128000)}</div>
+                  </div>
                 </div>
               </div>
             </Card>
@@ -310,7 +474,12 @@ const Dashboard: React.FC = () => {
               <h3 className="text-xl font-semibold text-white">
                 Active Campaigns
               </h3>
-              <Button variant="futuristic" size="sm" leftIcon={<Target className="w-4 h-4" />}>
+              <Button 
+                variant="futuristic" 
+                size="sm" 
+                leftIcon={<Plus className="w-4 h-4" />}
+                onClick={handleCreateCampaign}
+              >
                 Create Campaign
               </Button>
             </div>
@@ -326,6 +495,7 @@ const Dashboard: React.FC = () => {
                     <th className="text-left py-3 px-4 font-medium text-slate-300">ROAS</th>
                     <th className="text-left py-3 px-4 font-medium text-slate-300">Status</th>
                     <th className="text-left py-3 px-4 font-medium text-slate-300">Performance</th>
+                    <th className="text-left py-3 px-4 font-medium text-slate-300">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -337,18 +507,35 @@ const Dashboard: React.FC = () => {
                     >
                       <td className="py-4 px-4">
                         <div className="font-medium text-white">{campaign.name}</div>
+                        <div className="text-sm text-slate-400">
+                          {formatCompactNumber(campaign.impressions)} impressions • {formatCompactNumber(campaign.clicks)} clicks
+                        </div>
                       </td>
                       <td className="py-4 px-4 text-slate-300">{campaign.channel}</td>
                       <td className="py-4 px-4 text-slate-300">
                         {formatCurrency(campaign.budget)}
                       </td>
-                      <td className="py-4 px-4 text-slate-300">
-                        {formatCurrency(campaign.spent)}
+                      <td className="py-4 px-4">
+                        <div className="text-white font-medium">
+                          {formatCurrency(campaign.spent)}
+                        </div>
+                        <div className="text-xs text-slate-400">
+                          {((campaign.spent / campaign.budget) * 100).toFixed(1)}% used
+                        </div>
                       </td>
                       <td className="py-4 px-4">
-                        <span className="font-medium text-white">
-                          {campaign.roas.toFixed(1)}x
-                        </span>
+                        <div className="flex items-center space-x-2">
+                          <span className="font-medium text-white">
+                            {campaign.roas.toFixed(1)}x
+                          </span>
+                          {campaign.roas > 3 ? (
+                            <TrendingUp className="w-4 h-4 text-green-400" />
+                          ) : campaign.roas < 2 ? (
+                            <TrendingDown className="w-4 h-4 text-red-400" />
+                          ) : (
+                            <Activity className="w-4 h-4 text-yellow-400" />
+                          )}
+                        </div>
                       </td>
                       <td className="py-4 px-4">
                         {getStatusBadge(campaign.status)}
@@ -356,12 +543,74 @@ const Dashboard: React.FC = () => {
                       <td className="py-4 px-4">
                         {getPerformanceBadge(campaign.performance)}
                       </td>
+                      <td className="py-4 px-4">
+                        <Link to={`/campaigns/${campaign.id}`}>
+                          <Button 
+                            variant="ghost" 
+                            size="sm" 
+                            className="text-slate-400 hover:text-white"
+                            rightIcon={<ExternalLink className="w-4 h-4" />}
+                          >
+                            View
+                          </Button>
+                        </Link>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
+            
+            <div className="mt-6 flex items-center justify-between">
+              <div className="text-sm text-slate-400">
+                Showing {campaigns.length} of {campaigns.length} campaigns
+              </div>
+              <Link to="/campaigns">
+                <Button variant="outline" size="sm" className="text-slate-400 hover:text-white">
+                  View All Campaigns
+                </Button>
+              </Link>
+            </div>
           </Card>
+
+          {/* Quick Actions */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+            <Card variant="futuristic" padding="lg" hover className="animate-slide-in-up cursor-pointer" onClick={() => navigate('/campaigns/new')}>
+              <div className="flex items-center space-x-4">
+                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl flex items-center justify-center">
+                  <Plus className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h4 className="text-white font-semibold mb-1">Create Campaign</h4>
+                  <p className="text-slate-400 text-sm">Launch a new marketing campaign</p>
+                </div>
+              </div>
+            </Card>
+
+            <Card variant="futuristic" padding="lg" hover className="animate-slide-in-up cursor-pointer" onClick={() => navigate('/analytics')} style={{ animationDelay: '0.1s' }}>
+              <div className="flex items-center space-x-4">
+                <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-purple-600 rounded-xl flex items-center justify-center">
+                  <BarChart3 className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h4 className="text-white font-semibold mb-1">View Analytics</h4>
+                  <p className="text-slate-400 text-sm">Deep dive into performance data</p>
+                </div>
+              </div>
+            </Card>
+
+            <Card variant="futuristic" padding="lg" hover className="animate-slide-in-up cursor-pointer" onClick={() => navigate('/team')} style={{ animationDelay: '0.2s' }}>
+              <div className="flex items-center space-x-4">
+                <div className="w-12 h-12 bg-gradient-to-r from-teal-500 to-teal-600 rounded-xl flex items-center justify-center">
+                  <Users className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h4 className="text-white font-semibold mb-1">Manage Team</h4>
+                  <p className="text-slate-400 text-sm">Invite and manage team members</p>
+                </div>
+              </div>
+            </Card>
+          </div>
         </main>
       </div>
     </div>
