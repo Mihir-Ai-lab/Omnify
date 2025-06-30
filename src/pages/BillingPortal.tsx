@@ -63,6 +63,7 @@ const BillingPortal: React.FC = () => {
   const [showCancelModal, setShowCancelModal] = useState(false);
   const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [showUsageModal, setShowUsageModal] = useState(false);
+  const [showBillingPortalModal, setShowBillingPortalModal] = useState(false);
   const [lastUpdated, setLastUpdated] = useState(new Date());
 
   const currentPlan = {
@@ -212,26 +213,19 @@ const BillingPortal: React.FC = () => {
 
   const handleViewBillingPortal = async () => {
     try {
-      console.log('Opening external billing portal...');
+      console.log('Opening billing portal dummy page...');
       
-      // Simulate API call to get portal URL
-      const portalUrl = 'https://billing.stripe.com/p/login/test_portal_session';
+      // For development/demo purposes, show a modal instead of redirecting to external URL
+      setShowBillingPortalModal(true);
       
-      // Open in new tab with proper security attributes
-      const newWindow = window.open(portalUrl, '_blank', 'noopener,noreferrer');
+      // Alternative: You could also redirect to a dummy internal page
+      // window.location.href = '/billing/portal-demo';
       
-      if (!newWindow) {
-        throw new Error('Popup blocked or failed to open');
-      }
-      
-      console.log('Billing portal opened successfully');
-      
-      // Optional: Track the event for analytics
-      // analytics.track('billing_portal_opened', { user_id: user.id });
+      console.log('Billing portal modal opened successfully');
       
     } catch (error) {
       console.error('Error opening billing portal:', error);
-      alert('Unable to open billing portal. Please check your popup blocker settings and try again.');
+      alert('Unable to open billing portal. Please try again.');
     }
   };
 
@@ -774,6 +768,68 @@ const BillingPortal: React.FC = () => {
             Detailed usage breakdown for the current billing period.
           </p>
           {/* Usage details content would go here */}
+        </div>
+      </Modal>
+
+      {/* Billing Portal Demo Modal */}
+      <Modal
+        isOpen={showBillingPortalModal}
+        onClose={() => setShowBillingPortalModal(false)}
+        title="Billing Portal Demo"
+        size="lg"
+      >
+        <div className="space-y-6">
+          <div className="text-center">
+            <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-teal-500 rounded-full flex items-center justify-center mx-auto mb-4">
+              <CreditCard className="w-8 h-8 text-white" />
+            </div>
+            <h3 className="text-xl font-semibold text-white mb-2">
+              Billing Portal Demo
+            </h3>
+            <p className="text-slate-300 mb-6">
+              This is a demo version of the billing portal. In production, this would redirect to the actual Stripe billing portal.
+            </p>
+          </div>
+
+          <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg p-4">
+            <h4 className="text-blue-300 font-semibold mb-2">Demo Features:</h4>
+            <ul className="text-slate-300 text-sm space-y-1">
+              <li>• View and download invoices</li>
+              <li>• Update payment methods</li>
+              <li>• Change subscription plans</li>
+              <li>• View billing history</li>
+              <li>• Manage payment preferences</li>
+            </ul>
+          </div>
+
+          <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-lg p-4">
+            <div className="flex items-center space-x-2 mb-2">
+              <AlertTriangle className="w-4 h-4 text-yellow-400" />
+              <span className="text-yellow-300 font-semibold">Development Note</span>
+            </div>
+            <p className="text-slate-300 text-sm">
+              In production, this button will redirect to the actual Stripe Customer Portal where users can manage their billing information securely.
+            </p>
+          </div>
+
+          <div className="flex justify-end space-x-3">
+            <Button 
+              variant="ghost" 
+              onClick={() => setShowBillingPortalModal(false)}
+              className="text-slate-400 hover:text-white"
+            >
+              Close
+            </Button>
+            <Button 
+              variant="futuristic"
+              onClick={() => {
+                setShowBillingPortalModal(false);
+                console.log('Demo billing portal accessed');
+              }}
+            >
+              Continue to Demo Portal
+            </Button>
+          </div>
         </div>
       </Modal>
     </div>
