@@ -20,6 +20,7 @@ import {
   FileImage,
   ChevronDown
 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import Header from '../components/layout/Header';
 import Sidebar from '../components/layout/Sidebar';
 import Card from '../components/common/Card';
@@ -65,6 +66,8 @@ const BillingPortal: React.FC = () => {
   const [showUsageModal, setShowUsageModal] = useState(false);
   const [showBillingPortalModal, setShowBillingPortalModal] = useState(false);
   const [lastUpdated, setLastUpdated] = useState(new Date());
+  
+  const navigate = useNavigate();
 
   const currentPlan = {
     name: 'Pro Plan',
@@ -309,10 +312,21 @@ const BillingPortal: React.FC = () => {
 
   const handleManageTeam = () => {
     try {
-      window.location.href = '/team';
+      navigate('/team');
     } catch (error) {
       console.error('Error navigating to team page:', error);
       alert('Unable to navigate to team management. Please try again.');
+    }
+  };
+
+  // Enhanced "View All" button handler with proper routing and error handling
+  const handleViewAllInvoices = () => {
+    try {
+      console.log('Navigating to invoice list page...');
+      navigate('/billing/invoices');
+    } catch (error) {
+      console.error('Navigation error:', error);
+      alert('Unable to navigate to invoice list. Please try again.');
     }
   };
 
@@ -684,7 +698,9 @@ const BillingPortal: React.FC = () => {
                   variant="ghost" 
                   size="sm" 
                   className="text-slate-400 hover:text-white"
-                  onClick={() => window.location.href = '/billing/invoices'}
+                  onClick={handleViewAllInvoices}
+                  rightIcon={<ExternalLink className="w-4 h-4" />}
+                  aria-label="View all invoices"
                 >
                   View All
                 </Button>

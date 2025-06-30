@@ -15,6 +15,7 @@ import CampaignWizard from './pages/CampaignWizard';
 import Analytics from './pages/Analytics';
 import TeamManagement from './pages/TeamManagement';
 import BillingPortal from './pages/BillingPortal';
+import InvoiceList from './pages/InvoiceList';
 import HelpSupport from './pages/HelpSupport';
 import Settings from './pages/Settings';
 import NotFoundPage from './pages/NotFoundPage';
@@ -65,6 +66,11 @@ function App() {
             <Route path="/billing" element={
               <ProtectedRoute>
                 <BillingPortal />
+              </ProtectedRoute>
+            } />
+            <Route path="/billing/invoices" element={
+              <ProtectedRoute>
+                <InvoiceList />
               </ProtectedRoute>
             } />
             <Route path="/help" element={
