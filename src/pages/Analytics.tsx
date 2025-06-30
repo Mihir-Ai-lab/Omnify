@@ -15,7 +15,12 @@ import {
   ArrowUpRight,
   ArrowDownRight,
   Zap,
-  Activity
+  Activity,
+  ExternalLink,
+  FileText,
+  FileSpreadsheet,
+  FileImage,
+  ChevronDown
 } from 'lucide-react';
 import Header from '../components/layout/Header';
 import Sidebar from '../components/layout/Sidebar';
@@ -29,8 +34,16 @@ const Analytics: React.FC = () => {
   const [sidebarCollapsed, { toggle: toggleSidebar }] = useToggle(false);
   const [selectedPeriod, setSelectedPeriod] = useState('30d');
   const [selectedMetric, setSelectedMetric] = useState('roas');
+  const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isExporting, setIsExporting] = useState(false);
+  const [isFiltering, setIsFiltering] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const [lastUpdated, setLastUpdated] = useState(new Date());
+  const [showFilterDropdown, setShowFilterDropdown] = useState(false);
+  const [showExportDropdown, setShowExportDropdown] = useState(false);
+  const [showTrendTooltip, setShowTrendTooltip] = useState<number | null>(null);
+  const [activeLegendItems, setActiveLegendItems] = useState<string[]>(['roas', 'cac', 'conversions']);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 1000);
@@ -46,6 +59,19 @@ const Analytics: React.FC = () => {
     { value: '30d', label: '30 Days' },
     { value: '90d', label: '90 Days' },
     { value: '1y', label: '1 Year' },
+  ];
+
+  const filterOptions = [
+    { value: 'channel', label: 'Channel', options: ['Meta Ads', 'Google Ads', 'TikTok Ads', 'LinkedIn Ads'] },
+    { value: 'campaign', label: 'Campaign Type', options: ['Awareness', 'Conversion', 'Retargeting', 'Lead Gen'] },
+    { value: 'performance', label: 'Performance', options: ['Excellent', 'Good', 'Poor'] },
+    { value: 'status', label: 'Status', options: ['Active', 'Paused', 'Completed'] },
+  ];
+
+  const exportFormats = [
+    { value: 'csv', label: 'CSV File', icon: FileText, description: 'Comma-separated values' },
+    { value: 'excel', label: 'Excel File', icon: FileSpreadsheet, description: 'Microsoft Excel format' },
+    { value: 'pdf', label: 'PDF Report', icon: FileImage, description: 'Formatted report' },
   ];
 
   const metrics = [
@@ -113,11 +139,11 @@ const Analytics: React.FC = () => {
   ];
 
   const channelData = [
-    { name: 'Meta Ads', spend: 45000, roas: 4.2, color: 'blue' },
-    { name: 'Google Ads', spend: 38000, roas: 3.8, color: 'red' },
-    { name: 'TikTok Ads', spend: 22000, roas: 5.1, color: 'purple' },
-    { name: 'LinkedIn Ads', spend: 15000, roas: 2.9, color: 'blue' },
-    { name: 'Email Marketing', spend: 8000, roas: 6.2, color: 'green' },
+    { name: 'Meta Ads', spend: 45000, roas: 4.2, color: 'blue', percentage: 35 },
+    { name: 'Google Ads', spend: 38000, roas: 3.8, color: 'red', percentage: 30 },
+    { name: 'TikTok Ads', spend: 22000, roas: 5.1, color: 'purple', percentage: 17 },
+    { name: 'LinkedIn Ads', spend: 15000, roas: 2.9, color: 'blue', percentage: 12 },
+    { name: 'Email Marketing', spend: 8000, roas: 6.2, color: 'green', percentage: 6 },
   ];
 
   const topCampaigns = [
@@ -128,10 +154,84 @@ const Analytics: React.FC = () => {
     { name: 'Email Nurture', roas: 3.7, spend: 5200, conversions: 124 },
   ];
 
+  // Mock trend data for charts
+  const trendData = [
+    { day: 'Mon', roas: 3.8, cac: 52, conversions: 156, date: '2024-11-25' },
+    { day: 'Tue', roas: 4.1, cac: 48, conversions: 189, date: '2024-11-26' },
+    { day: 'Wed', roas: 3.9, cac: 50, conversions: 234, date: '2024-11-27' },
+    { day: 'Thu', roas: 4.3, cac: 45, conversions: 287, date: '2024-11-28' },
+    { day: 'Fri', roas: 4.2, cac: 47, conversions: 312, date: '2024-11-29' },
+    { day: 'Sat', roas: 4.0, cac: 49, conversions: 298, date: '2024-11-30' },
+    { day: 'Sun', roas: 4.2, cac: 47, conversions: 342, date: '2024-12-01' },
+  ];
+
   const handleRefresh = () => {
-    setIsLoading(true);
+    setIsRefreshing(true);
     setLastUpdated(new Date());
-    setTimeout(() => setIsLoading(false), 1000);
+    setTimeout(() => {
+      setIsRefreshing(false);
+      console.log('Analytics data refreshed');
+    }, 1000);
+  };
+
+  const handleFilterToggle = (filterValue: string) => {
+    setSelectedFilters(prev => 
+      prev.includes(filterValue)
+        ? prev.filter(f => f !== filterValue)
+        : [...prev, filterValue]
+    );
+  };
+
+  const handleApplyFilters = () => {
+    setIsFiltering(true);
+    setShowFilterDropdown(false);
+    setTimeout(() => {
+      setIsFiltering(false);
+      console.log('Filters applied:', selectedFilters);
+    }, 1000);
+  };
+
+  const handleResetFilters = () => {
+    setSelectedFilters([]);
+    console.log('Filters reset');
+  };
+
+  const handleExport = async (format: string) => {
+    setIsExporting(true);
+    setShowExportDropdown(false);
+    
+    // Simulate export process
+    setTimeout(() => {
+      setIsExporting(false);
+      const timestamp = new Date().toISOString().split('T')[0];
+      const filename = `analytics-report-${timestamp}.${format}`;
+      console.log(`Exporting ${format.toUpperCase()} file: ${filename}`);
+      console.log('Export data includes:', {
+        period: selectedPeriod,
+        filters: selectedFilters,
+        metrics: metrics.map(m => ({ id: m.id, value: m.value })),
+        channels: channelData,
+        campaigns: topCampaigns
+      });
+    }, 2000);
+  };
+
+  const handleTrendHover = (index: number | null) => {
+    setShowTrendTooltip(index);
+  };
+
+  const handleLegendToggle = (metricId: string) => {
+    setActiveLegendItems(prev => 
+      prev.includes(metricId)
+        ? prev.filter(id => id !== metricId)
+        : [...prev, metricId]
+    );
+    console.log('Legend toggled:', metricId);
+  };
+
+  const handleViewDetails = (widget: string) => {
+    console.log(`Navigating to detailed view for: ${widget}`);
+    // In a real app, this would navigate to a detailed analytics page
   };
 
   const formatMetricValue = (metric: any) => {
@@ -188,6 +288,7 @@ const Analytics: React.FC = () => {
             </div>
             
             <div className="flex items-center space-x-4 mt-4 lg:mt-0 animate-slide-in-right">
+              {/* Period Selector */}
               <div className="flex items-center space-x-2">
                 <Calendar className="w-4 h-4 text-slate-400" />
                 <select
@@ -203,17 +304,115 @@ const Analytics: React.FC = () => {
                 </select>
               </div>
               
-              <Button variant="ghost" size="sm" leftIcon={<Filter className="w-4 h-4" />}>
-                Filter
-              </Button>
+              {/* Filter Dropdown */}
+              <div className="relative">
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  leftIcon={<Filter className="w-4 h-4" />}
+                  rightIcon={<ChevronDown className="w-4 h-4" />}
+                  loading={isFiltering}
+                  onClick={() => setShowFilterDropdown(!showFilterDropdown)}
+                  className="text-slate-400 hover:text-white"
+                >
+                  Filter {selectedFilters.length > 0 && `(${selectedFilters.length})`}
+                </Button>
+                
+                {showFilterDropdown && (
+                  <div className="absolute right-0 mt-2 w-80 glass-dark rounded-xl shadow-xl border border-white/10 p-4 z-50 animate-slide-in-up">
+                    <div className="flex items-center justify-between mb-4">
+                      <h3 className="text-white font-semibold">Filter Options</h3>
+                      <button
+                        onClick={handleResetFilters}
+                        className="text-slate-400 hover:text-white text-sm"
+                      >
+                        Reset All
+                      </button>
+                    </div>
+                    
+                    {filterOptions.map((filterGroup) => (
+                      <div key={filterGroup.value} className="mb-4">
+                        <h4 className="text-slate-300 font-medium mb-2">{filterGroup.label}</h4>
+                        <div className="space-y-2">
+                          {filterGroup.options.map((option) => (
+                            <label key={option} className="flex items-center space-x-2 cursor-pointer">
+                              <input
+                                type="checkbox"
+                                checked={selectedFilters.includes(option)}
+                                onChange={() => handleFilterToggle(option)}
+                                className="w-4 h-4 text-blue-600 border-white/20 rounded focus:ring-blue-500 bg-white/10"
+                              />
+                              <span className="text-slate-300 text-sm">{option}</span>
+                            </label>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                    
+                    <div className="flex space-x-2 pt-4 border-t border-white/10">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => setShowFilterDropdown(false)}
+                        className="flex-1 text-slate-400 hover:text-white"
+                      >
+                        Cancel
+                      </Button>
+                      <Button
+                        variant="futuristic"
+                        size="sm"
+                        onClick={handleApplyFilters}
+                        className="flex-1"
+                      >
+                        Apply Filters
+                      </Button>
+                    </div>
+                  </div>
+                )}
+              </div>
               
-              <Button variant="ghost" size="sm" leftIcon={<RefreshCw className="w-4 h-4" />} onClick={handleRefresh}>
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                leftIcon={<RefreshCw className={`w-4 h-4 ${isRefreshing ? 'animate-spin' : ''}`} />}
+                onClick={handleRefresh}
+                disabled={isRefreshing}
+                className="text-slate-400 hover:text-white"
+              >
                 Refresh
               </Button>
               
-              <Button variant="futuristic" size="sm" leftIcon={<Download className="w-4 h-4" />}>
-                Export
-              </Button>
+              {/* Export Dropdown */}
+              <div className="relative">
+                <Button 
+                  variant="futuristic" 
+                  size="sm" 
+                  leftIcon={<Download className="w-4 h-4" />}
+                  rightIcon={<ChevronDown className="w-4 h-4" />}
+                  loading={isExporting}
+                  onClick={() => setShowExportDropdown(!showExportDropdown)}
+                >
+                  Export
+                </Button>
+                
+                {showExportDropdown && (
+                  <div className="absolute right-0 mt-2 w-64 glass-dark rounded-xl shadow-xl border border-white/10 p-2 z-50 animate-slide-in-up">
+                    {exportFormats.map((format) => (
+                      <button
+                        key={format.value}
+                        onClick={() => handleExport(format.value)}
+                        className="w-full flex items-center space-x-3 p-3 rounded-lg hover:bg-white/10 transition-colors duration-200"
+                      >
+                        <format.icon className="w-5 h-5 text-slate-400" />
+                        <div className="text-left">
+                          <div className="text-white font-medium">{format.label}</div>
+                          <div className="text-slate-400 text-xs">{format.description}</div>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
 
@@ -274,29 +473,107 @@ const Analytics: React.FC = () => {
                 </h3>
                 <div className="flex items-center space-x-2">
                   <Badge variant="success" size="sm" dot>Live</Badge>
-                  <Button variant="ghost" size="sm" className="text-slate-400 hover:text-white">
+                  <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    className="text-slate-400 hover:text-white"
+                    onClick={() => handleViewDetails('performance-trends')}
+                    rightIcon={<ExternalLink className="w-4 h-4" />}
+                  >
                     View Details
                   </Button>
                 </div>
               </div>
-              <div className="h-80 bg-gradient-to-br from-blue-500/10 to-teal-500/10 rounded-xl flex items-center justify-center border border-white/10 relative overflow-hidden">
+              
+              {/* Chart Area */}
+              <div className="h-80 bg-gradient-to-br from-blue-500/10 to-teal-500/10 rounded-xl border border-white/10 relative overflow-hidden p-4">
                 <div className="absolute inset-0 geometric-pattern opacity-20"></div>
-                <div className="text-center relative z-10">
-                  <TrendingUp className="w-16 h-16 text-blue-400 mx-auto mb-4" />
-                  <p className="text-slate-300 text-lg mb-2">Interactive Performance Chart</p>
-                  <p className="text-sm text-slate-500">ROAS, CAC, and conversion trends over time</p>
-                  <div className="mt-4 flex justify-center space-x-4">
-                    <div className="flex items-center space-x-2">
-                      <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
-                      <span className="text-xs text-slate-400">ROAS</span>
+                
+                {/* Chart Content */}
+                <div className="relative z-10 h-full">
+                  {/* Chart Header */}
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="text-center">
+                      <TrendingUp className="w-8 h-8 text-blue-400 mx-auto mb-2" />
+                      <p className="text-slate-300 text-sm">7-Day Trend Analysis</p>
                     </div>
-                    <div className="flex items-center space-x-2">
-                      <div className="w-3 h-3 bg-teal-500 rounded-full"></div>
-                      <span className="text-xs text-slate-400">CAC</span>
+                    
+                    {/* Legend */}
+                    <div className="flex flex-wrap gap-2">
+                      {[
+                        { id: 'roas', label: 'ROAS', color: 'blue' },
+                        { id: 'cac', label: 'CAC', color: 'teal' },
+                        { id: 'conversions', label: 'Conversions', color: 'purple' }
+                      ].map((item) => (
+                        <button
+                          key={item.id}
+                          onClick={() => handleLegendToggle(item.id)}
+                          className={`flex items-center space-x-1 px-2 py-1 rounded text-xs transition-all duration-200 ${
+                            activeLegendItems.includes(item.id)
+                              ? `bg-${item.color}-500/20 text-${item.color}-300 border border-${item.color}-500/30`
+                              : 'bg-slate-700/50 text-slate-500 border border-slate-600'
+                          }`}
+                        >
+                          <div className={`w-2 h-2 rounded-full bg-${item.color}-500`}></div>
+                          <span>{item.label}</span>
+                        </button>
+                      ))}
                     </div>
-                    <div className="flex items-center space-x-2">
-                      <div className="w-3 h-3 bg-purple-500 rounded-full"></div>
-                      <span className="text-xs text-slate-400">Conversions</span>
+                  </div>
+                  
+                  {/* Mock Chart Visualization */}
+                  <div className="h-48 flex items-end justify-between space-x-2 relative">
+                    {trendData.map((data, index) => (
+                      <div
+                        key={index}
+                        className="flex-1 flex flex-col items-center relative cursor-pointer"
+                        onMouseEnter={() => handleTrendHover(index)}
+                        onMouseLeave={() => handleTrendHover(null)}
+                      >
+                        {/* Tooltip */}
+                        {showTrendTooltip === index && (
+                          <div className="absolute bottom-full mb-2 bg-slate-800 border border-white/20 rounded-lg p-2 text-xs text-white z-10 min-w-[120px]">
+                            <div className="font-semibold mb-1">{data.day}</div>
+                            <div>ROAS: {data.roas}x</div>
+                            <div>CAC: ${data.cac}</div>
+                            <div>Conversions: {data.conversions}</div>
+                          </div>
+                        )}
+                        
+                        {/* Bars */}
+                        <div className="w-full space-y-1">
+                          {activeLegendItems.includes('roas') && (
+                            <div
+                              className="bg-gradient-to-t from-blue-600 to-blue-400 rounded-t transition-all duration-300 hover:from-blue-500 hover:to-blue-300"
+                              style={{ height: `${(data.roas / 5) * 60}px` }}
+                            ></div>
+                          )}
+                          {activeLegendItems.includes('conversions') && (
+                            <div
+                              className="bg-gradient-to-t from-purple-600 to-purple-400 rounded transition-all duration-300 hover:from-purple-500 hover:to-purple-300"
+                              style={{ height: `${(data.conversions / 400) * 40}px` }}
+                            ></div>
+                          )}
+                        </div>
+                        
+                        <div className="text-xs text-slate-400 mt-2">{data.day}</div>
+                      </div>
+                    ))}
+                  </div>
+                  
+                  {/* Chart Summary */}
+                  <div className="mt-4 grid grid-cols-3 gap-4 text-center">
+                    <div>
+                      <div className="text-green-400 text-lg font-bold">+18.7%</div>
+                      <div className="text-xs text-slate-400">ROAS Growth</div>
+                    </div>
+                    <div>
+                      <div className="text-green-400 text-lg font-bold">-23.5%</div>
+                      <div className="text-xs text-slate-400">CAC Reduction</div>
+                    </div>
+                    <div>
+                      <div className="text-blue-400 text-lg font-bold">1,247</div>
+                      <div className="text-xs text-slate-400">Total Conversions</div>
                     </div>
                   </div>
                 </div>
@@ -309,16 +586,69 @@ const Analytics: React.FC = () => {
                 <h3 className="text-xl font-semibold text-white">
                   Channel Distribution
                 </h3>
-                <Button variant="ghost" size="sm" className="text-slate-400 hover:text-white">
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className="text-slate-400 hover:text-white"
+                  onClick={() => handleViewDetails('channel-distribution')}
+                  rightIcon={<ExternalLink className="w-4 h-4" />}
+                >
                   View All
                 </Button>
               </div>
-              <div className="h-80 bg-gradient-to-br from-purple-500/10 to-pink-500/10 rounded-xl flex items-center justify-center border border-white/10 relative overflow-hidden">
+              
+              {/* Chart Area */}
+              <div className="h-80 bg-gradient-to-br from-purple-500/10 to-pink-500/10 rounded-xl border border-white/10 relative overflow-hidden p-4">
                 <div className="absolute inset-0 geometric-pattern opacity-20"></div>
-                <div className="text-center relative z-10">
-                  <PieChart className="w-16 h-16 text-purple-400 mx-auto mb-4" />
-                  <p className="text-slate-300 text-lg mb-2">Channel Performance Breakdown</p>
-                  <p className="text-sm text-slate-500">Spend and ROAS by advertising channel</p>
+                
+                {/* Chart Content */}
+                <div className="relative z-10 h-full">
+                  {/* Chart Header */}
+                  <div className="text-center mb-6">
+                    <PieChart className="w-8 h-8 text-purple-400 mx-auto mb-2" />
+                    <p className="text-slate-300 text-sm">Ad Spend by Channel</p>
+                  </div>
+                  
+                  {/* Mock Pie Chart Visualization */}
+                  <div className="space-y-3 mb-6">
+                    {channelData.map((channel, index) => (
+                      <div 
+                        key={channel.name} 
+                        className="flex items-center justify-between p-2 rounded-lg hover:bg-white/5 transition-all duration-200 cursor-pointer"
+                        onClick={() => console.log(`Channel clicked: ${channel.name}`)}
+                      >
+                        <div className="flex items-center space-x-3">
+                          <div 
+                            className={`w-4 h-4 rounded-full bg-gradient-to-r from-${channel.color}-500 to-${channel.color}-600`}
+                          ></div>
+                          <span className="text-slate-300 font-medium">{channel.name}</span>
+                        </div>
+                        <div className="flex items-center space-x-4">
+                          <div className="text-right">
+                            <div className="text-white font-semibold">{channel.percentage}%</div>
+                            <div className="text-xs text-slate-400">{formatCurrency(channel.spend)}</div>
+                          </div>
+                          <div className="w-16 bg-slate-700 rounded-full h-2">
+                            <div 
+                              className={`bg-gradient-to-r from-${channel.color}-500 to-${channel.color}-600 h-2 rounded-full transition-all duration-1000`}
+                              style={{ width: `${channel.percentage}%` }}
+                            ></div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  
+                  {/* Chart Summary */}
+                  <div className="text-center pt-4 border-t border-white/10">
+                    <div className="text-lg font-bold text-white mb-1">
+                      {formatCurrency(channelData.reduce((sum, channel) => sum + channel.spend, 0))}
+                    </div>
+                    <div className="text-sm text-slate-400">Total Ad Spend</div>
+                    <div className="text-xs text-slate-500 mt-1">
+                      Avg ROAS: {(channelData.reduce((sum, channel) => sum + channel.roas, 0) / channelData.length).toFixed(1)}x
+                    </div>
+                  </div>
                 </div>
               </div>
             </Card>
@@ -331,7 +661,13 @@ const Analytics: React.FC = () => {
                 <h3 className="text-xl font-semibold text-white">
                   Channel Performance
                 </h3>
-                <Button variant="ghost" size="sm" className="text-slate-400 hover:text-white">
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className="text-slate-400 hover:text-white"
+                  onClick={() => handleViewDetails('channel-performance')}
+                  rightIcon={<ExternalLink className="w-4 h-4" />}
+                >
                   View All
                 </Button>
               </div>
@@ -339,8 +675,9 @@ const Analytics: React.FC = () => {
                 {channelData.map((channel, index) => (
                   <div 
                     key={channel.name} 
-                    className="flex items-center justify-between p-4 bg-white/5 rounded-xl hover:bg-white/10 transition-all duration-200"
+                    className="flex items-center justify-between p-4 bg-white/5 rounded-xl hover:bg-white/10 transition-all duration-200 cursor-pointer"
                     style={{ animationDelay: `${index * 0.1}s` }}
+                    onClick={() => console.log(`Channel details: ${channel.name}`)}
                   >
                     <div className="flex items-center space-x-3">
                       <div className={`w-10 h-10 rounded-lg bg-gradient-to-r from-${channel.color}-500 to-${channel.color}-600 flex items-center justify-center`}>
@@ -380,7 +717,13 @@ const Analytics: React.FC = () => {
                 <h3 className="text-xl font-semibold text-white">
                   Top Performing Campaigns
                 </h3>
-                <Button variant="ghost" size="sm" className="text-slate-400 hover:text-white">
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className="text-slate-400 hover:text-white"
+                  onClick={() => handleViewDetails('top-campaigns')}
+                  rightIcon={<ExternalLink className="w-4 h-4" />}
+                >
                   View All
                 </Button>
               </div>
@@ -388,8 +731,9 @@ const Analytics: React.FC = () => {
                 {topCampaigns.map((campaign, index) => (
                   <div 
                     key={campaign.name} 
-                    className="flex items-center justify-between p-4 bg-white/5 rounded-xl hover:bg-white/10 transition-all duration-200"
+                    className="flex items-center justify-between p-4 bg-white/5 rounded-xl hover:bg-white/10 transition-all duration-200 cursor-pointer"
                     style={{ animationDelay: `${index * 0.1}s` }}
+                    onClick={() => console.log(`Campaign details: ${campaign.name}`)}
                   >
                     <div className="flex-1">
                       <div className="text-white font-medium mb-1">{campaign.name}</div>
@@ -420,7 +764,13 @@ const Analytics: React.FC = () => {
               </h3>
               <div className="flex items-center space-x-2">
                 <Badge variant="success" size="sm" dot>Live</Badge>
-                <Button variant="ghost" size="sm" className="text-slate-400 hover:text-white">
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className="text-slate-400 hover:text-white"
+                  onClick={() => handleViewDetails('activity-feed')}
+                  rightIcon={<ExternalLink className="w-4 h-4" />}
+                >
                   View All
                 </Button>
               </div>
@@ -435,7 +785,8 @@ const Analytics: React.FC = () => {
               ].map((activity, index) => (
                 <div 
                   key={index} 
-                  className="flex items-center justify-between p-3 bg-white/5 rounded-lg hover:bg-white/10 transition-all duration-200"
+                  className="flex items-center justify-between p-3 bg-white/5 rounded-lg hover:bg-white/10 transition-all duration-200 cursor-pointer"
+                  onClick={() => console.log(`Activity details: ${activity.action}`)}
                 >
                   <div className="flex items-center space-x-3">
                     <div className={`w-2 h-2 rounded-full ${
