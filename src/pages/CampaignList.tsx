@@ -52,11 +52,6 @@ const CampaignList: React.FC = () => {
   const [isDeleteModalOpen, { toggle: toggleDeleteModal }] = useToggle(false);
   const [viewMode, setViewMode] = useState<'grid' | 'table'>('table');
 
-  const user = {
-    name: 'Sarah Chen',
-    email: 'sarah@techflow.com',
-  };
-
   const campaigns: Campaign[] = [
     {
       id: 1,
@@ -439,14 +434,17 @@ const CampaignList: React.FC = () => {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
       <Sidebar 
         isCollapsed={sidebarCollapsed} 
         onToggle={toggleSidebar}
         currentPath="/campaigns"
       />
       
-      <div className="flex-1 flex flex-col">
+      <div 
+        className="flex-1 flex flex-col transition-all duration-300" 
+        style={{ marginLeft: sidebarCollapsed ? '64px' : '256px' }}
+      >
         <Header variant="dashboard" />
         
         <main className="flex-1 p-6 animate-fade-in">

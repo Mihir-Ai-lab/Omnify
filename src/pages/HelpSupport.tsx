@@ -182,14 +182,17 @@ const HelpSupport: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
       <Sidebar 
         isCollapsed={sidebarCollapsed} 
         onToggle={toggleSidebar}
         currentPath="/help"
       />
       
-      <div className="flex-1 flex flex-col">
+      <div 
+        className="flex-1 flex flex-col transition-all duration-300" 
+        style={{ marginLeft: sidebarCollapsed ? '64px' : '256px' }}
+      >
         <Header variant="dashboard" />
         
         <main className="flex-1 p-6 animate-fade-in">
