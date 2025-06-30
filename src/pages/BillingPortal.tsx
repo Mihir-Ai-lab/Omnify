@@ -80,6 +80,7 @@ const BillingPortal: React.FC = () => {
   const [showUsageDetails, { toggle: toggleUsageDetails }] = useToggle(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [lastUpdated, setLastUpdated] = useState(new Date());
+  const [isNavigatingToBillingPortal, setIsNavigatingToBillingPortal] = useState(false);
   
   const navigate = useNavigate();
 
@@ -334,14 +335,76 @@ const BillingPortal: React.FC = () => {
     }
   };
 
-  const handleNavigateToBillingPortal = () => {
+  // Enhanced Billing Portal Navigation with comprehensive error handling
+  const handleNavigateToBillingPortal = async () => {
     try {
-      // In a real app, this would open Stripe's billing portal
-      window.open('https://billing.stripe.com/p/login/test_123', '_blank');
-      console.log('Navigating to external billing portal');
+      setIsNavigatingToBillingPortal(true);
+      
+      // Validate browser support for window.open
+      if (typeof window === 'undefined' || !window.open) {
+        throw new Error('Browser does not support opening new windows');
+      }
+
+      // Check if popup blockers might interfere
+      const testWindow = window.open('', '_blank');
+      if (!testWindow) {
+        throw new Error('Popup blocked by browser. Please allow popups for this site.');
+      }
+      testWindow.close();
+
+      // Simulate API call to get billing portal URL (in real app)
+      await new Promise(resolve => setTimeout(resolve, 500));
+      
+      // In production, this would be a dynamic URL from your backend
+      const billingPortalUrl = 'https://billing.stripe.com/p/login/test_123';
+      
+      // Open billing portal in new tab
+      const newWindow = window.open(billingPortalUrl, '_blank', 'noopener,noreferrer');
+      
+      if (!newWindow) {
+        throw new Error('Failed to open billing portal. Please check your popup settings.');
+      }
+
+      // Focus the new window
+      newWindow.focus();
+      
+      console.log('Successfully opened billing portal:', billingPortalUrl);
+      
+      // Optional: Show success feedback
+      setTimeout(() => {
+        console.log('Billing portal opened successfully');
+      }, 100);
+      
     } catch (error) {
-      console.error('Navigation error:', error);
-      alert('Unable to open billing portal. Please try again.');
+      console.error('Billing portal navigation error:', error);
+      
+      // Provide specific error messages based on error type
+      let errorMessage = 'Unable to open billing portal. ';
+      
+      if (error instanceof Error) {
+        if (error.message.includes('Popup blocked')) {
+          errorMessage += 'Please allow popups for this site and try again.';
+        } else if (error.message.includes('Browser does not support')) {
+          errorMessage += 'Your browser does not support this feature. Please try a different browser.';
+        } else {
+          errorMessage += error.message;
+        }
+      } else {
+        errorMessage += 'Please try again or contact support if the issue persists.';
+      }
+      
+      alert(errorMessage);
+      
+      // Fallback: Copy URL to clipboard
+      try {
+        await navigator.clipboard.writeText('https://billing.stripe.com/p/login/test_123');
+        alert('Billing portal URL copied to clipboard. Please paste it in a new tab.');
+      } catch (clipboardError) {
+        console.error('Clipboard error:', clipboardError);
+      }
+      
+    } finally {
+      setIsNavigatingToBillingPortal(false);
     }
   };
 
@@ -831,8 +894,12 @@ const BillingPortal: React.FC = () => {
                   fullWidth 
                   leftIcon={<ExternalLink className="w-4 h-4" />}
                   onClick={handleNavigateToBillingPortal}
+                  loading={isNavigatingToBillingPortal}
+                  disabled={isNavigatingToBillingPortal}
+                  className="focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-slate-900"
+                  aria-label="Open external billing portal in new tab"
                 >
-                  View Billing Portal
+                  {isNavigatingToBillingPortal ? 'Opening Portal...' : 'View Billing Portal'}
                 </Button>
               </div>
             </Card>
