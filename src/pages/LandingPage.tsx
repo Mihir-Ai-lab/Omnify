@@ -157,15 +157,15 @@ const LandingPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#1a1f2e] text-white">
+    <div className="min-h-screen bg-[#1e2a3a] text-white">
       <Header variant="landing" />
       
-      {/* Hero Section - Pixel Perfect Match */}
-      <section className="relative overflow-hidden bg-[#1a1f2e] pt-8 pb-16 lg:pt-16 lg:pb-24">
+      {/* Hero Section - Exact Match to Reference */}
+      <section className="relative overflow-hidden bg-[#1e2a3a] pt-8 pb-16 lg:pt-16 lg:pb-24">
         {/* Background Elements */}
         <div className="absolute inset-0">
-          <div className="absolute top-20 left-20 w-96 h-96 bg-[#00d4aa] rounded-full blur-3xl opacity-10"></div>
-          <div className="absolute bottom-20 right-20 w-96 h-96 bg-[#4f46e5] rounded-full blur-3xl opacity-10"></div>
+          <div className="absolute top-20 left-20 w-96 h-96 bg-[#4ade80] rounded-full blur-3xl opacity-5"></div>
+          <div className="absolute bottom-20 right-20 w-96 h-96 bg-[#3b82f6] rounded-full blur-3xl opacity-5"></div>
         </div>
         
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -174,23 +174,23 @@ const LandingPage: React.FC = () => {
             <div className="space-y-8 lg:pr-8">
               {/* Top Badge */}
               <div className="flex items-center">
-                <div className="inline-flex items-center px-4 py-2 rounded-full bg-[#00d4aa]/10 border border-[#00d4aa]/20">
-                  <Zap className="w-4 h-4 mr-2 text-[#00d4aa]" />
-                  <span className="text-[#00d4aa] text-sm font-medium">AI-Powered Marketing Revolution</span>
+                <div className="inline-flex items-center px-4 py-2 rounded-full bg-[#4ade80]/10 border border-[#4ade80]/20">
+                  <Zap className="w-4 h-4 mr-2 text-[#4ade80]" />
+                  <span className="text-[#4ade80] text-sm font-medium">AI-Powered Marketing Revolution</span>
                 </div>
               </div>
               
-              {/* Main Headlines */}
-              <div className="space-y-4">
-                <h1 className="text-5xl lg:text-7xl font-bold leading-[0.9] tracking-tight">
+              {/* Main Headlines - Exact Match */}
+              <div className="space-y-2">
+                <h1 className="text-5xl lg:text-7xl font-bold leading-[0.85] tracking-tight">
                   <span className="text-white">Stop Bleeding </span>
-                  <span className="text-[#00d4aa]">Ad</span>
+                  <span className="text-[#4ade80]">Ad</span>
                   <br />
-                  <span className="text-[#00d4aa]">Spend</span>
+                  <span className="text-[#60a5fa]">Spend</span>
                   <br />
                   <span className="text-white">Start Winning with</span>
                   <br />
-                  <span className="text-[#00d4aa]">AI</span>
+                  <span className="text-[#60a5fa]">AI</span>
                 </h1>
               </div>
               
@@ -198,14 +198,14 @@ const LandingPage: React.FC = () => {
               <div className="space-y-6">
                 <p className="text-xl lg:text-2xl text-[#94a3b8] leading-relaxed max-w-2xl">
                   Omnify's autonomous AI Brain transforms your top ads into 
-                  25+ optimized creatives, <span className="text-[#00d4aa] font-semibold">cuts CAC upto 20%</span>, and deploys 
+                  25+ optimized creatives, <span className="text-[#4ade80] font-semibold">cuts CAC upto 20%</span>, and deploys 
                   them in minutes—not weeks.
                 </p>
               </div>
               
-              {/* CTA Buttons */}
+              {/* CTA Buttons - Exact Match */}
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <button className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-[#00d4aa] to-[#00b894] text-white font-semibold rounded-xl hover:from-[#00b894] hover:to-[#00a085] transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-[1.02]">
+                <button className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-[#3b82f6] to-[#4ade80] text-white font-semibold rounded-xl hover:from-[#2563eb] hover:to-[#22c55e] transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-[1.02]">
                   Book Your Demo Now
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </button>
@@ -218,8 +218,8 @@ const LandingPage: React.FC = () => {
               {/* Bottom Features */}
               <div className="flex items-center space-x-8 pt-6">
                 <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-[#00d4aa] rounded-full"></div>
-                  <span className="text-[#00d4aa] text-sm font-medium">20% CAC Reduction Guarantee in 60 Days</span>
+                  <div className="w-2 h-2 bg-[#4ade80] rounded-full"></div>
+                  <span className="text-[#4ade80] text-sm font-medium">20% CAC Reduction Guarantee in 60 Days</span>
                 </div>
               </div>
               
@@ -244,7 +244,7 @@ const LandingPage: React.FC = () => {
             <div className="relative lg:pl-8">
               {/* AI-Verified Results Badge */}
               <div className="absolute -top-4 right-8 z-20">
-                <div className="inline-flex items-center px-4 py-2 rounded-full bg-[#00d4aa] text-white text-sm font-medium shadow-lg">
+                <div className="inline-flex items-center px-4 py-2 rounded-full bg-[#4ade80] text-white text-sm font-medium shadow-lg">
                   <Star className="w-4 h-4 mr-2" />
                   AI-Verified Results
                 </div>
@@ -309,11 +309,11 @@ const LandingPage: React.FC = () => {
                         <svg className="w-full h-full" viewBox="0 0 300 100">
                           <polyline
                             fill="none"
-                            stroke="#00d4aa"
+                            stroke="#4ade80"
                             strokeWidth="2"
                             points="0,80 50,70 100,60 150,45 200,35 250,25 300,20"
                           />
-                          <circle cx="300" cy="20" r="3" fill="#00d4aa" />
+                          <circle cx="300" cy="20" r="3" fill="#4ade80" />
                         </svg>
                       </div>
                     </div>
@@ -354,8 +354,8 @@ const LandingPage: React.FC = () => {
               
               {/* Floating AI Badge */}
               <div className="absolute -bottom-4 -left-4 z-10">
-                <div className="bg-[#1a1f2e] rounded-full p-4 border-4 border-[#00d4aa] shadow-lg">
-                  <Zap className="w-8 h-8 text-[#00d4aa]" />
+                <div className="bg-[#1e2a3a] rounded-full p-4 border-4 border-[#4ade80] shadow-lg">
+                  <Zap className="w-8 h-8 text-[#4ade80]" />
                 </div>
               </div>
             </div>
@@ -391,7 +391,7 @@ const LandingPage: React.FC = () => {
       </section>
 
       {/* How It Works Section */}
-      <section className="py-20 bg-[#1a1f2e]">
+      <section className="py-20 bg-[#1e2a3a]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-5xl font-bold text-white mb-6">
@@ -407,7 +407,7 @@ const LandingPage: React.FC = () => {
               <div key={index} className={`flex flex-col lg:flex-row items-center gap-12 ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}>
                 <div className="flex-1 space-y-6">
                   <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-[#00d4aa] rounded-full flex items-center justify-center text-white font-bold text-lg">
+                    <div className="w-12 h-12 bg-[#4ade80] rounded-full flex items-center justify-center text-white font-bold text-lg">
                       {step.step}
                     </div>
                     <h3 className="text-2xl font-bold text-white">
@@ -428,7 +428,7 @@ const LandingPage: React.FC = () => {
                       {step.mockData.map((item, i) => (
                         <div key={i} className="flex items-center justify-between p-3 bg-[#334155] rounded-lg border border-[#475569]">
                           <span className="text-[#94a3b8] text-sm">{item.label}</span>
-                          <span className="text-[#00d4aa] font-semibold">
+                          <span className="text-[#4ade80] font-semibold">
                             {typeof item.value === 'number' && item.value > 100 ? 
                               `$${(item.value / 1000).toFixed(0)}k` : 
                               `${item.value > 0 ? '+' : ''}${item.value}${item.label === 'CTR' ? '%' : item.label === 'ROAS' ? 'x' : item.label === 'CAC' ? '%' : ''}`
@@ -494,7 +494,7 @@ const LandingPage: React.FC = () => {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-20 bg-[#1a1f2e]">
+      <section className="py-20 bg-[#1e2a3a]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-5xl font-bold text-white mb-6">
@@ -535,7 +535,7 @@ const LandingPage: React.FC = () => {
       </section>
 
       {/* Final CTA Section */}
-      <section className="py-20 bg-gradient-to-br from-[#00d4aa] to-[#3b82f6]">
+      <section className="py-20 bg-gradient-to-br from-[#4ade80] to-[#3b82f6]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl lg:text-5xl font-bold text-white mb-6">
             Ready to Stop Bleeding<br />Ad Spend?
@@ -549,7 +549,7 @@ const LandingPage: React.FC = () => {
             <Button 
               variant="primary" 
               size="xl"
-              className="bg-white text-[#1a1f2e] hover:bg-neutral-100"
+              className="bg-white text-[#1e2a3a] hover:bg-neutral-100"
               rightIcon={<ArrowRight className="w-5 h-5" />}
             >
               Start Your Smart Trial
