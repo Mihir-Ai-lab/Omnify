@@ -1,4 +1,4 @@
-import { colors, typography, spacing } from './src/styles/tokens/index.js';
+import { colors, typography, spacing } from './src/styles/tokens/index';
 
 /** @type {import('tailwindcss').Config} */
 export default {
