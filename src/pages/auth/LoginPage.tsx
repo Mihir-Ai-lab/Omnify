@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Eye, EyeOff, Mail, Lock, AlertCircle, CheckCircle, Zap } from 'lucide-react';
+import { Eye, EyeOff, Mail, Lock, AlertCircle, CheckCircle, Zap, ArrowRight } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import Button from '../../components/common/Button';
 import Input from '../../components/common/Input';
@@ -72,27 +72,36 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-neutral-50 to-neutral-100 flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center p-4 relative overflow-hidden">
+      {/* Background Effects */}
+      <div className="absolute inset-0">
+        <div className="absolute top-20 left-20 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-20 right-20 w-96 h-96 bg-teal-600/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="geometric-pattern absolute inset-0 opacity-20"></div>
+      </div>
+
+      <div className="w-full max-w-md relative z-10">
         {/* Logo */}
-        <div className="text-center mb-8">
+        <div className="text-center mb-8 animate-slide-in-up">
           <div className="flex items-center justify-center space-x-3 mb-4">
             <div className="relative">
-              <Zap className="h-10 w-10 text-primary-600" />
+              <Zap className="h-10 w-10 text-teal-400" />
               <div className="absolute inset-0 blur-sm">
-                <Zap className="h-10 w-10 text-primary-600 opacity-30" />
+                <Zap className="h-10 w-10 text-teal-400 opacity-30" />
               </div>
             </div>
             <div>
-              <span className="text-2xl font-bold text-neutral-900">Omnify</span>
-              <span className="text-sm text-neutral-600 font-medium ml-2">Marketing Cloud</span>
+              <span className="text-2xl font-bold text-white">Omnify</span>
+              <span className="text-sm text-slate-400 font-medium ml-2">Marketing Cloud</span>
             </div>
           </div>
-          <h1 className="text-3xl font-bold text-neutral-900 mb-2">Welcome back</h1>
-          <p className="text-neutral-600">Sign in to your account to continue</p>
+          <h1 className="text-3xl font-bold text-white mb-2 bg-gradient-to-r from-blue-400 to-teal-400 bg-clip-text text-transparent">
+            Welcome back
+          </h1>
+          <p className="text-slate-300">Sign in to your account to continue</p>
         </div>
 
-        <Card padding="lg" className="shadow-xl">
+        <Card variant="futuristic" padding="lg" className="shadow-2xl animate-slide-in-up" style={{ animationDelay: '0.2s' }}>
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Email Field */}
             <Input
@@ -105,6 +114,7 @@ const LoginPage: React.FC = () => {
               placeholder="Enter your email"
               fullWidth
               autoComplete="email"
+              variant="futuristic"
             />
 
             {/* Password Field */}
@@ -118,7 +128,7 @@ const LoginPage: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="text-neutral-400 hover:text-neutral-600 transition-colors duration-200"
+                  className="text-slate-400 hover:text-slate-300 transition-colors duration-200"
                 >
                   {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                 </button>
@@ -127,23 +137,24 @@ const LoginPage: React.FC = () => {
               placeholder="Enter your password"
               fullWidth
               autoComplete="current-password"
+              variant="futuristic"
             />
 
             {/* Remember Me & Forgot Password */}
             <div className="flex items-center justify-between">
-              <label className="flex items-center space-x-2 cursor-pointer">
+              <label className="flex items-center space-x-2 cursor-pointer group">
                 <input
                   type="checkbox"
                   checked={formData.rememberMe}
                   onChange={(e) => handleInputChange('rememberMe', e.target.checked)}
-                  className="w-4 h-4 text-primary-600 border-neutral-300 rounded focus:ring-primary-500 focus:ring-2"
+                  className="w-4 h-4 text-blue-600 border-white/20 rounded focus:ring-blue-500 focus:ring-2 bg-white/10 transition-all duration-200"
                 />
-                <span className="text-sm text-neutral-700">Remember me</span>
+                <span className="text-sm text-slate-300 group-hover:text-white transition-colors duration-200">Remember me</span>
               </label>
               
               <Link
                 to="/forgot-password"
-                className="text-sm text-primary-600 hover:text-primary-700 font-medium transition-colors duration-200"
+                className="text-sm text-blue-400 hover:text-blue-300 font-medium transition-colors duration-200"
               >
                 Forgot password?
               </Link>
@@ -151,7 +162,7 @@ const LoginPage: React.FC = () => {
 
             {/* Submit Error */}
             {errors.submit && (
-              <div className="flex items-center space-x-2 text-error-600 bg-error-50 border border-error-200 rounded-lg p-3">
+              <div className="flex items-center space-x-2 text-red-400 bg-red-500/10 border border-red-500/20 rounded-lg p-3 animate-slide-in-up">
                 <AlertCircle className="w-5 h-5 flex-shrink-0" />
                 <span className="text-sm">{errors.submit}</span>
               </div>
@@ -160,22 +171,23 @@ const LoginPage: React.FC = () => {
             {/* Submit Button */}
             <Button
               type="submit"
-              variant="primary"
+              variant="futuristic"
               size="lg"
               fullWidth
               loading={isSubmitting}
               disabled={isSubmitting}
+              rightIcon={<ArrowRight className="w-5 h-5" />}
             >
               {isSubmitting ? 'Signing in...' : 'Sign In'}
             </Button>
 
             {/* Demo Credentials */}
-            <div className="bg-accent-50 border border-accent-200 rounded-lg p-4">
+            <div className="bg-teal-500/10 border border-teal-500/20 rounded-lg p-4 animate-slide-in-up">
               <div className="flex items-center space-x-2 mb-2">
-                <CheckCircle className="w-4 h-4 text-accent-600" />
-                <span className="text-sm font-medium text-accent-800">Demo Credentials</span>
+                <CheckCircle className="w-4 h-4 text-teal-400" />
+                <span className="text-sm font-medium text-teal-300">Demo Credentials</span>
               </div>
-              <div className="text-xs text-accent-700 space-y-1">
+              <div className="text-xs text-slate-300 space-y-1">
                 <p><strong>Email:</strong> demo@omnify.com</p>
                 <p><strong>Password:</strong> password123</p>
               </div>
@@ -184,12 +196,12 @@ const LoginPage: React.FC = () => {
         </Card>
 
         {/* Sign Up Link */}
-        <div className="text-center mt-6">
-          <p className="text-neutral-600">
+        <div className="text-center mt-6 animate-slide-in-up" style={{ animationDelay: '0.4s' }}>
+          <p className="text-slate-300">
             Don't have an account?{' '}
             <Link
               to="/signup"
-              className="text-primary-600 hover:text-primary-700 font-medium transition-colors duration-200"
+              className="text-blue-400 hover:text-blue-300 font-medium transition-colors duration-200"
             >
               Sign up for free
             </Link>
@@ -197,10 +209,10 @@ const LoginPage: React.FC = () => {
         </div>
 
         {/* Back to Home */}
-        <div className="text-center mt-4">
+        <div className="text-center mt-4 animate-slide-in-up" style={{ animationDelay: '0.5s' }}>
           <Link
             to="/"
-            className="text-sm text-neutral-500 hover:text-neutral-700 transition-colors duration-200"
+            className="text-sm text-slate-500 hover:text-slate-400 transition-colors duration-200"
           >
             ← Back to home
           </Link>

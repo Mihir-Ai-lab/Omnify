@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   TrendingUp, 
   TrendingDown, 
@@ -9,7 +9,10 @@ import {
   ArrowDownRight,
   Calendar,
   Filter,
-  Download
+  Download,
+  Zap,
+  Target,
+  BarChart3
 } from 'lucide-react';
 import Header from '../components/layout/Header';
 import Sidebar from '../components/layout/Sidebar';
@@ -22,11 +25,18 @@ import { formatCurrency, formatPercentage, formatCompactNumber } from '../utils/
 const Dashboard: React.FC = () => {
   const [sidebarCollapsed, { toggle: toggleSidebar }] = useToggle(false);
   const [selectedPeriod, setSelectedPeriod] = useState('7d');
+  const [isLoading, setIsLoading] = useState(true);
 
   const user = {
     name: 'Sarah Chen',
     email: 'sarah@techflow.com',
   };
+
+  useEffect(() => {
+    // Simulate loading
+    const timer = setTimeout(() => setIsLoading(false), 1000);
+    return () => clearTimeout(timer);
+  }, []);
 
   const periods = [
     { value: '24h', label: '24 Hours' },
@@ -42,7 +52,8 @@ const Dashboard: React.FC = () => {
       change: -23.5,
       format: 'currency',
       icon: DollarSign,
-      color: 'success',
+      color: 'emerald',
+      trend: 'down',
     },
     {
       title: 'Return on Ad Spend',
@@ -51,7 +62,8 @@ const Dashboard: React.FC = () => {
       format: 'number',
       suffix: 'x',
       icon: TrendingUp,
-      color: 'primary',
+      color: 'blue',
+      trend: 'up',
     },
     {
       title: 'Customer Lifetime Value',
@@ -59,7 +71,8 @@ const Dashboard: React.FC = () => {
       change: 12.3,
       format: 'currency',
       icon: Users,
-      color: 'accent',
+      color: 'purple',
+      trend: 'up',
     },
     {
       title: 'Click-Through Rate',
@@ -67,7 +80,8 @@ const Dashboard: React.FC = () => {
       change: 8.9,
       format: 'percentage',
       icon: Eye,
-      color: 'warning',
+      color: 'teal',
+      trend: 'up',
     },
   ];
 
@@ -140,8 +154,19 @@ const Dashboard: React.FC = () => {
     }
   };
 
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center">
+        <div className="text-center">
+          <div className="loading-spinner mx-auto mb-4"></div>
+          <p className="text-slate-300 text-lg">Loading your dashboard...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="min-h-screen bg-neutral-50 flex">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex">
       <Sidebar 
         isCollapsed={sidebarCollapsed} 
         onToggle={toggleSidebar}
@@ -149,41 +174,41 @@ const Dashboard: React.FC = () => {
       />
       
       <div className="flex-1 flex flex-col">
-        <Header variant="dashboard" user={user} />
+        <Header variant="dashboard" />
         
-        <main className="flex-1 p-6">
+        <main className="flex-1 p-6 animate-fade-in">
           {/* Header */}
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-8">
-            <div>
-              <h1 className="text-3xl font-bold text-neutral-900 mb-2">
+            <div className="animate-slide-in-up">
+              <h1 className="text-4xl font-bold text-white mb-2 bg-gradient-to-r from-blue-400 to-teal-400 bg-clip-text text-transparent">
                 Dashboard
               </h1>
-              <p className="text-neutral-600">
+              <p className="text-slate-300 text-lg">
                 Welcome back, {user.name}. Here's what's happening with your campaigns.
               </p>
             </div>
             
-            <div className="flex items-center space-x-4 mt-4 lg:mt-0">
+            <div className="flex items-center space-x-4 mt-4 lg:mt-0 animate-slide-in-right">
               <div className="flex items-center space-x-2">
-                <Calendar className="w-4 h-4 text-neutral-500" />
+                <Calendar className="w-4 h-4 text-slate-400" />
                 <select
                   value={selectedPeriod}
                   onChange={(e) => setSelectedPeriod(e.target.value)}
-                  className="border border-neutral-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  className="bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent backdrop-blur-sm"
                 >
                   {periods.map((period) => (
-                    <option key={period.value} value={period.value}>
+                    <option key={period.value} value={period.value} className="bg-slate-800 text-white">
                       {period.label}
                     </option>
                   ))}
                 </select>
               </div>
               
-              <Button variant="outline" size="sm" leftIcon={<Filter className="w-4 h-4" />}>
+              <Button variant="ghost" size="sm" leftIcon={<Filter className="w-4 h-4" />}>
                 Filter
               </Button>
               
-              <Button variant="outline" size="sm" leftIcon={<Download className="w-4 h-4" />}>
+              <Button variant="futuristic" size="sm" leftIcon={<Download className="w-4 h-4" />}>
                 Export
               </Button>
             </div>
@@ -195,8 +220,8 @@ const Dashboard: React.FC = () => {
               const isPositive = metric.change > 0;
               const changeIcon = isPositive ? ArrowUpRight : ArrowDownRight;
               const changeColor = metric.title === 'Customer Acquisition Cost' 
-                ? (isPositive ? 'text-error-600' : 'text-success-600')
-                : (isPositive ? 'text-success-600' : 'text-error-600');
+                ? (isPositive ? 'text-red-400' : 'text-emerald-400')
+                : (isPositive ? 'text-emerald-400' : 'text-red-400');
 
               let formattedValue = '';
               if (metric.format === 'currency') {
@@ -208,10 +233,18 @@ const Dashboard: React.FC = () => {
               }
 
               return (
-                <Card key={index} padding="lg" hover>
+                <Card 
+                  key={index} 
+                  variant="futuristic" 
+                  padding="lg" 
+                  hover 
+                  glow
+                  className="animate-slide-in-up"
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
                   <div className="flex items-center justify-between mb-4">
-                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center bg-${metric.color}-100`}>
-                      <metric.icon className={`w-6 h-6 text-${metric.color}-600`} />
+                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center bg-gradient-to-r from-${metric.color}-500 to-${metric.color}-600 shadow-lg`}>
+                      <metric.icon className="w-6 h-6 text-white" />
                     </div>
                     <div className={`flex items-center space-x-1 text-sm ${changeColor}`}>
                       {React.createElement(changeIcon, { className: 'w-4 h-4' })}
@@ -222,10 +255,10 @@ const Dashboard: React.FC = () => {
                   </div>
                   
                   <div>
-                    <div className="text-2xl font-bold text-neutral-900 mb-1">
+                    <div className="text-3xl font-bold text-white mb-1">
                       {formattedValue}
                     </div>
-                    <div className="text-sm text-neutral-600">
+                    <div className="text-sm text-slate-400">
                       {metric.title}
                     </div>
                   </div>
@@ -234,52 +267,52 @@ const Dashboard: React.FC = () => {
             })}
           </div>
 
-          {/* Charts Placeholder */}
+          {/* Charts Section */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-            <Card padding="lg">
+            <Card variant="futuristic" padding="lg" className="animate-slide-in-up">
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-lg font-semibold text-neutral-900">
+                <h3 className="text-xl font-semibold text-white">
                   Performance Trends
                 </h3>
-                <Button variant="ghost" size="sm">
+                <Button variant="ghost" size="sm" className="text-slate-400 hover:text-white">
                   View Details
                 </Button>
               </div>
-              <div className="h-64 bg-neutral-100 rounded-xl flex items-center justify-center">
+              <div className="h-64 bg-gradient-to-br from-blue-500/10 to-teal-500/10 rounded-xl flex items-center justify-center border border-white/10">
                 <div className="text-center">
-                  <TrendingUp className="w-12 h-12 text-neutral-400 mx-auto mb-2" />
-                  <p className="text-neutral-500">Chart Component Placeholder</p>
-                  <p className="text-sm text-neutral-400">Line chart showing ROAS, CAC trends</p>
+                  <TrendingUp className="w-12 h-12 text-blue-400 mx-auto mb-2" />
+                  <p className="text-slate-300">Interactive Chart Component</p>
+                  <p className="text-sm text-slate-500">Line chart showing ROAS, CAC trends</p>
                 </div>
               </div>
             </Card>
             
-            <Card padding="lg">
+            <Card variant="futuristic" padding="lg" className="animate-slide-in-up" style={{ animationDelay: '0.1s' }}>
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-lg font-semibold text-neutral-900">
+                <h3 className="text-xl font-semibold text-white">
                   Channel Performance
                 </h3>
-                <Button variant="ghost" size="sm">
+                <Button variant="ghost" size="sm" className="text-slate-400 hover:text-white">
                   View Details
                 </Button>
               </div>
-              <div className="h-64 bg-neutral-100 rounded-xl flex items-center justify-center">
+              <div className="h-64 bg-gradient-to-br from-purple-500/10 to-pink-500/10 rounded-xl flex items-center justify-center border border-white/10">
                 <div className="text-center">
-                  <Eye className="w-12 h-12 text-neutral-400 mx-auto mb-2" />
-                  <p className="text-neutral-500">Chart Component Placeholder</p>
-                  <p className="text-sm text-neutral-400">Donut chart showing channel breakdown</p>
+                  <BarChart3 className="w-12 h-12 text-purple-400 mx-auto mb-2" />
+                  <p className="text-slate-300">Interactive Chart Component</p>
+                  <p className="text-sm text-slate-500">Donut chart showing channel breakdown</p>
                 </div>
               </div>
             </Card>
           </div>
 
           {/* Campaigns Table */}
-          <Card padding="lg">
+          <Card variant="futuristic" padding="lg" className="animate-slide-in-up">
             <div className="flex items-center justify-between mb-6">
-              <h3 className="text-lg font-semibold text-neutral-900">
+              <h3 className="text-xl font-semibold text-white">
                 Active Campaigns
               </h3>
-              <Button variant="primary" size="sm">
+              <Button variant="futuristic" size="sm" leftIcon={<Target className="w-4 h-4" />}>
                 Create Campaign
               </Button>
             </div>
@@ -287,31 +320,35 @@ const Dashboard: React.FC = () => {
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
-                  <tr className="border-b border-neutral-200">
-                    <th className="text-left py-3 px-4 font-medium text-neutral-700">Campaign</th>
-                    <th className="text-left py-3 px-4 font-medium text-neutral-700">Channel</th>
-                    <th className="text-left py-3 px-4 font-medium text-neutral-700">Budget</th>
-                    <th className="text-left py-3 px-4 font-medium text-neutral-700">Spent</th>
-                    <th className="text-left py-3 px-4 font-medium text-neutral-700">ROAS</th>
-                    <th className="text-left py-3 px-4 font-medium text-neutral-700">Status</th>
-                    <th className="text-left py-3 px-4 font-medium text-neutral-700">Performance</th>
+                  <tr className="border-b border-white/10">
+                    <th className="text-left py-3 px-4 font-medium text-slate-300">Campaign</th>
+                    <th className="text-left py-3 px-4 font-medium text-slate-300">Channel</th>
+                    <th className="text-left py-3 px-4 font-medium text-slate-300">Budget</th>
+                    <th className="text-left py-3 px-4 font-medium text-slate-300">Spent</th>
+                    <th className="text-left py-3 px-4 font-medium text-slate-300">ROAS</th>
+                    <th className="text-left py-3 px-4 font-medium text-slate-300">Status</th>
+                    <th className="text-left py-3 px-4 font-medium text-slate-300">Performance</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {campaigns.map((campaign) => (
-                    <tr key={campaign.id} className="border-b border-neutral-100 hover:bg-neutral-50">
+                  {campaigns.map((campaign, index) => (
+                    <tr 
+                      key={campaign.id} 
+                      className="border-b border-white/5 hover:bg-white/5 transition-colors duration-200"
+                      style={{ animationDelay: `${index * 0.1}s` }}
+                    >
                       <td className="py-4 px-4">
-                        <div className="font-medium text-neutral-900">{campaign.name}</div>
+                        <div className="font-medium text-white">{campaign.name}</div>
                       </td>
-                      <td className="py-4 px-4 text-neutral-600">{campaign.channel}</td>
-                      <td className="py-4 px-4 text-neutral-600">
+                      <td className="py-4 px-4 text-slate-300">{campaign.channel}</td>
+                      <td className="py-4 px-4 text-slate-300">
                         {formatCurrency(campaign.budget)}
                       </td>
-                      <td className="py-4 px-4 text-neutral-600">
+                      <td className="py-4 px-4 text-slate-300">
                         {formatCurrency(campaign.spent)}
                       </td>
                       <td className="py-4 px-4">
-                        <span className="font-medium text-neutral-900">
+                        <span className="font-medium text-white">
                           {campaign.roas.toFixed(1)}x
                         </span>
                       </td>

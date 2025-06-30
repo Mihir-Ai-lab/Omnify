@@ -2,12 +2,13 @@ import React from 'react';
 import { Loader2 } from 'lucide-react';
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger';
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger' | 'futuristic';
   size?: 'sm' | 'md' | 'lg' | 'xl';
   loading?: boolean;
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
   fullWidth?: boolean;
+  glow?: boolean;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
@@ -19,18 +20,20 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     leftIcon,
     rightIcon,
     fullWidth = false,
+    glow = false,
     children,
     disabled,
     ...props
   }, ref) => {
-    const baseClasses = 'inline-flex items-center justify-center font-semibold transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed';
+    const baseClasses = 'inline-flex items-center justify-center font-semibold transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden group';
     
     const variantClasses = {
-      primary: 'bg-primary-600 hover:bg-primary-700 text-white focus:ring-primary-500 shadow-md hover:shadow-lg',
-      secondary: 'bg-accent-500 hover:bg-accent-600 text-white focus:ring-accent-500 shadow-md hover:shadow-lg',
-      outline: 'border-2 border-primary-600 text-primary-600 hover:bg-primary-600 hover:text-white focus:ring-primary-500',
-      ghost: 'text-primary-600 hover:bg-primary-50 focus:ring-primary-500',
-      danger: 'bg-error-600 hover:bg-error-700 text-white focus:ring-error-500 shadow-md hover:shadow-lg',
+      primary: 'bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white focus:ring-blue-500 shadow-lg hover:shadow-xl hover:shadow-blue-500/25 transform hover:-translate-y-0.5',
+      secondary: 'bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white focus:ring-teal-500 shadow-lg hover:shadow-xl hover:shadow-teal-500/25 transform hover:-translate-y-0.5',
+      outline: 'border-2 border-blue-500 text-blue-600 hover:bg-blue-500 hover:text-white focus:ring-blue-500 hover:shadow-lg hover:shadow-blue-500/25 transform hover:-translate-y-0.5',
+      ghost: 'text-slate-600 hover:text-slate-900 hover:bg-slate-100 focus:ring-slate-500 dark:text-slate-400 dark:hover:text-white dark:hover:bg-white/10',
+      danger: 'bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white focus:ring-red-500 shadow-lg hover:shadow-xl hover:shadow-red-500/25 transform hover:-translate-y-0.5',
+      futuristic: 'bg-gradient-to-r from-blue-600 via-purple-600 to-teal-500 hover:from-blue-700 hover:via-purple-700 hover:to-teal-600 text-white focus:ring-blue-500 shadow-lg hover:shadow-xl hover:shadow-blue-500/30 transform hover:-translate-y-1 border border-white/20',
     };
 
     const sizeClasses = {
@@ -40,12 +43,15 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       xl: 'px-8 py-4 text-xl rounded-2xl',
     };
 
+    const glowClasses = glow ? 'animate-pulse-glow' : '';
+
     const classes = [
       baseClasses,
       variantClasses[variant],
       sizeClasses[size],
       fullWidth ? 'w-full' : '',
       loading ? 'cursor-wait' : '',
+      glowClasses,
       className,
     ].filter(Boolean).join(' ');
 
@@ -56,9 +62,14 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         disabled={disabled || loading}
         {...props}
       >
+        {/* Shimmer effect for futuristic variant */}
+        {variant === 'futuristic' && (
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+        )}
+        
         {loading && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
         {!loading && leftIcon && <span className="mr-2">{leftIcon}</span>}
-        {children}
+        <span className="relative z-10">{children}</span>
         {!loading && rightIcon && <span className="ml-2">{rightIcon}</span>}
       </button>
     );
