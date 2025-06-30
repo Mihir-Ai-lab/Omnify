@@ -1,17 +1,5 @@
 import React, { useState } from 'react';
-import { 
-  User, 
-  Key, 
-  Bell, 
-  Shield, 
-  CreditCard,
-  Team,
-  Save,
-  Eye,
-  EyeOff,
-  Copy,
-  Check
-} from 'lucide-react';
+import { User, Key, Bell, Shield, CreditCard, IceCream as Team, Save, Eye, EyeOff, Copy, Check } from 'lucide-react';
 import Header from '../components/layout/Header';
 import Sidebar from '../components/layout/Sidebar';
 import Card from '../components/common/Card';
