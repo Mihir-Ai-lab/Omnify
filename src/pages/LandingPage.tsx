@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Zap, Play, ArrowRight, Menu, X, TrendingDown, Brain, PenTool, BarChart3, Upload, Layers, Rocket, RefreshCw, PieChart, ChevronDown, Star, Users, Award, Shield } from 'lucide-react';
+import { Zap, Play, ArrowRight, TrendingDown, Brain, PenTool, BarChart3, Upload, PieChart, Award } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import TestimonialCarousel from '../components/landing/TestimonialCarousel';
 import FAQSection from '../components/landing/FAQSection';
@@ -53,6 +53,9 @@ const LandingPage: React.FC = () => {
               <a href="#faqs" className="text-slate-700 hover:text-blue-600 transition-colors duration-200 font-medium py-2 min-h-[44px] flex items-center">
                 FAQ
               </a>
+              <Link to="/team" className="text-slate-700 hover:text-blue-600 transition-colors duration-200 font-medium py-2 min-h-[44px] flex items-center">
+                Meet the Team
+              </Link>
             </div>
             <Link to="/signup">
               <button className="bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white font-bold px-6 py-3 rounded-lg transition-all duration-200 transform hover:scale-105 hover:shadow-lg hover:shadow-blue-500/25 min-h-[44px]">
@@ -91,6 +94,9 @@ const LandingPage: React.FC = () => {
               <a href="#faqs" className="block text-slate-700 hover:text-blue-600 transition-colors duration-200 font-medium py-3 min-h-[44px] flex items-center" onClick={() => setIsMobileMenuOpen(false)}>
                 FAQ
               </a>
+              <Link to="/team" className="block text-slate-700 hover:text-blue-600 transition-colors duration-200 font-medium py-3 min-h-[44px] flex items-center" onClick={() => setIsMobileMenuOpen(false)}>
+                Meet the Team
+              </Link>
               <Link to="/signup" onClick={() => setIsMobileMenuOpen(false)}>
                 <button className="w-full bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white font-bold px-6 py-3 rounded-lg transition-all duration-200 mt-4 min-h-[44px]">
                   Book Demo

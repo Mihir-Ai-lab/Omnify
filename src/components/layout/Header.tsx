@@ -112,6 +112,8 @@ const Header: React.FC<HeaderProps> = ({ variant = 'landing' }) => {
                 <button
                   onClick={() => setIsSearchOpen(!isSearchOpen)}
                   className="p-2 text-slate-400 hover:text-white transition-colors duration-200 rounded-lg hover:bg-white/10"
+                  aria-label="Open search"
+                  title="Open search"
                 >
                   <Search className="h-5 w-5" />
                 </button>
@@ -132,7 +134,11 @@ const Header: React.FC<HeaderProps> = ({ variant = 'landing' }) => {
             {variant === 'dashboard' && isAuthenticated && user ? (
               <div className="flex items-center space-x-4">
                 {/* Notifications */}
-                <button className="relative p-2 text-slate-400 hover:text-white transition-colors duration-200 rounded-lg hover:bg-white/10">
+                <button
+                  className="relative p-2 text-slate-400 hover:text-white transition-colors duration-200 rounded-lg hover:bg-white/10"
+                  aria-label="View notifications"
+                  title="View notifications"
+                >
                   <Bell className="h-5 w-5" />
                   <span className="absolute top-1 right-1 w-2 h-2 bg-omnify-accent rounded-full animate-pulse"></span>
                 </button>
