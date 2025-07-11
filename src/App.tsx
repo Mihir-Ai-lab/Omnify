@@ -19,6 +19,7 @@ import InvoiceList from './pages/InvoiceList';
 import HelpSupport from './pages/HelpSupport';
 import Settings from './pages/Settings';
 import NotFoundPage from './pages/NotFoundPage';
+import Team from './pages/Team';
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignupPage />} />
             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+            <Route path="/team" element={<Team />} />
             
             {/* Protected Routes */}
             <Route path="/dashboard" element={

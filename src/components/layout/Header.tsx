@@ -20,6 +20,7 @@ const Header: React.FC<HeaderProps> = ({ variant = 'landing' }) => {
     { name: 'Pricing', href: '#pricing' },
     { name: 'Resources', href: '#resources' },
     { name: 'Contact', href: '#contact' },
+    { name: 'Meet the Team', href: '/team' },
   ];
 
   const dashboardLinks = [

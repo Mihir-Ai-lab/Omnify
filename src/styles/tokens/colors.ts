@@ -1,40 +1,40 @@
 export const colors = {
-  // Brand Colors
+  // Brand Colors (Sage: Deep Blue, Magician: Teal/Gold, Innovator: Bold Contrast)
   primary: {
-    50: '#EBF4FF',
-    100: '#DBEAFE',
-    200: '#BFDBFE',
-    300: '#93C5FD',
-    400: '#60A5FA',
-    500: '#3B82F6',
-    600: '#1F3A93', // Primary Navy
-    700: '#1E40AF',
-    800: '#1E3A8A',
-    900: '#1E3A8A',
+    50: '#F3F6FA',
+    100: '#E3EAF6',
+    200: '#C1D3EA',
+    300: '#8CA9D6',
+    400: '#5271A6',
+    500: '#274472', // Sage Deep Blue
+    600: '#19335A',
+    700: '#142A4A',
+    800: '#10213A',
+    900: '#0B1626',
   },
   accent: {
-    50: '#F0FDFA',
-    100: '#CCFBF1',
-    200: '#99F6E4',
-    300: '#5EEAD4',
-    400: '#2DD4BF',
-    500: '#17A589', // Accent Teal
-    600: '#0D9488',
-    700: '#0F766E',
-    800: '#115E59',
-    900: '#134E4A',
+    50: '#F3FCFA',
+    100: '#D1F7F2',
+    200: '#A7EDE3',
+    300: '#6FE0D0',
+    400: '#2BC5B4', // Magician Teal
+    500: '#FFD700', // Innovator Gold (for highlights)
+    600: '#1CA39B',
+    700: '#17877F',
+    800: '#11635C',
+    900: '#0B3C38',
   },
   neutral: {
     50: '#FAFAFA',
-    100: '#F5F5F5',
-    200: '#ECECEC', // Light Gray BG
-    300: '#D4D4D4',
-    400: '#A3A3A3',
-    500: '#737373',
-    600: '#525252',
-    700: '#404040',
-    800: '#262626',
-    900: '#171717',
+    100: '#F5F7FA',
+    200: '#E9ECF1', // Sage Soft Gray BG
+    300: '#D1D5DB',
+    400: '#A0AEC0',
+    500: '#718096',
+    600: '#4A5568',
+    700: '#2D3748',
+    800: '#1A202C',
+    900: '#11151C',
   },
   success: {
     50: '#F0FDF4',
