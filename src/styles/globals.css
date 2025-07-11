@@ -1,48 +1,50 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* CSS Variables for Omnify Brand */
+/* CSS Variables for Omnify Brand (Sage, Magician, Innovator) */
 :root {
   /* Primary Colors */
-  --omnify-primary: #6C63FF;
-  --omnify-primary-dark: #5A52E8;
-  --omnify-primary-light: #8B84FF;
-  --omnify-secondary: #2D3748;
-  --omnify-secondary-dark: #1A202C;
-  --omnify-secondary-light: #4A5568;
-  --omnify-accent: #00F5FF;
-  --omnify-accent-dark: #00D4E6;
-  --omnify-accent-light: #33F7FF;
+  --omnify-primary: #274472;
+  --omnify-primary-dark: #19335A;
+  --omnify-primary-light: #8CA9D6;
+  --omnify-secondary: #F5F7FA;
+  --omnify-secondary-dark: #E3EAF6;
+  --omnify-secondary-light: #C1D3EA;
+  --omnify-accent: #2BC5B4;
+  --omnify-accent-dark: #17877F;
+  --omnify-accent-light: #6FE0D0;
+  --omnify-gold: #FFD700;
   
   /* Gradient Colors */
-  --omnify-gradient-primary: linear-gradient(135deg, #6C63FF 0%, #00F5FF 100%);
-  --omnify-gradient-secondary: linear-gradient(135deg, #2D3748 0%, #4A5568 100%);
-  --omnify-gradient-accent: linear-gradient(135deg, #00F5FF 0%, #6C63FF 100%);
-  --omnify-gradient-bg: linear-gradient(135deg, rgba(108, 99, 255, 0.15) 0%, rgba(0, 245, 255, 0.15) 100%);
-  
+  --omnify-gradient-primary: linear-gradient(135deg, #274472 0%, #2BC5B4 100%);
+  --omnify-gradient-secondary: linear-gradient(135deg, #F5F7FA 0%, #C1D3EA 100%);
+  --omnify-gradient-accent: linear-gradient(135deg, #FFD700 0%, #2BC5B4 100%);
+  --omnify-gradient-bg: linear-gradient(135deg, rgba(39, 68, 114, 0.10) 0%, rgba(43, 197, 180, 0.10) 100%);
+
   /* Typography */
-  --omnify-font-heading: 'Orbitron', monospace;
+  --omnify-font-heading: 'Lora', serif;
   --omnify-font-body: 'Inter', sans-serif;
-  
+
   /* Spacing */
   --omnify-space-xs: 8px;
   --omnify-space-sm: 16px;
   --omnify-space-md: 24px;
   --omnify-space-lg: 32px;
   --omnify-space-xl: 48px;
-  
+
   /* Border Radius */
   --omnify-radius: 8px;
   --omnify-radius-lg: 16px;
   --omnify-radius-xl: 24px;
-  
+
   /* Shadows */
-  --omnify-shadow-glow: 0 0 20px rgba(108, 99, 255, 0.3);
-  --omnify-shadow-accent-glow: 0 0 20px rgba(0, 245, 255, 0.3);
-  --omnify-shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.1);
-  
+  --omnify-shadow-glow: 0 0 20px rgba(39, 68, 114, 0.18);
+  --omnify-shadow-accent-glow: 0 0 20px rgba(43, 197, 180, 0.18);
+  --omnify-shadow-gold-glow: 0 0 20px rgba(255, 215, 0, 0.18);
+  --omnify-shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.08);
+
   /* Transitions */
   --omnify-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   --omnify-transition-fast: all 0.15s ease-out;
@@ -123,6 +125,7 @@ body {
 /* Container Classes */
 .omnify-container {
   background: rgba(45, 55, 72, 0.8);
+  -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: var(--omnify-radius);
@@ -137,6 +140,7 @@ body {
 
 .omnify-container-lg {
   background: rgba(45, 55, 72, 0.8);
+  -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: var(--omnify-radius-lg);
@@ -237,6 +241,7 @@ body {
 /* Card Classes */
 .omnify-card {
   background: rgba(45, 55, 72, 0.8);
+  -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: var(--omnify-radius-lg);
@@ -249,14 +254,12 @@ body {
 .omnify-card::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: var(--omnify-gradient-bg);
-  opacity: 0;
-  transition: var(--omnify-transition);
+  inset: 0;
   pointer-events: none;
+  z-index: 0;
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  opacity: 0.15;
 }
 
 .omnify-card:hover::before {
@@ -333,6 +336,8 @@ body {
 
 .omnify-gradient-bg {
   background: var(--omnify-gradient-bg);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
 }
 
 .omnify-backdrop-blur {
@@ -559,14 +564,18 @@ body {
 
 /* Glass morphism effects */
 .glass {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.1);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  border-radius: var(--omnify-radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .glass-dark {
-  background: rgba(15, 23, 42, 0.8);
+  background: rgba(45, 55, 72, 0.7);
+  -webkit-backdrop-filter: blur(16px);
   backdrop-filter: blur(16px);
+  border-radius: var(--omnify-radius-lg);
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 

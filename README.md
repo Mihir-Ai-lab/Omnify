@@ -1,3 +1,5 @@
+# Omnify
+
 A modern dashboard and management platform built with React, TypeScript, and Vite.
 
 ## Table of Contents
